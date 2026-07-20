@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+docs: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+summary:
+  types: [token]
+  api_key_in: [query]
+  oauth2_flows: []
+  note: >-
+    The Labguru API does not declare formal OpenAPI securitySchemes; it uses a
+    session-token model. Auth is not expressible as an OpenAPI securityScheme in
+    the published spec, so this profile is captured from the provider auth docs.
+schemes:
+- name: SessionToken
+  type: token
+  in: query
+  parameter: token
+  description: >-
+    A session token created from a Labguru user login + password (and an
+    optional account/workspace id) via POST /api/v1/sessions. The returned
+    token is passed as the required `token` query parameter on every subsequent
+    request. Organizations using SSO generate a personal token from the Labguru
+    account settings page instead of using a password.
+  token_endpoint: https://my.labguru.com/api/v1/sessions
+  token_request:
+    method: POST
+    body:
+      login: user e-mail
+      password: user password
+      account_id: (optional) account/workspace id to scope the token
+  sso: >-
+    SSO customers generate a token from the account settings page rather than
+    passing a password to the sessions endpoint.
+  sources:
+  - openapi/cenevo-labguru-v1-openapi.yml
+  - openapi/cenevo-labguru-v2-openapi.yml
