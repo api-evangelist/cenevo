@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Forms API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Forms
+paths:
+  /api/v1/forms/{id}:
+    delete:
+      summary: Delete form
+      tags:
+      - Forms
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: form id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found

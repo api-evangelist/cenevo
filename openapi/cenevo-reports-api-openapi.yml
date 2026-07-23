@@ -1,0 +1,317 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Reports API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Reports
+paths:
+  /api/v1/reports:
+    post:
+      summary: Add a report
+      tags:
+      - Reports
+      parameters: []
+      responses:
+        '201':
+          description: report created
+        '422':
+          description: invalid request - Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createReport'
+        required: true
+    get:
+      summary: List all reports in your account
+      tags:
+      - Reports
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/reports/add_section_to_report:
+    post:
+      summary: Add section to report
+      tags:
+      - Reports
+      parameters: []
+      responses:
+        '201':
+          description: Success! Sections copied to report.
+        '500':
+          description: Internal server error
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addAnExperimentSectionToReport'
+        required: true
+  /api/v1/reports/add_cover_to_report:
+    post:
+      summary: Add cover to report
+      tags:
+      - Reports
+      parameters: []
+      responses:
+        '200':
+          description: cover page created
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCoverToReport'
+        required: true
+  /api/v1/reports/{id}:
+    put:
+      summary: Update reports attributes
+      tags:
+      - Reports
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: report id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: report updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateReport'
+        required: true
+    get:
+      summary: Get report by id
+      tags:
+      - Reports
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: report id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: report not found
+    delete:
+      summary: Delete report
+      tags:
+      - Reports
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: report id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v2/reports/copy_section:
+    post:
+      summary: Copy section to report
+      tags:
+      - Reports
+      description: 'This endpoint copies a section to a report.
+
+
+        Sections can be copied only from experiments or protocols.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Successfully copied the sections.
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+                    description: A list of IDs representing the section IDs of the newly copied sections within the target Report
+                    example:
+                    - 1683
+                    - 1684
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Sections can be copied only from experiments or protocols
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  type: object
+                  required:
+                  - item_id
+                  - section_id
+                  properties:
+                    item_id:
+                      type: integer
+                      description: The ID of the report where the section will be copied to
+                    section_id:
+                      type: array
+                      items:
+                        type: integer
+                      description: A list of section IDs from the source entity that are to be copied
+                      example:
+                      - 1671
+                      - 1676
+        required: true
+components:
+  schemas:
+    createReport:
+      allOf:
+      - $ref: '#/components/schemas/ReportBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    updateReport:
+      allOf:
+      - $ref: '#/components/schemas/ReportBaseRequest'
+    ReportBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: 'the report title '
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    addAnExperimentSectionToReport:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - report_id
+          - section_id
+          properties:
+            report_id:
+              type: integer
+              description: the report id
+            section_id:
+              type: string
+              description: the experiment procedure id to copy
+              example: '32'
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found
+    addCoverToReport:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - report_id
+          - data
+          properties:
+            report_id:
+              type: integer
+              description: the report id
+            data:
+              type: string
+              description: cover page data in HTML format
+              example: <h1>Cover Page Heading</h1>

@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Notes API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Notes
+paths:
+  /api/v1/notes:
+    post:
+      summary: Add a note
+      tags:
+      - Notes
+      parameters: []
+      responses:
+        '201':
+          description: note created
+        '422':
+          description: Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createNote'
+        required: true
+    get:
+      summary: List all notes in your account
+      tags:
+      - Notes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/notes/{id}:
+    put:
+      summary: Update notes attributes
+      tags:
+      - Notes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: note id
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: note updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateNote'
+        required: true
+    get:
+      summary: Get note by id
+      tags:
+      - Notes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: note id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: note not found
+    delete:
+      summary: Delete note
+      tags:
+      - Notes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: note id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    NoteBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - title
+          - project_id
+          properties:
+            title:
+              type: string
+              description: 'the note title '
+            body:
+              type: string
+              description: body description of the note
+            project_id:
+              type: integer
+              description: the project id to add note to
+    createNote:
+      allOf:
+      - $ref: '#/components/schemas/NoteBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - project_id
+    updateNote:
+      allOf:
+      - $ref: '#/components/schemas/NoteBaseRequest'

@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Request templates API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Request templates
+paths:
+  /api/v1/request_templates:
+    post:
+      summary: Create a request template
+      tags:
+      - Request templates
+      description: Create a request template.
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Cannot create item
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRequestTemplate'
+        required: true
+    get:
+      summary: List all request templates in your account
+      tags:
+      - Request templates
+      description: List all request templates in your account you have visibility permissions to.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        default: 1
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        default: true
+        description: Show summarized data information
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+  /api/v1/request_templates/{id}:
+    put:
+      summary: Update request template
+      tags:
+      - Request templates
+      description: Update a request template you have editing permissions to.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request template ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Name can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRequestTemplate'
+        required: true
+    get:
+      summary: Get request by id
+      tags:
+      - Request templates
+      description: Get request template by ID that you have access to.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The request template ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Cannot find request template
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+    delete:
+      summary: Delete request template
+      tags:
+      - Request templates
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: request template id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateRequestTemplate:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the request template
+            request_type:
+              type: string
+              description: The type of request
+    createRequestTemplate:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - request_type
+          properties:
+            name:
+              type: string
+              description: The name of the request template
+            request_type:
+              type: string
+              description: The type of request

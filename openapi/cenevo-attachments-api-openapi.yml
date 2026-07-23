@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Attachments API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Attachments
+paths:
+  /api/v1/attachments:
+    post:
+      summary: Upload file attachment
+      tags:
+      - Attachments
+      description: 'This endpoint is used for uploading file attachments to various entities.
+
+
+
+        For a detailed guide on uploading files to sections within ELN & Knowledgebase entities, including a step-by-step process and practical examples in **Python**, refer to our article on: [Uploading Files to Experiments via API](https://help.labguru.com/en/articles/9636468-uploading-files-to-experiments-via-api)
+
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/createAttachment'
+  /api/v1/attachments/{id}:
+    put:
+      summary: Link an attachment to an attachment element
+      tags:
+      - Attachments
+      description: 'This endpoint links an existing attachment with a specified attachment element by their IDs.
+
+
+        **Important Note:**
+
+
+        An attachment can only be linked with an attachment element on the same page (such as an experiment, protocol, report, or document) where it was initially uploaded.
+
+
+        Before linking the attachment, ensure that the target section and attachment element are already in place; if not, create them beforehand.
+
+
+        To do this, use the "Add a section" and "Add element" requests. For further instructions, refer to our article on [Uploading Files to Experiments via API](https://help.labguru.com/en/articles/9636468-uploading-files-to-experiments-via-api) .
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the attachment to be linked with the attachment element
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAttachment'
+        required: true
+    get:
+      summary: Get an attachment by id
+      tags:
+      - Attachments
+      description: 'Get an attachment by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: 'The ID of the attachment '
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete attachment
+      tags:
+      - Attachments
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: attachment id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateAttachment:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - element_id
+          properties:
+            element_id:
+              type: integer
+              description: The ID of the attachment element to which the attachment will be linked
+    createAttachment:
+      type: object
+      properties:
+        token:
+          type: string
+        item[attachment]:
+          type: string
+          format: binary
+          description: The file that will be uploaded.
+        item[title]:
+          type: string
+          example: Project_report.pdf
+          description: The title of the attachment. <b>This should match the file name exactly, including the file extension (.xlsx, .csv, etc.)</b>.
+        item[attach_to_uuid]:
+          type: string
+          description: "The UUID of the object to which the attachment will be linked.<br>\n                If this parameter is not provided, the uploaded file will be stored but not associated with any specific entity (unattached file)."
+        item[description]:
+          type: string
+          example: Detailed project report
+          description: A brief description of the attachment content.
+      required:
+      - token
+      - item[attachment]
+      - item[title]

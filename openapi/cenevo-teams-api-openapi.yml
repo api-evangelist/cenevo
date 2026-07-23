@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Teams API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Teams
+paths:
+  /api/v1/teams/{id}:
+    get:
+      summary: Get team by id
+      tags:
+      - Teams
+      description: 'Get a team by ID.
+
+
+        This endpoint retrieves a team along with a list of all its members.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the team
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+    delete:
+      summary: Delete team
+      tags:
+      - Teams
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: team id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/teams:
+    get:
+      summary: List all teams in your account
+      tags:
+      - Teams
+      description: 'List all teams within the account and their members.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.

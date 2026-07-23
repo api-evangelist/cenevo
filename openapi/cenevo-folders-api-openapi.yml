@@ -1,0 +1,165 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Folders API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Folders
+paths:
+  /api/v1/milestones:
+    post:
+      summary: Add a folder
+      tags:
+      - Folders
+      parameters: []
+      responses:
+        '201':
+          description: folder created
+        '422':
+          description: project_id cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createFolder'
+        required: true
+    get:
+      summary: List all folders in your account
+      tags:
+      - Folders
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: period
+        in: query
+        example: current_milestones
+        description: 'Filters milestones based on their status:
+
+          - `last_milestones`: Retrieves completed milestones.
+
+          - `current_milestones`: Retrieves milestones currently in progress.
+
+          - `future_milestones`: Retrieves planned milestones.'
+        schema:
+          type: string
+      - name: project_id
+        in: query
+        description: The ID of the project for which milestones are being requested.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/milestones/{id}:
+    put:
+      summary: Update folder attributes
+      tags:
+      - Folders
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the folder
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: folder updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateFolder'
+        required: true
+    get:
+      summary: Get folder by id
+      tags:
+      - Folders
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the folder
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: folder not found
+    delete:
+      summary: Delete folder
+      tags:
+      - Folders
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: folder id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateFolder:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            project_id:
+              type: integer
+              description: The ID of the project
+            title:
+              type: string
+              description: The folder title
+    createFolder:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - project_id
+          - title
+          properties:
+            project_id:
+              type: integer
+              description: The ID of the project
+            title:
+              type: string
+              description: The folder title

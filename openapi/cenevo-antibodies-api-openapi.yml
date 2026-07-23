@@ -1,0 +1,201 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Antibodies
+paths:
+  /api/v1/antibodies:
+    post:
+      summary: Create an antibody
+      tags:
+      - Antibodies
+      description: 'Create an antibody.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+        '500':
+          description: 'Error: Internal Server Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAntibody'
+        required: true
+    get:
+      summary: List all antibodies in your account
+      tags:
+      - Antibodies
+      description: 'List all antibodies.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/antibodies/{id}:
+    put:
+      summary: Update an antibody
+      tags:
+      - Antibodies
+      description: 'Update an antibody.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the antibody
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAntibody'
+        required: true
+    get:
+      summary: Get an antibody by ID
+      tags:
+      - Antibodies
+      description: 'Get an antibody by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the antibody
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete antibody
+      tags:
+      - Antibodies
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: antibody id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateAntibody:
+      allOf:
+      - $ref: '#/components/schemas/AntibodyBaseRequest'
+    createAntibody:
+      allOf:
+      - $ref: '#/components/schemas/AntibodyBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    AntibodyBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The name of the antibody
+            owner_id:
+              type: integer
+              description: The ID of the owner - by default it's your member id
+            alternative_name:
+              type: string
+              description: An additional name for the antibody
+            antigene:
+              type: string
+              description: Antigen / immunogen
+            tags_fluorophores:
+              type: string
+              description: Tags / fluorophores
+            clone_field:
+              type: string
+              description: The clone from which the antibody was derived.
+            isotype:
+              type: string
+              description: The class or type of the antibody (e.g., IgG, IgM).
+            preparation_date:
+              type: string
+              format: date
+              description: The date on which the antibody was prepared, formatted as YYYY-MM-DD.
+              example: yyyy-mm-dd
+            source:
+              type: string
+              description: The origin or source from which the antibody was obtained.
+            immune:
+              type: integer
+              description: 'Indicates the antibody''s clonality: "Monoclonal" (immune = 1), "Polyclonal" (immune = 0), or "None" (Empty value).'
+              example: 1
+            organism_id:
+              type: integer
+              description: The ID for the organism in which the antibody was raised. This ID corresponds to specific organisms (e.g., 5 for Mouse, 6 for Chicken, etc.).
+            reacts_with:
+              type: string
+              description: Specifies the organism or group the antibody is reactive with, chosen from a predefined list of options such as "Mouse", "Human", "Chicken", and "Zebrafish", etc.
+              example: Mouse
+            description:
+              type: string
+              description: A detailed description of the antibody

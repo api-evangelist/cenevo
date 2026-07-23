@@ -1,0 +1,181 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Genes API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Genes
+paths:
+  /api/v1/genes:
+    post:
+      summary: Create a gene
+      tags:
+      - Genes
+      description: 'Create a gene.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createGene'
+        required: true
+    get:
+      summary: List all genes in your account
+      tags:
+      - Genes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      description: 'List all genes.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/genes/{id}:
+    put:
+      summary: Update gene
+      tags:
+      - Genes
+      description: 'Update a gene.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the gene
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateGene'
+        required: true
+    get:
+      summary: Get gene by id
+      tags:
+      - Genes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the gene
+        schema:
+          type: integer
+      description: 'Get a gene by ID.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+    delete:
+      summary: Delete gene
+      tags:
+      - Genes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: gene id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    GeneBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The name of the gene
+            alternative_name:
+              type: string
+              description: Alternative gene name.
+            expression_location:
+              type: string
+              description: Location of gene expression.
+            pathway:
+              type: string
+              description: Involved metabolic pathway.
+            sequence:
+              type: string
+              description: Gene sequence.
+              example: ACTGACGACATGGTTCTGACCTGA
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            source:
+              type: string
+              description: The origin or source from which the gene was obtained.
+            description:
+              type: string
+              description: Detailed gene information.
+    updateGene:
+      allOf:
+      - $ref: '#/components/schemas/GeneBaseRequest'
+    createGene:
+      allOf:
+      - $ref: '#/components/schemas/GeneBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title

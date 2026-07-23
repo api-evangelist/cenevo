@@ -1,0 +1,558 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Stocks API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Stocks
+paths:
+  /api/v1/stocks:
+    post:
+      summary: Add stock
+      tags:
+      - Stocks
+      parameters: []
+      responses:
+        '201':
+          description: stock created
+        '422':
+          description: invalid request - Name cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createStock'
+        required: true
+    get:
+      summary: List all stocks in your account
+      tags:
+      - Stocks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+          default: 'true'
+      - name: stockable_type
+        in: query
+        description: inventory item type(In order to list all stocks of a stockable item)
+        example: Biocollections::Tissue
+        schema:
+          type: string
+      - name: stockable_id
+        in: query
+        description: inventory item id (In order to list all stocks of a stockable item)
+        example: 105
+        schema:
+          type: integer
+      - name: filter
+        in: query
+        description: "**Implementation of the filter necessitates the utilization of all three components: field name, operator, and value**\n\n**Valid field names are:**\n\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <ul>\n        <li>name</li>\n        <li>id</li>\n        <li>volume_to_display</li>\n        <li>weight_to_display</li>\n        <li>storage_location</li>\n        <li>created_at</li>\n        <li>owner_id</li>\n        <li>description</li>\n        <li>stored_on</li>\n        <li>stored_by</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <ul>\n        <li>privacy</li>\n        <li>container_type</li>\n        <li>units</li>\n        <li>lot</li>\n        <li>expiration_date</li>\n        <li>aliquoted_by</li>\n        <li>aliquoted_on</li>\n        <li>content</li>\n        <li>barcode</li>\n        <li>concentration_to_display</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n**Valid operators are:**\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <strong style=\"font-size: 90%;\">String operators</strong>\n      <ul>\n        <li>contains: contains</li>\n        <li>eq: is equal to</li>\n        <li>neq: is not equal to</li>\n        <li>doesnotcontain: not contains</li>\n        <li>startswith: starts with</li>\n        <li>endswith: ends with</li>\n        <li>isnullorempty: is empty</li>\n        <li>isnotnullorempty: is not empty</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <strong style=\"font-size: 90%;\">Date & Number operators</strong>\n      <ul>\n        <li>_eq: is equal to</li>\n        <li>_neq: is not equal to</li>\n        <li>_gte: is after than or equal to</li>\n        <li>_gt: is after than</li>\n        <li>_lte: is before than or equal to</li>\n        <li>_lt: is before than</li>\n        <li>isnull: is empty</li>\n        <li>isnotnull: is not empty</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n\n\n\n**Value:** The desired search term\n"
+        schema:
+          $ref: '#/components/schemas/indexFiltering'
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+  /api/v1/stocks/{id}/mark_as_consumed:
+    post:
+      summary: Marks stock as consumed
+      tags:
+      - Stocks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: stock marked as consumed
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/stocks/{id}/mark_as_output:
+    post:
+      summary: Marks stock as output
+      tags:
+      - Stocks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: stock marked as output
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                exp_id:
+                  type: integer
+                  description: the experiment id
+                  example: 103
+        required: true
+  /api/v1/stocks/{id}/unmark_output:
+    post:
+      summary: Unmarks stock as output
+      tags:
+      - Stocks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: stock unmarked as output
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                exp_id:
+                  type: integer
+                  description: the experiment id
+                  example: 103
+        required: true
+  /api/v1/stocks/{id}/update_stock_amount:
+    post:
+      summary: Update stock weight/volume for stock in sample element
+      tags:
+      - Stocks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stock amount updated
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateStockAmountInSampleElement'
+        required: true
+  /api/v1/stocks/{id}:
+    put:
+      summary: Update stock attributes
+      tags:
+      - Stocks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stock updated
+        '422':
+          description: invalid request - Name cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateStock'
+        required: true
+    get:
+      summary: Get stock by id
+      tags:
+      - Stocks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: stock not found
+    delete:
+      summary: Delete stock
+      tags:
+      - Stocks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: stock id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/stocks/get_stocks_by_barcode:
+    get:
+      summary: Get stock by barcode/id
+      tags:
+      - Stocks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: input
+        in: query
+        required: true
+        description: 'Stock’s Barcode or Id '
+        example: AB-588
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OK'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+components:
+  schemas:
+    createStock:
+      allOf:
+      - $ref: '#/components/schemas/StockBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+            - storage_id
+            - storage_type
+            - stockable_type
+            - stockable_id
+    updateStock:
+      allOf:
+      - $ref: '#/components/schemas/StockBaseRequest'
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    indexFiltering:
+      type: object
+      required:
+      - kendo
+      properties:
+        kendo:
+          type: string
+          example: 'true'
+        filter:
+          type: object
+          properties:
+            logic:
+              type: string
+              example: and
+              description: Filter logic (e.g., "and" or "or")
+            filters:
+              type: object
+              description: Array of filter objects
+              properties:
+                '0':
+                  type: object
+                  description: Filter object
+                  properties:
+                    field:
+                      type: string
+                      example: name
+                      description: Field name to filter by
+                    operator:
+                      type: string
+                      example: contains
+                      description: Filter operator (e.g., "contains")
+                    value:
+                      type: string
+                      example: myValue
+                      description: Filter value
+                '1':
+                  type: object
+                  description: Filter object
+                  properties:
+                    field:
+                      type: string
+                      example: id
+                      description: Field name to filter by
+                    operator:
+                      type: string
+                      example: _eq
+                      description: Filter operator (e.g., "_eq")
+                    value:
+                      type: integer
+                      example: '172'
+                      description: Filter value
+                '2':
+                  type: object
+                  description: Filter object
+                  properties:
+                    field:
+                      type: string
+                      example: stored_on
+                      description: Field name to filter by
+                    operator:
+                      type: string
+                      example: _gt
+                      description: Filter operator (e.g., "_gt")
+                    value:
+                      type: string
+                      format: date
+                      description: Filter value - Date in the following format 'YYYY-MM-DD'
+                      example: '2023-01-11'
+                '3':
+                  type: object
+                  description: Filter object
+                  properties:
+                    field:
+                      type: string
+                      example: content
+                      description: Field name to filter by
+                    operator:
+                      type: string
+                      example: startswith
+                      description: Filter operator (e.g., "startswith")
+                    value:
+                      type: string
+                      example: pla
+                      description: Filter value
+                '4':
+                  type: object
+                  description: Filter object
+                  properties:
+                    field:
+                      type: string
+                      example: stored_by
+                      description: Field name to filter by
+                    operator:
+                      type: string
+                      example: contains
+                      description: Filter operator (e.g., "contains")
+                    value:
+                      properties:
+                        name:
+                          type: string
+                          example: User Name
+                          description: User name to filter by
+                        id:
+                          type: string
+                          example: '[1]'
+                          description: User id in the following format "[1]"
+    StockBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: 'the stock name '
+            storage_id:
+              type: integer
+              description: 'type of storages: 1 - Room, 21 - Shelf, 61 - Closet, 81 - Drawer, 111 - Cage, 120 - Refrigerator ,121 - Freezer, 181 - Rack Cell , 201 - Cryo container, 251 - Slide Rack, 261 - Rack Cell, 322 - Rack, 323 - Rack Cell, 321 - Other'
+            storage_type:
+              type: string
+              description: 'storage class name - [Box - System::Storage::Box] [all other storages type - System::Storage::Storage] '
+            stockable_type:
+              type: string
+              description: 'class name of the stockable item type, such as: Biocollections::Antibody'
+            stockable_id:
+              type: integer
+              description: stockable item id
+            location_in_box:
+              type: integer
+              description: if storage is grid box, indicates numerical location in box
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            expiration_date:
+              type: string
+              format: date
+              description: 'in the following format: yyyy-mm-dd '
+            lot:
+              type: string
+              description: number of batch
+            description:
+              type: string
+              description: general description
+            barcode:
+              type: string
+              description: 'barcode '
+            stored_by:
+              type: integer
+              description: member id
+            concentration:
+              type: string
+              description: concentration
+            concentration_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            concentration_unit_id:
+              type: integer
+              description: 9-mg/mL, 10-g/L, 11-M, 12-mM, 13-µM, 14-µg/mL, 15-ng/µL, 16-ratio, 17-%, 18-g/mL
+              example: 9
+            concentration_exponent:
+              type: integer
+              description: concentration exponent
+            concentration_remarks:
+              type: string
+              description: concentration remarks
+            volume:
+              type: string
+              description: volume
+            volume_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            volume_unit_id:
+              type: integer
+              description: 6-L, 7-mL, 8-µL
+              example: 7
+            volume_exponent:
+              type: integer
+              description: volume exponent
+            volume_remarks:
+              type: string
+              description: volume remarks
+            weight:
+              type: string
+              description: weight
+            weight_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            weight_unit_id:
+              type: integer
+              description: 1 -Kg, 2-g, 3-mg, 4-µg, 5-ng
+              example: 3
+            weight_exponent:
+              type: integer
+              description: weight exponent
+            weight_remarks:
+              type: string
+              description: weight remarks
+    OK:
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+          example: Created
+    updateStockAmountInSampleElement:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        unit_type:
+          type: string
+          description: weight/volume
+        element_id:
+          type: integer
+          description: the samples element id
+        amount_used:
+          type: string
+          description: amount_used
+          example: 15
+        unit_type_name:
+          type: string
+          description: unit_type_name
+          example: mg
+        subtract:
+          type: string
+          description: 'true'
+          example: 'true'
+        sample_id:
+          type: integer
+          description: the sample id

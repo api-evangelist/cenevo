@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Authentication API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Authentication
+paths:
+  /api/v1/sessions:
+    post:
+      summary: Create a token
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: token created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSession'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/createSession'
+        required: true
+components:
+  schemas:
+    createSession:
+      type: object
+      required:
+      - login
+      - password
+      properties:
+        login:
+          type: string
+          description: E-mail
+          example: labuser@email.com
+        password:
+          type: string
+          description: password
+        account_id:
+          type: integer
+          description: (optional) The account id to generate the token for

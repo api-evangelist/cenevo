@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Sequences API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Sequences
+paths:
+  /api/v1/sequences:
+    post:
+      summary: Creates a sequence
+      tags:
+      - Sequences
+      description: 'Create a sequence.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSequence'
+        required: true
+    get:
+      summary: List all sequences in your account
+      tags:
+      - Sequences
+      description: 'List all sequences.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/sequences/{id}:
+    put:
+      summary: 'Update a sequence '
+      tags:
+      - Sequences
+      description: 'Update a sequence.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the sequence
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSequence'
+        required: true
+    get:
+      summary: Get sequence by id
+      tags:
+      - Sequences
+      description: 'Get sequence by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the sequence
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete sequence
+      tags:
+      - Sequences
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: sequence id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    SequenceBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The name of the sequence
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            seq:
+              type: string
+              description: The actual sequence data in characters
+            kind:
+              type: integer
+              description: 'sequence type: DNA = 1, CDNA = 2, RNA = 3, PROBE = 4, PROTEIN = 5'
+              example: 2
+            accsesion:
+              type: string
+              description: The unique accession number assigned to the sequence
+            organism:
+              type: string
+              description: The organism from which the sequence is derived
+            description:
+              type: string
+              description: Description of the sequence
+    createSequence:
+      allOf:
+      - $ref: '#/components/schemas/SequenceBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - seq
+    updateSequence:
+      allOf:
+      - $ref: '#/components/schemas/SequenceBaseRequest'

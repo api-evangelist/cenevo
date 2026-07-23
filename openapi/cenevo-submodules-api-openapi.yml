@@ -1,0 +1,248 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Submodules API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Submodules
+paths:
+  /api/v1/{biocollection_name}:
+    post:
+      summary: Add parent to an item
+      tags:
+      - Submodules
+      parameters:
+      - name: biocollection_name
+        in: path
+        required: true
+        description: collection name
+        schema:
+          type: string
+      responses:
+        '201':
+          description: parent created
+        '422':
+          description: invalid request - Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  properties:
+                    title:
+                      type: string
+                      description: 'the item title to add parent to '
+                      example: child
+                    parents_uuid:
+                      type: array
+                      items:
+                        type: string
+                        example: 85ed5fca-1114-49ec-8661-48563534efb2
+        required: true
+  /api/v1/{biocollection_name}/{id}:
+    put:
+      summary: Update item with a new parent
+      tags:
+      - Submodules
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: item id
+        schema:
+          type: integer
+      - name: biocollection_name
+        in: path
+        required: true
+        description: collection name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: item updated
+        '422':
+          description: invalid request - Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  properties:
+                    title:
+                      type: string
+                      description: 'the item title to add parent to '
+                      example: child
+                    parents_uuid:
+                      type: array
+                      items:
+                        type: string
+                        example: 85ed5fca-1114-49ec-8661-48563534efb2
+        required: true
+  /api/v1/{biocollection_name}/{id}/get_parents:
+    get:
+      summary: Get parents of an inventory item
+      tags:
+      - Submodules
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: item id
+        schema:
+          type: integer
+      - name: biocollection_name
+        in: path
+        required: true
+        description: collection name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: item not found
+  /api/v1/{parent_collection_name}/get_derived_collections:
+    get:
+      summary: Get the derived collections of a collection
+      tags:
+      - Submodules
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: parent_collection_name
+        in: path
+        required: true
+        description: parent collection name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/biocollections/{parent_collection_name}/get_derived_collections:
+    get:
+      summary: Get the derived collections of a generic collection
+      tags:
+      - Submodules
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: parent_collection_name
+        in: path
+        required: true
+        description: parent collection name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/{parent_collection_name}/{id}/get_derived_items:
+    get:
+      summary: Get the derived items of a collection item
+      tags:
+      - Submodules
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: id of the parent collection item
+        schema:
+          type: integer
+      - name: parent_collection_name
+        in: path
+        required: true
+        description: parent collection name
+        schema:
+          type: string
+      - name: derived_collection_name
+        in: query
+        required: true
+        example: plasmids
+        schema:
+          type: string
+      - name: derived_collection_id
+        in: query
+        description: id of the derived collection - can be used instead of derived_collection_name
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/biocollections/{parent_collection_name}/{id}/get_derived_items:
+    get:
+      summary: Get the derived items of a generic collection item
+      tags:
+      - Submodules
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: id of the parent generic collection item
+        schema:
+          type: integer
+      - name: parent_collection_name
+        in: path
+        required: true
+        description: parent generic collection name
+        schema:
+          type: string
+      - name: derived_collection_name
+        in: query
+        required: true
+        example: plasmids
+        schema:
+          type: string
+      - name: derived_collection_id
+        in: query
+        description: id of a derived generic collection - can be used instead of derived_collection_name
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found

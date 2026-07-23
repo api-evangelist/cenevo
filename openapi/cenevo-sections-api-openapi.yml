@@ -1,0 +1,194 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Sections API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Sections
+paths:
+  /api/v1/sections:
+    post:
+      summary: Add a section
+      tags:
+      - Sections
+      parameters: []
+      responses:
+        '201':
+          description: section created
+        '422':
+          description: container_type cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSection'
+        required: true
+  /api/v1/sections/sort:
+    post:
+      summary: Sort sections
+      tags:
+      - Sections
+      description: Change the arrangement of sections on a Labguru page
+      parameters: []
+      responses:
+        '201':
+          description: section moved
+        '422':
+          description: container_type cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/moveSection'
+        required: true
+  /api/v1/sections/{id}:
+    put:
+      summary: Update section
+      tags:
+      - Sections
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the section
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: section updated
+        '422':
+          description: container_id cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSection'
+        required: true
+    get:
+      summary: Get section by id
+      tags:
+      - Sections
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the section
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+    delete:
+      summary: Delete section
+      tags:
+      - Sections
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: section id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    moveSection:
+      type: object
+      required:
+      - token
+      - container_id
+      - container_type
+      - list
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        container_id:
+          type: integer
+          description: The ID of the container
+        container_type:
+          type: string
+          default: Projects::Experiment
+          description: The container type of the section
+        list:
+          type: array
+          items:
+            type: integer
+          description: "An array of section IDs.<br>\n                The order of IDs in this list defines the new arrangement of sections on the page"
+          example:
+          - 110
+          - 111
+    createSection:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - container_id
+          - container_type
+          properties:
+            name:
+              type: string
+              description: the name of the section
+            container_id:
+              type: integer
+              description: The ID of the experiment/protocol/report the section belongs to
+            container_type:
+              type: string
+              description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
+              example: Projects::Experiment
+            position:
+              type: integer
+              description: the section position
+    updateSection:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: the name of the section
+            container_id:
+              type: integer
+              description: The ID of the experiment/protocol/report the section belongs to
+            container_type:
+              type: string
+              description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
+              example: Projects::Experiment
+            position:
+              type: integer
+              description: the section position

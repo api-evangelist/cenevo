@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Worms API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Worms
+paths:
+  /api/v1/worms:
+    post:
+      summary: Create a worm
+      tags:
+      - Worms
+      description: 'Create a worm.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createWorm'
+        required: true
+    get:
+      summary: List all worms in your account
+      tags:
+      - Worms
+      description: 'List all worms.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/worms/{id}:
+    put:
+      summary: Update a worm
+      tags:
+      - Worms
+      description: 'Update a worm.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the worm
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateWorm'
+        required: true
+    get:
+      summary: Get worm by id
+      tags:
+      - Worms
+      description: 'Get a worm by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the worm
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete worm
+      tags:
+      - Worms
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: worm id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createWorm:
+      allOf:
+      - $ref: '#/components/schemas/WormBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    WormBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the worm
+            alternative_name:
+              type: string
+              description: An alternative name for the worm
+            gene_id:
+              type: integer
+              description: An ID reference to a gene from your labguru genes collection
+            source:
+              type: string
+              description: Origin of the worm
+            genotype:
+              type: string
+              description: Genetic constitution of the worm
+            phenotype:
+              type: string
+              description: Observable physical or biochemical characteristics of the worm
+            mutagen:
+              type: string
+              description: The agent used to induce mutations in the worm
+            growth_conditions:
+              type: string
+              description: Specific conditions under which the worm is maintained
+            outcrossed:
+              type: integer
+              description: Number of times the worm strain has been outcrossed with another
+            made_by:
+              type: string
+              description: researcher name input
+            dauer_defective:
+              type: boolean
+              description: "Indicates whether the worm is defective in entering or exiting the dauer stage,\n                    with '1' for yes and '0' for no."
+              example: 0
+            description:
+              type: string
+              description: Description of the worm
+    updateWorm:
+      allOf:
+      - $ref: '#/components/schemas/WormBaseRequest'

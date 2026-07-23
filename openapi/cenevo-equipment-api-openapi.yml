@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Equipment API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Equipment
+paths:
+  /api/v1/instruments:
+    post:
+      summary: Add an equipment
+      tags:
+      - Equipment
+      parameters: []
+      responses:
+        '201':
+          description: equipment created
+        '422':
+          description: invalid request - Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createEquipment'
+        required: true
+    get:
+      summary: List all equipment in your account
+      tags:
+      - Equipment
+      deprecated: true
+      description: "List all equipment.\n\n**Note:** An improved version of this endpoint is available in API v2.\n Please visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Equipment/get_api_v2_instruments).\n"
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/instruments/{id}:
+    put:
+      summary: Update equipment attributes
+      tags:
+      - Equipment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: equipment id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: equipment updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateEquipment'
+        required: true
+    get:
+      summary: Get equipment by id
+      tags:
+      - Equipment
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: equipment id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: equipment not found
+    delete:
+      summary: Delete equipment
+      tags:
+      - Equipment
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: equipment id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v2/instruments:
+    get:
+      summary: List all equipment in your account
+      tags:
+      - Equipment
+      description: 'List all equipment.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: "Specifies the page number to retrieve.\n       Defaults to 1 if not provided."
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: "Defines the number of items to be returned per page.\n       If not specified, a default value defined by the system will be used."
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+components:
+  schemas:
+    createEquipment:
+      allOf:
+      - $ref: '#/components/schemas/EquipmentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateEquipment:
+      allOf:
+      - $ref: '#/components/schemas/EquipmentBaseRequest'
+    EquipmentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: the equipment name
+            model_number:
+              type: string
+              description: model number of the equipment
+            serial_number:
+              type: string
+              description: 'serial number of the equipment '
+            equipment_type:
+              type: string
+              description: 'equipment type '
+            manufacturer:
+              type: string
+              description: 'manufacturer name '
+            purchase_date:
+              type: string
+              format: date
+              description: 'purchase date '
+            warranty_expired:
+              type: string
+              format: date
+              description: 'warranty_expired '
+            maintenance_information:
+              type: string
+              description: 'maintenance information '
+            description:
+              type: string
+              description: 'general description '

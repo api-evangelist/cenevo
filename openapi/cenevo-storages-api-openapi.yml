@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Storages API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Storages
+paths:
+  /api/v1/storages:
+    post:
+      summary: Add a storage
+      tags:
+      - Storages
+      parameters: []
+      responses:
+        '201':
+          description: storage created
+        '422':
+          description: invalid request - Name can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createStorage'
+        required: true
+    get:
+      summary: List all storages in your account
+      tags:
+      - Storages
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/storages/{id}:
+    put:
+      summary: Update storage attributes
+      tags:
+      - Storages
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: storage id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: storage updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateStorage'
+        required: true
+    get:
+      summary: Get storage by id
+      tags:
+      - Storages
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: storage id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+    delete:
+      summary: Delete storage
+      tags:
+      - Storages
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: storage id
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: storage deleted
+        '404':
+          description: page not found
+components:
+  schemas:
+    updateStorage:
+      allOf:
+      - $ref: '#/components/schemas/StorageBaseRequest'
+    StorageBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        system_storage_storage:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Name of the storage unit.
+            storage_type_id:
+              type: integer
+              description: 'The ID of the storage type.<br>Examples include: 1 (Room), 21 (Shelf), 61 (Closet), 81 (Drawer), 111 (Cage), 120 (Refrigerator), 121 (Freezer), 201 (Cryo container), 251 (Slide Rack), 322 (Rack), 321 (Other).'
+            description:
+              type: string
+              description: description of the storage unit
+            temperature:
+              type: integer
+              description: temperature of the storage unit.
+    createStorage:
+      allOf:
+      - $ref: '#/components/schemas/StorageBaseRequest'
+      - type: object
+        properties:
+          system_storage_storage:
+            type: object
+            required:
+            - name
+            - storage_type_id

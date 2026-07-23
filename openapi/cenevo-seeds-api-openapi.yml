@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Seeds API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Seeds
+paths:
+  /api/v1/seeds:
+    post:
+      summary: Creates a seed
+      tags:
+      - Seeds
+      description: 'Create a seed.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSeed'
+        required: true
+    get:
+      summary: List all seeds in your account
+      tags:
+      - Seeds
+      description: 'List all seeds.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/seeds/{id}:
+    put:
+      summary: Update a seed
+      tags:
+      - Seeds
+      description: 'Update a seed.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the seed
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSeed'
+        required: true
+    get:
+      summary: Get seed by id
+      tags:
+      - Seeds
+      description: 'Get a seed by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the seed
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete seed
+      tags:
+      - Seeds
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: seed id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createSeed:
+      allOf:
+      - $ref: '#/components/schemas/SeedBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    SeedBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the seed
+            owner_id:
+              type: integer
+              description: id of the owner - if omitted, will default to your member id
+            genotype:
+              type: string
+              description: Genetic makeup of the seed
+            phenotype:
+              type: string
+              description: Observable physical or biochemical characteristics of the seed
+            generation:
+              type: string
+              description: Generational stage of the seed
+              example: F0
+            male_parent_id:
+              type: integer
+              description: The ID of the male parent plant from your Labguru plants collection, if applicable.
+            female_parent_id:
+              type: integer
+              description: The ID of the female parent plant from your Labguru plants collection, if applicable.
+            source:
+              type: string
+              description: Origin of the seed
+            description:
+              type: string
+              description: Description of the seed
+    updateSeed:
+      allOf:
+      - $ref: '#/components/schemas/SeedBaseRequest'

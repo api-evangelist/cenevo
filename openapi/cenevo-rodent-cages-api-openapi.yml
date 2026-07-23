@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Rodent cages API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Rodent cages
+paths:
+  /api/v1/rodent_cages:
+    post:
+      summary: Creates a rodent cage
+      tags:
+      - Rodent cages
+      description: 'Create a rodent cage.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Name can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRodentCage'
+        required: true
+    get:
+      summary: List all rodent cages in your account
+      tags:
+      - Rodent cages
+      deprecated: true
+      description: 'List all rodent cages.
+
+
+        **Note:** An improved version of this endpoint is available in API v2.
+
+        Please visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Rodent%20cages/get_api_v2_rodent_cages).
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+  /api/v1/rodent_cages/{id}:
+    put:
+      summary: Update rodent cage attributes
+      tags:
+      - Rodent cages
+      description: 'Update a rodent cage.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the rodent cage
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Name can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRodentCage'
+        required: true
+    get:
+      summary: Get rodent cage by id
+      tags:
+      - Rodent cages
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the rodent cage
+        schema:
+          type: integer
+      description: 'Get a rodent cage by ID.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete rodent cage
+      tags:
+      - Rodent cages
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: rodent cage id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v2/rodent_cages:
+    get:
+      summary: List all rodent cages in your account
+      tags:
+      - Rodent cages
+      description: 'List all rodent cages.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: "Specifies the page number to retrieve.\n       Defaults to 1 if not provided."
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: "Defines the number of items to be returned per page.\n                 If not specified, a default value defined by the system will be used."
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+components:
+  schemas:
+    updateRodentCage:
+      allOf:
+      - $ref: '#/components/schemas/RodentCageBaseRequest'
+    createRodentCage:
+      allOf:
+      - $ref: '#/components/schemas/RodentCageBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    RodentCageBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the Rodent cage
+            breeding:
+              type: boolean
+              description: Breeding - by default it's true
+            parent_id:
+              type: integer
+              description: The ID of the storage location
+            description:
+              type: string
+              description: Detailed cage information
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id

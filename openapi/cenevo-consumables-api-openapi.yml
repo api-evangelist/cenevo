@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Consumables API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Consumables
+paths:
+  /api/v1/materials:
+    post:
+      summary: Add consumable
+      tags:
+      - Consumables
+      parameters: []
+      responses:
+        '201':
+          description: consumable created
+        '422':
+          description: name cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createMaterial'
+        required: true
+    get:
+      summary: List all consumables in your account
+      tags:
+      - Consumables
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/materials/{id}:
+    put:
+      summary: Update material attributes
+      tags:
+      - Consumables
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: consumable id
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: consumable updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMaterial'
+        required: true
+    get:
+      summary: Get consumable by id
+      tags:
+      - Consumables
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: consumable id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: note not found
+    delete:
+      summary: Delete material
+      tags:
+      - Consumables
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: material id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateMaterial:
+      allOf:
+      - $ref: '#/components/schemas/MaterialBaseRequest'
+    createMaterial:
+      allOf:
+      - $ref: '#/components/schemas/MaterialBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    MaterialBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Material name
+            company_id:
+              type: integer
+              description: '[required] - in case material is commercial'
+            produce_by:
+              type: string
+              description: '[required] - in case material is non commercial'
+            description:
+              type: string
+              description: description
+            cas_number:
+              type: integer
+              description: CAS Registry Number
+            mw:
+              type: string
+              description: mw
+            web:
+              type: string
+              description: url
+            materialtype_id:
+              type: integer
+              description: the material type id
+            units:
+              type: string
+              description: units
+            price:
+              type: number
+              format: float
+              description: price
+            currency:
+              type: integer
+              description: '0 = NIS, 1 = DOLLAR, 2 = EURO, 3 = POUND, 4 = NOK '

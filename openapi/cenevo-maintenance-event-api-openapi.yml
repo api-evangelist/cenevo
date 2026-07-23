@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Maintenance event API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Maintenance event
+paths:
+  /api/v1/maintenance_events:
+    post:
+      summary: Creates a Maintenance event
+      tags:
+      - Maintenance event
+      parameters: []
+      responses:
+        '201':
+          description: maintenance event created
+        '422':
+          description: maintenance id cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createMaintenanceEvent'
+        required: true
+    get:
+      summary: List all maintenance events in your account
+      tags:
+      - Maintenance event
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/maintenance_events/{id}:
+    put:
+      summary: Update maintenance event
+      tags:
+      - Maintenance event
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: maintenance event id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: maintenance event updated
+        '422':
+          description: item type cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMaintenanceEvent'
+        required: true
+    get:
+      summary: Get maintenance event by id
+      tags:
+      - Maintenance event
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: maintenance event id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: maintenance tempalte not found
+    delete:
+      summary: Delete maintenance event
+      tags:
+      - Maintenance event
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: maintenance event id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    MaintenanceEventBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            item_id:
+              type: integer
+              description: the equipment id
+            item_type:
+              type: string
+              description: equipment class name
+              example: System::Instrument
+            maintenance_id:
+              type: integer
+              description: maintenance id
+            data:
+              type: string
+              description: templates fields in the follwing json format
+              example: '[{"title":"Detergent","value":"Wateriii:"}]'
+            performed_at:
+              type: string
+              format: date
+              description: performance data
+            performed_by:
+              type: integer
+              description: member id
+    updateMaintenanceEvent:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceEventBaseRequest'
+    createMaintenanceEvent:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceEventBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - item_id
+            - item_type
+            - maintenance_id
+            - data
+            - performed_by
+            - performed_at

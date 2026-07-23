@@ -1,0 +1,205 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Links API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Links
+paths:
+  /api/v1/links:
+    post:
+      summary: Creates a link
+      tags:
+      - Links
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '500':
+          description: Internal Server Error
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createLink'
+        required: true
+    get:
+      summary: Get link by uuid
+      tags:
+      - Links
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: item_uuid
+        in: query
+        required: true
+        description: A unique identifier of the link, Provide a UUID value.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Couldn't find LgUuid
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+  /api/v1/links/{id}:
+    put:
+      summary: Update a link
+      tags:
+      - Links
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: link id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Source can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateLink'
+        required: true
+    get:
+      summary: Get link by id
+      tags:
+      - Links
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: link id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+    delete:
+      summary: Delete link
+      tags:
+      - Links
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: link id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateLink:
+      allOf:
+      - $ref: '#/components/schemas/LinkBaseRequest'
+    createLink:
+      allOf:
+      - $ref: '#/components/schemas/LinkBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - source_id
+            - source_type
+            - target_id
+            - target_type
+            - source_uuid
+            - target_uuid
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    LinkBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            source_id:
+              type: integer
+              description: The ID of the source item
+            source_type:
+              type: string
+              description: Specifies the class name of the source item, such as Biocollections::Plasmid
+            target_id:
+              type: integer
+              description: The ID of the target item
+            target_type:
+              type: string
+              description: Specifies the class name of the target item, such as Biocollections::Antibody
+            source_uuid:
+              type: string
+              description: The UUID of the source item
+            target_uuid:
+              type: string
+              description: The UUID of the target item

@@ -1,0 +1,703 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Requests API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Requests
+paths:
+  /api/v1/requests:
+    post:
+      summary: Create a request
+      tags:
+      - Requests
+      description: 'Create a new request based on a specific request template.
+
+
+        The request will be opened in ''Draft'' status.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRequest'
+        required: true
+    get:
+      summary: List all requests in your account
+      tags:
+      - Requests
+      description: 'List all requests in your account.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        default: 1
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        default: true
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+  /api/v1/requests/{id}:
+    put:
+      summary: Update a request 
+      tags:
+      - Requests
+      description: 'Update a request by its ID.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ok
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Team not found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                - Owner id does not exist
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRequest'
+        required: true
+    get:
+      summary: Get request by id
+      tags:
+      - Requests
+      description: 'Get a request by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+    delete:
+      summary: Delete request
+      tags:
+      - Requests
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: request id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/requests/{id}/submit:
+    patch:
+      summary: Submit a request 
+      tags:
+      - Requests
+      description: 'This end point allows authorized users to submit a request for approval from the requester’s team leader.
+
+
+        Draft >> Pending
+
+
+        - Authorized users: admins and request owner.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                - Owner id does not exist
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Team not found / Name can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitRequest'
+        required: true
+  /api/v1/requests/{id}/approve:
+    patch:
+      summary: Approve a request 
+      tags:
+      - Requests
+      description: 'This end point allows authorized users to approve a request which was assigned to them,
+
+        this will automatically move request to be reviewed by the performing team leader.
+
+
+        Pending >> Approved
+
+
+        - Authorized users: admins and assignee at the time.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Team not found / Invalid action for request status
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/approvedRequest'
+        required: true
+  /api/v1/requests/{id}/accept:
+    patch:
+      summary: Accept a request 
+      tags:
+      - Requests
+      description: 'This end point allows authorized users to accept a request which was assigned to them, and will enable the assignment of a performer from the performing team.
+
+
+        Approved >> Awaiting Assignment
+
+
+        - Authorized users: admins and assignee at the time.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Invalid action for request status
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/acceptRequest'
+        required: true
+  /api/v1/requests/{id}/select_performer:
+    patch:
+      summary: Select performer
+      tags:
+      - Requests
+      description: 'This end point allows authorized users to assign a performer from the performing team.
+
+
+        Awaiting Assignment >> Assigned
+
+
+        - Authorized users: admins and team leader of the performing team.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Invalid action for request status
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/selectPerformer'
+        required: true
+  /api/v1/requests/{id}/start:
+    patch:
+      summary: Start a request 
+      tags:
+      - Requests
+      description: " This end point allows authorized users to update request status to 'In Progress'.\n\n Assigned >> In Progress\n\n- Authorized users: admins and the performer.\n"
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Invalid action for request status
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/startRequest'
+        required: true
+  /api/v1/requests/{id}/done:
+    patch:
+      summary: Complete a request 
+      tags:
+      - Requests
+      description: "  This end point allows authorized users to update request status to 'Completed'\n\n  In Progress >> Completed\n\n- Authorized users: admins and the performer.\n"
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: Invalid action for request status
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+  /api/v1/requests/{id}/reject:
+    patch:
+      summary: Reject a request 
+      tags:
+      - Requests
+      description: "This end point allows authorized users to reject a request\n\nRequest can be rejected from the following statuses:\n  - Pending\n  - Approved\n  - Assigned\n\n\nAuthorized users: admins and assignee at the time.\n"
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The request ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+components:
+  schemas:
+    selectPerformer:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - performed_by
+          properties:
+            performed_by:
+              type: integer
+              description: The ID of the member which will perform the request
+    submitRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the request
+            team_id:
+              type: integer
+              description: The performing team ID
+            due_date:
+              type: string
+              format: date
+              description: Date in the following format - 'YYYY-MM-DD'
+              example: '2024-03-11'
+    approvedRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            team_id:
+              type: integer
+              description: The performing team ID
+            due_date:
+              type: string
+              format: date
+              description: Date in the following format - 'YYYY-MM-DD'
+              example: '2024-03-11'
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+    acceptRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+    startRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            performed_by:
+              type: integer
+              description: The ID of the member which will perform the request
+    createRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - request_template_id
+          properties:
+            name:
+              type: string
+              description: The name of the request
+            request_template_id:
+              type: integer
+              description: The ID of the request template to start the request from
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+    updateRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the request
+            team_id:
+              type: integer
+              description: The performing team ID
+            status:
+              type: string
+              description: The request status, indicating the current state of the request.
+              enum:
+              - Draft
+              - Pending
+              - Approved
+              - Awaiting Assignment
+              - Assigned
+              - In Progress
+              - Completed
+              example: Draft
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+            due_date:
+              type: string
+              format: date
+              description: Date in the following format - 'YYYY-MM-DD'
+              example: '2024-03-11'

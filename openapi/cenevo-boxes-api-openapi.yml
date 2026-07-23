@@ -1,0 +1,166 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Boxes API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Boxes
+paths:
+  /api/v1/boxes:
+    post:
+      summary: Add a box
+      tags:
+      - Boxes
+      parameters: []
+      responses:
+        '201':
+          description: box created
+        '422':
+          description: invalid request - Name can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBox'
+        required: true
+    get:
+      summary: List all boxes in your account
+      tags:
+      - Boxes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/boxes/{id}:
+    put:
+      summary: Update box attributes
+      tags:
+      - Boxes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: box id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: box updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBox'
+        required: true
+    get:
+      summary: Get box by id
+      tags:
+      - Boxes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: box id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+    delete:
+      summary: Delete box
+      tags:
+      - Boxes
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: box id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    BoxBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: 'the box name '
+            rows:
+              type: integer
+              description: number of rows
+            cols:
+              type: integer
+              description: number of columns
+            box_type:
+              type: integer
+              description: 'one of the following: [["Primer", 0], ["General", -1], ["Tube", -1], ["Seed", -2], ["Fly", -3], ["Bacterium", -4], ["Cell Line", -5], ["Tissue", -6], ["Antibody", -7], ["Plasmid", -8], ["Glycerol", -9], ["Enzyme", -10], ["Consumable", -11], ["Yeast", -12], ["Fungus", -13], ["Virus", -14], ["Protein", -15], ["Lipid", -16], ["Worm", -17], ["Sequence", -18], ["Zebrafish", -19], ["Gene", -20], ["Compound", -21]]'
+              example: 0
+            color:
+              type: string
+              description: '["pink", "red", "orange", "yellow", "beige", "white", "blue", "purple", "green", "brown", "gray", "black"]'
+            shared:
+              type: boolean
+              description: Personal - false/ shared - true(default)
+            barcode:
+              type: string
+              description: the barcode of the box
+    updateBox:
+      allOf:
+      - $ref: '#/components/schemas/BoxBaseRequest'
+    createBox:
+      allOf:
+      - $ref: '#/components/schemas/BoxBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

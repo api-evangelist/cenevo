@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Measurements API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Measurements
+paths:
+  /api/v1/measurements:
+    post:
+      summary: Add measurements
+      tags:
+      - Measurements
+      description: 'This endpoint allows the submission of measurement data from connected equipment to a specific experiment,
+
+
+        It accepts a measurement value and populates it into a designated form input field.
+
+
+        For more information and a detailed example of how to use the ‘Measurement’ endpoint, refer to our article on [How to capture data from instruments using the ''measurement'' API endpoint](https://help.labguru.com/en/articles/10300263-how-to-capture-data-from-instruments-using-the-measurement-api-endpoint)
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                input_name:
+                  type: string
+                  description: The name of the form input field where the value should be positioned
+                experiment_id:
+                  type: integer
+                  description: The ID of the experiment
+                item:
+                  type: object
+                  required:
+                  - measurement
+                  - input_name
+                  - experiment_id
+                  properties:
+                    measurement:
+                      type: string
+                      description: The measurement value received from the connected equipment
+        required: true
+  /api/v1/measurements/{id}:
+    delete:
+      summary: Delete measurement
+      tags:
+      - Measurements
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: measurement id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found

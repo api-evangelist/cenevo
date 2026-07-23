@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Visualizations API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Visualizations
+paths:
+  /api/v1/visualizations:
+    post:
+      summary: add visualization
+      tags:
+      - Visualizations
+      description: 'This endpoint creates a visualization.
+
+
+        To add visualization to a dataset, provide a name, the dataset ID it corresponds to, and an attachment ID (the ID of the visualization file uploaded to Labguru).
+
+        Once added, the visualization will appear under the ''Visualizations'' tab of a dataset.
+
+
+        For a detailed guide on creating dataset visualizations, including a step-by-step process and practical examples, refer to our comprehensive article: [How To Create Dataset Visualization](https://help.labguru.com/en/articles/8741020-how-to-create-dataset-visualization).
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addVisualization'
+        required: true
+  /api/v1/visualizations/{id}:
+    delete:
+      summary: Delete visualization
+      tags:
+      - Visualizations
+      description: 'This endpoint deletes a visualization.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the visualization
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+components:
+  schemas:
+    addVisualization:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - dataset_id
+          - attachment_id
+          properties:
+            name:
+              type: string
+              description: The name of the visualization
+            dataset_id:
+              type: integer
+              description: The ID of the dataset to which the visualization will be linked to
+            attachment_id:
+              type: integer
+              description: The ID of the attachment (image) that will appear under the 'Visualization' tab of the dataset
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action

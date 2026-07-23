@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Cell lines API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Cell lines
+paths:
+  /api/v1/cell_lines:
+    post:
+      summary: Create a cell line
+      tags:
+      - Cell lines
+      description: 'Create a cell line.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCellLine'
+        required: true
+    get:
+      summary: List all cell lines in your account
+      tags:
+      - Cell lines
+      description: 'List all cell lines.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+  /api/v1/cell_lines/{id}:
+    put:
+      summary: 'Update a cell line '
+      tags:
+      - Cell lines
+      description: 'Update a cell line.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the Cell line
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCellLine'
+        required: true
+    get:
+      summary: Get a cell line by id
+      tags:
+      - Cell lines
+      description: 'Get a cell line by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the Cell line
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete cell line
+      tags:
+      - Cell lines
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: cell line id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    CellLineBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the cell line
+            owner_id:
+              type: integer
+              description: The ID of the owner - by default it's your member id
+            organism:
+              type: string
+              description: The organism from which the cells were originated
+            tissue:
+              type: string
+              description: The tissue from which the cells were extracted
+            medium_and_serum:
+              type: string
+              description: A supplement used for cultivating cells
+            source:
+              type: string
+              description: The location or environment from which the cells were originated
+            description:
+              type: string
+              description: A detailed description of the cell line
+    createCellLine:
+      allOf:
+      - $ref: '#/components/schemas/CellLineBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateCellLine:
+      allOf:
+      - $ref: '#/components/schemas/CellLineBaseRequest'

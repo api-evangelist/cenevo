@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Webhooks API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Webhooks
+paths:
+  /api/v1/webhooks:
+    post:
+      summary: Create a new webhook subscription
+      tags:
+      - Webhooks
+      parameters: []
+      responses:
+        '201':
+          description: webhook created
+        '422':
+          description: invalid request - triger_key can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createWebhook'
+        required: true
+    get:
+      summary: List all webhooks in your account
+      tags:
+      - Webhooks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/webhooks/{id}:
+    put:
+      summary: Update webhook attributes
+      tags:
+      - Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: webhook id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: webhook updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateWebhook'
+        required: true
+    get:
+      summary: Get webhook by id
+      tags:
+      - Webhooks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: webhook id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+    delete:
+      summary: Delete webhook
+      tags:
+      - Webhooks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: webhook id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/webhooks/list:
+    get:
+      summary: List all webhooks available
+      tags:
+      - Webhooks
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+components:
+  schemas:
+    createWebhook:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - trigger_key
+          - active
+          - url
+          properties:
+            trigger_key:
+              type: string
+              description: trigger key
+              example: knowledgebase_document.signed
+            active:
+              type: boolean
+              description: by default it's false
+              example: false
+            url:
+              type: string
+              description: url
+              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json
+    updateWebhook:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            trigger_key:
+              type: string
+              description: trigger key
+              example: knowledgebase_document.signed
+            active:
+              type: boolean
+              description: by default it's false
+              example: false
+            url:
+              type: string
+              description: url
+              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json

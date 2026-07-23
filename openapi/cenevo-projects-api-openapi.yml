@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Projects API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Projects
+paths:
+  /api/v1/projects:
+    post:
+      summary: Create a project
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '201':
+          description: project created
+        '422':
+          description: invalid request - Title can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createProject'
+        required: true
+    get:
+      summary: List all projects in your account
+      tags:
+      - Projects
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/projects/{id}:
+    put:
+      summary: Update a project
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: project id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: project updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateProject'
+        required: true
+    get:
+      summary: Get project by id
+      tags:
+      - Projects
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: project id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: project not found
+  /api/v2/projects/{id}:
+    delete:
+      summary: Delete project
+      tags:
+      - Projects
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: project id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateProject:
+      allOf:
+      - $ref: '#/components/schemas/ProjectBaseRequest'
+    createProject:
+      allOf:
+      - $ref: '#/components/schemas/ProjectBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    ProjectBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The name of the project
+            description:
+              type: string
+              description: Description of the project
+            start_date:
+              type: string
+              format: date
+              description: Start Date (yyyy-mm-dd)
+            closed:
+              type: boolean
+              description: Archived/Active project flag
+            status:
+              type: string
+              description: Status
+            owner_id:
+              type: integer
+              description: 'ID of the owner (default: your member id)'

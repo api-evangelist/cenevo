@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Lipids API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Lipids
+paths:
+  /api/v1/lipids:
+    post:
+      summary: Create a lipid
+      tags:
+      - Lipids
+      description: 'Create a lipid.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createLipid'
+        required: true
+    get:
+      summary: List all lipids in your account
+      tags:
+      - Lipids
+      description: 'List all lipids.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/lipids/{id}:
+    put:
+      summary: Update lipid
+      tags:
+      - Lipids
+      description: 'Update lipid.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the lipid
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateLipid'
+        required: true
+    get:
+      summary: Get lipid by ID
+      tags:
+      - Lipids
+      description: 'Get lipid by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the lipid
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          description: 'Error: Unauthorized'
+    delete:
+      summary: Delete lipid
+      tags:
+      - Lipids
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: lipid id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    LipidBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the lipid
+            owner_id:
+              type: integer
+              description: 'ID of the owner (default: your member id)'
+            alternative_name:
+              type: string
+              description: Any alternative name by which the lipid may be known
+            molecular_formula:
+              type: string
+              description: The molecular formula of the lipid
+            molecular_weight:
+              type: string
+              description: Molecular weight of the lipid
+            cas_number:
+              type: string
+              description: The Chemical Abstracts Service number
+            stock_solution_prep:
+              type: string
+              description: Media/solution
+            solubility:
+              type: string
+              description: Solubility information
+            conditions_for_use:
+              type: string
+              description: Recommended conditions under which the lipid should be used
+            conditions_for_storage:
+              type: string
+              description: Guidelines for proper storage of the lipid
+            safety_information:
+              type: string
+              description: Safety guidelines and hazard information related to the lipid
+            impurities:
+              type: string
+              description: Details of known impurities found in the lipid sample
+            source:
+              type: string
+              description: The origin of the lipid
+            description:
+              type: string
+              description: Detailed description of the lipid
+    updateLipid:
+      allOf:
+      - $ref: '#/components/schemas/LipidBaseRequest'
+    createLipid:
+      allOf:
+      - $ref: '#/components/schemas/LipidBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

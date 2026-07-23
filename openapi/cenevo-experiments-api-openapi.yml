@@ -1,0 +1,578 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Experiments API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Experiments
+paths:
+  /api/v1/experiments:
+    post:
+      summary: Add an experiment
+      tags:
+      - Experiments
+      parameters: []
+      responses:
+        '201':
+          description: experiment created
+        '400':
+          description: Bad Request - Invalid input
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addExperiment'
+        required: true
+    get:
+      summary: List all experiments in your account
+      tags:
+      - Experiments
+      deprecated: true
+      description: 'List all experiments.
+
+
+        **Note:** An improved version of this endpoint is available in API v2.
+
+        Please visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Experiments/get_api_v2_experiments).
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/experiments/{id}:
+    put:
+      summary: Update an experiment
+      tags:
+      - Experiments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: experiment id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: experiment updated
+        '400':
+          description: Bad Request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateExperiment'
+        required: true
+    get:
+      summary: Get experiment by id
+      tags:
+      - Experiments
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: experiment not found
+    delete:
+      summary: Delete experiment
+      tags:
+      - Experiments
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: experiment id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/experiments/{id}/elements:
+    get:
+      summary: 'List all elements of an experiment '
+      tags:
+      - Experiments
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The ID of the experiment
+        required: true
+        schema:
+          type: integer
+      - name: element_type
+        in: query
+        description: 'The element type:
+
+          - excel
+
+          - text
+
+          - form
+
+          - attachments
+
+          - samples
+
+          - plate
+
+          - steps
+
+          - equipment
+
+          - sketch
+
+          - compound
+
+          - reaction
+
+          - pdf'
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: The element name - Table 1 / My Samples / Plate - MM D, YYYY HH:MM:SS
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+  /api/v1/experiments/{id}/set_flag_as:
+    post:
+      summary: Add flag to an experiment
+      tags:
+      - Experiments
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the experiment that will be flagged
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The ID of the experiment
+                  flag:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the flag
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      color:
+                        type: string
+                      icon:
+                        type: string
+                      active:
+                        type: boolean
+                      default:
+                        type: boolean
+                  state:
+                    type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              - flag_id
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                flag_id:
+                  type: integer
+                  description: The ID of the flag
+        required: true
+  /api/v2/experiments/copy_section:
+    post:
+      summary: Copy section to an experiment
+      tags:
+      - Experiments
+      description: 'This endpoint copies a section to an experiment.
+
+
+        Sections can be copied only from experiments or protocols.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Successfully copied the sections.
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+                    description: A list of IDs representing the section IDs of the newly copied sections within the target experiment
+                    example:
+                    - 1683
+                    - 1684
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Sections can be copied only from experiments or protocols
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  type: object
+                  required:
+                  - item_id
+                  - section_id
+                  properties:
+                    item_id:
+                      type: integer
+                      description: The ID of the experiment where the section will be copied to
+                    section_id:
+                      type: array
+                      items:
+                        type: integer
+                      description: A list of section IDs from the source entity that are to be copied
+                      example:
+                      - 1671
+                      - 1676
+        required: true
+  /api/v2/experiments:
+    post:
+      summary: Create a new custom experiment
+      tags:
+      - Experiments
+      description: 'This endpoint creates a new experiment within a specified project,
+
+        including dynamically adding sections and elements to the experiment.
+
+
+        You can specify an existing folder by its ID or create a new one by providing a folder name.
+
+
+        **Note:**
+
+        - Use `milestone_id` to place the experiment in an existing folder.
+
+
+        - Provide `milestone_name` to create a new folder for this experiment.
+
+
+        Ensure only one of these options is used per request.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed: Title cannot be blank'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/CreateExperimentExistingFolder'
+              - $ref: '#/components/schemas/CreateExperimentNewFolder'
+        required: true
+    get:
+      summary: List all experiments in your account
+      tags:
+      - Experiments
+      description: 'List all experiments.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: "Specifies the page number to retrieve.\n        Defaults to 1 if not provided."
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: "Defines the number of items to be returned per page.\n                If not specified, a default value defined by the system will be used."
+        schema:
+          type: integer
+      - name: to_sign
+        in: query
+        description: "Retrieve experiments that require the user's signature.\n                Filters items to only those where the user is expected to sign and that are currently pending a signature."
+        schema:
+          type: boolean
+      - name: to_witness
+        in: query
+        description: "Retrieve experiments that are waiting to be witnessed.\n                Filters items to only those with a pending witness signature for the current user."
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+components:
+  schemas:
+    updateExperiment:
+      allOf:
+      - $ref: '#/components/schemas/ExperimentBaseRequest'
+    createExperimentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - title
+          - project_id
+          - sections
+          properties:
+            title:
+              type: string
+              description: The title of the experiment.
+            project_id:
+              type: integer
+              description: The ID of the project that will contain the experiment
+            sections:
+              type: array
+              description: A list of sections to be added, each with its own set of elements
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: The title of the section.
+                    example: My Custom Section
+                  elements:
+                    type: array
+                    description: An array of elements within the section, each containing type-specific data.
+                    items:
+                      type: object
+                      properties:
+                        element_type:
+                          type: string
+                          description: 'The type of element. Valid element types include:
+
+                            - samples
+
+                            - equipment
+
+                            - code
+
+                            - compound
+
+                            - reaction
+
+                            - text
+
+                            - steps
+
+                            - excel
+
+                            - plate
+
+                            '
+                          example: text
+                        data:
+                          type: string
+                          description: The content or data of the element.
+                          example: This is a sample text data
+                required:
+                - title
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found
+    CreateExperimentExistingFolder:
+      allOf:
+      - $ref: '#/components/schemas/createExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_id:
+                type: integer
+                description: "The ID of the existing milestone (folder) that will contain the experiment.\n                            Required if milestone name is not provided."
+            required:
+            - milestone_id
+    addExperiment:
+      allOf:
+      - $ref: '#/components/schemas/ExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - project_id
+            - milestone_id
+    ExperimentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The experiment title
+            project_id:
+              type: integer
+              description: The project id
+            milestone_id:
+              type: integer
+              description: You can also provide a milestone_name(string) instead of milestone_id(integer)
+            protocol_id:
+              type: integer
+              description: 'Start experiment from protocol by providing the protocol id '
+    CreateExperimentNewFolder:
+      allOf:
+      - $ref: '#/components/schemas/createExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_name:
+                type: string
+                description: "The name of a new milestone (folder) to be created for the experiment.\n                        Required if milestone_id is not provided."
+            required:
+            - milestone_name

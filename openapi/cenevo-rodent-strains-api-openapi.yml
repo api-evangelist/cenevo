@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Rodent Strains API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Rodent Strains
+paths:
+  /api/v1/rodent_strains:
+    post:
+      summary: Creates a rodent strain
+      tags:
+      - Rodent Strains
+      parameters: []
+      responses:
+        '201':
+          description: rodent strain created
+        '422':
+          description: invalid request - Name can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createRodentStrain'
+        required: true
+    get:
+      summary: List all rodent strains in your account
+      tags:
+      - Rodent Strains
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/rodent_strains/{id}:
+    put:
+      summary: Update rodent strain attributes
+      tags:
+      - Rodent Strains
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: rodent strain id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: rodent strain updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRodentStrain'
+        required: true
+    get:
+      summary: Get rodent strain by id
+      tags:
+      - Rodent Strains
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: rodent strain id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: rodent strain not found
+    delete:
+      summary: Delete rodent strain
+      tags:
+      - Rodent Strains
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: rodent strain id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    RodentStrainBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the strain
+            alternative_name:
+              type: string
+              description: additional name for the strain
+            transgene:
+              type: string
+              description: Transgene
+            genotype:
+              type: string
+              description: Genotype
+            phenotype:
+              type: string
+              description: Phenotype
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            source:
+              type: string
+              description: Source
+            description:
+              type: string
+              description: Description of the strain
+    updateRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'
+    createRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

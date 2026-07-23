@@ -1,0 +1,204 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Proteins API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Proteins
+paths:
+  /api/v1/proteins:
+    post:
+      summary: Create a protein
+      tags:
+      - Proteins
+      description: 'Create a protein.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createProtein'
+        required: true
+    get:
+      summary: List all proteins in your account
+      tags:
+      - Proteins
+      description: 'List all proteins.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/proteins/{id}:
+    put:
+      summary: Update protein attributes
+      tags:
+      - Proteins
+      description: 'Update a protein.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the protein
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateProtein'
+        required: true
+    get:
+      summary: Get a protein by id
+      tags:
+      - Proteins
+      description: 'Get a protein by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the protein
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete protein
+      tags:
+      - Proteins
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: protein id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createProtein:
+      allOf:
+      - $ref: '#/components/schemas/ProteinBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    ProteinBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the protein
+            owner_id:
+              type: integer
+              description: ID of the owner - if omitted, will default to your id
+            alternative_name:
+              type: string
+              description: An additional name for the protein
+            gene:
+              type: string
+              description: ' The gene from which the protein is derived'
+            species:
+              type: string
+              description: The species from which the protein originates
+            lg_mutations:
+              type: string
+              description: List of mutations in the protein structure
+            chemical_modifications:
+              type: string
+              description: Details any chemical modifications the protein has undergone
+            tag:
+              type: string
+              description: A label or tag attached to the protein
+            purification_method:
+              type: string
+              description: The method used to purify the protein from other biological components
+            mw:
+              type: string
+              description: The molecular weight of the protein
+            extinction_coefficient_280nm:
+              type: string
+              description: The extinction coefficient at 280 nm
+            storage_buffer:
+              type: string
+              description: The buffer solution in which the protein is stored
+            storage_temperature:
+              type: string
+              description: The temperature in which the protein is stored
+            source:
+              type: string
+              description: The protein source
+            sequence:
+              type: string
+              description: The amino acid sequence of the protein
+            description:
+              type: string
+              description: A detailed description of the protein
+    updateProtein:
+      allOf:
+      - $ref: '#/components/schemas/ProteinBaseRequest'

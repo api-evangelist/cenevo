@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Maintenance template API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Maintenance template
+paths:
+  /api/v1/maintenance_templates:
+    post:
+      summary: Creates a Maintenance template
+      tags:
+      - Maintenance template
+      parameters: []
+      responses:
+        '201':
+          description: maintenance template created
+        '422':
+          description: '"maintenance type id cannot be blank"'
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createMaintenanceTemplate'
+        required: true
+    get:
+      summary: List all maintenance templates in your account
+      tags:
+      - Maintenance template
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/maintenance_templates/{id}:
+    put:
+      summary: Update maintenance template
+      tags:
+      - Maintenance template
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: maintenance template id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: maintenance template updated
+        '422':
+          description: maintenance type cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMaintenanceTemplate'
+        required: true
+    get:
+      summary: Get maintenance template by id
+      tags:
+      - Maintenance template
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: maintenance template id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: maintenance tempalte not found
+    delete:
+      summary: Delete maintenance template
+      tags:
+      - Maintenance template
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: maintenance template id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    MaintenanceTemplateBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            equipment_type:
+              type: string
+              description: the equipment type
+            maintenance_type_id:
+              type: integer
+              description: maintenance type id
+            data:
+              type: string
+              description: templates fields in the follwing json format
+              example: '[{"title":"Detergent","value":"Wateriii:"}]'
+    createMaintenanceTemplate:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - equipment_type
+            - maintenance_type_id
+            - data
+    updateMaintenanceTemplate:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'

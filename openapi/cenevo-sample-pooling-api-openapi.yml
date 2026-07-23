@@ -1,0 +1,326 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Sample Pooling API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Sample Pooling
+paths:
+  /api/v1/pool_events:
+    post:
+      summary: Creates a pool event
+      tags:
+      - Sample Pooling
+      description: 'This endpoint facilitates the creation of pool events and allows for the aggregation of stocks based on selected logic.
+
+
+        It supports three methods for pooling:
+
+        1. **Fixed Amount Pooling**: Using the `createFixedSamplePoolingEvent` schema, which draws a fixed amount from all listed stocks.
+
+
+        2. **Custom Amount Pooling**: Using the `createCustomSamplePoolingEvent` schema, which allows for drawing custom amounts from each stock.
+
+        3. **Total Consumption Pooling**: Using the `createCustomSamplePoolingEvent` schema, which draws and consumes the entire amount from each stock.
+
+
+        Ensure the request body matches the structure defined in the referenced schemas for successful operation.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Returns detailed information about the updated pool event.
+                properties:
+                  id:
+                    type: integer
+                    example: 7
+                    description: The ID of the pool event
+                  name:
+                    type: string
+                    description: The description of pool purpose
+                  unit_type:
+                    type: string
+                    example: volume
+                  pool_type:
+                    type: string
+                    example: fixed
+                  unit:
+                    type: string
+                  initial_amount:
+                    type: string
+                    example: '2.0'
+                  member_id:
+                    type: integer
+                    description: The initiator of the pool action
+                  stock_id:
+                    type: integer
+                    description: The pooled stock ID
+                  stock_name:
+                    type: string
+                    description: The pooled stock name
+                  stock_url:
+                    type: string
+                    example: /storage/stocks/620
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                description: "Returns when there are validation errors with the input data.\n        Errors include missing stock IDs or duplicate names."
+                properties:
+                  error:
+                    type: string
+                    example: 'The following stocks weren''t found: [1291, 1293]]'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/createFixedSamplePoolingEvent'
+              - $ref: '#/components/schemas/createCustomSamplePoolingEvent'
+              - $ref: '#/components/schemas/createConsumeSamplePoolingEvent'
+components:
+  schemas:
+    createConsumeSamplePoolingEvent:
+      title: Create consume sample pooling event
+      type: object
+      description: draw the entire amount and consume.
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - unit_type
+          - pool_type
+          - unit
+          - stocks_list
+          - pooled_stock_info
+          properties:
+            name:
+              type: string
+              description: The description of pool purpose
+            unit_type:
+              type: string
+              description: volume/weight
+            pool_type:
+              type: string
+              example: consume
+            unit:
+              type: string
+              example: µL
+              description: 'Valid units of measurement are:
+
+
+                - For ''volume'': ''nL'', ''µL'', ''mL'', ''L''
+
+                - For ''weight'': ''ng'', ''µg'', ''mg'', ''g'', ''Kg'''
+            stocks_list:
+              type: array
+              description: List of stock IDs from which to draw
+              items:
+                type: integer
+              example:
+              - 1291
+              - 1293
+            pooled_stock_info:
+              type: object
+              description: "Contains all the necessary stock fields for creating a stock during the pooling event.\n                    This object may include all the relevant stock properties."
+              required:
+              - name
+              - stockable_type
+              - stockable_id
+              - storage_type
+              - storage_id
+              properties:
+                stockable_type:
+                  type: string
+                  description: "Identifies the class name of the stock item, such as 'Biocollections::Bacterium'.\n                      This indicates the category of the entity and must match valid system-defined class names."
+                  example: Biocollections::Bacterium
+                stockable_id:
+                  type: integer
+                storage_type:
+                  type: string
+                  description: Specifies the storage classification, such as 'System::Storage::Storage', indicating the type of storage facility used for the item.
+                  example: System::Storage::Storage
+                storage_id:
+                  type: integer
+                name:
+                  type: string
+    createFixedSamplePoolingEvent:
+      title: Create fixed sample pooling event
+      type: object
+      description: draw a fixed amount from all stocks.
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - pool_type
+          - unit
+          - unit_type
+          - fixed_amount
+          - stocks_list
+          - pooled_stock_info
+          properties:
+            name:
+              type: string
+              description: The description of pool purpose
+            unit_type:
+              type: string
+              description: volume/weight
+            pool_type:
+              type: string
+              example: fixed
+            unit:
+              type: string
+              description: 'Valid units of measurement are:
+
+
+                - For ''volume'': ''nL'', ''µL'', ''mL'', ''L''
+
+                - For ''weight'': ''ng'', ''µg'', ''mg'', ''g'', ''Kg'''
+              example: µL
+            fixed_amount:
+              type: integer
+              description: Specifies the exact amount to draw
+            stocks_list:
+              type: array
+              description: List of stock IDs from which to draw
+              items:
+                type: integer
+              example:
+              - 1291
+              - 1293
+            pooled_stock_info:
+              type: object
+              required:
+              - name
+              - stockable_type
+              - stockable_id
+              - storage_type
+              - storage_id
+              description: "Contains all the necessary stock fields for creating a stock during the pooling event.\n                    This object may include all the relevant stock properties."
+              properties:
+                name:
+                  type: string
+                stockable_type:
+                  type: string
+                  description: "Identifies the class name of the stock item, such as 'Biocollections::Bacterium'.\n                      This indicates the category of the entity and must match valid system-defined class names."
+                  example: Biocollections::Bacterium
+                stockable_id:
+                  type: integer
+                storage_type:
+                  type: string
+                  description: "Specifies the storage classification, such as 'System::Storage::Storage',\n                        indicating the type of storage facility used for the item."
+                  example: System::Storage::Storage
+                storage_id:
+                  type: integer
+    createCustomSamplePoolingEvent:
+      title: Create custom sample pooling event
+      type: object
+      description: draw a custom amount from each stock.
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - unit_type
+          - pool_type
+          - unit
+          - stocks_usage
+          - pooled_stock_info
+          properties:
+            name:
+              type: string
+              description: The description of pool purpose
+            unit_type:
+              type: string
+              description: volume/weight
+            pool_type:
+              type: string
+              example: custom
+            unit:
+              type: string
+              description: 'Valid units of measurement are:
+
+
+                - For ''volume'': ''nL'', ''µL'', ''mL'', ''L''
+
+                - For ''weight'': ''ng'', ''µg'', ''mg'', ''g'', ''Kg'''
+              example: µL
+            stocks_usage:
+              type: object
+              description: Hash of stock IDs and the desired amount to pool.
+              additionalProperties:
+                type: number
+                description: Amount to be pooled for the given stock ID.
+              example:
+                '300': 0.004
+                '834': 6
+                '45': 5
+            pooled_stock_info:
+              type: object
+              description: "Contains all the necessary stock fields for creating a stock during the pooling event.\n                    This object may include all the relevant stock properties."
+              required:
+              - name
+              - stockable_type
+              - stockable_id
+              - storage_type
+              - storage_id
+              properties:
+                stockable_type:
+                  type: string
+                  description: "Identifies the class name of the stock item, such as 'Biocollections::Bacterium'.\n                        This indicates the category of the entity and must match valid system-defined class names."
+                  example: Biocollections::Bacterium
+                stockable_id:
+                  type: integer
+                storage_type:
+                  type: string
+                  description: "Specifies the storage classification, such as 'System::Storage::Storage',\n                        indicating the type of storage facility used for the item."
+                  example: System::Storage::Storage
+                storage_id:
+                  type: integer
+                name:
+                  type: string

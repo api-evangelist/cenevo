@@ -1,0 +1,210 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Viruses API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Viruses
+paths:
+  /api/v1/viruses:
+    post:
+      summary: Create a virus
+      tags:
+      - Viruses
+      description: 'Create a virus.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createVirus'
+        required: true
+    get:
+      summary: List all viruses in your account
+      tags:
+      - Viruses
+      description: 'List all viruses.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/viruses/{id}:
+    put:
+      summary: Update a virus
+      tags:
+      - Viruses
+      description: 'Update a virus.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the virus
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateVirus'
+        required: true
+    get:
+      summary: Get virus by id
+      tags:
+      - Viruses
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the virus
+        schema:
+          type: integer
+      description: 'Get a virus by ID.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete virus
+      tags:
+      - Viruses
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: virus id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createVirus:
+      allOf:
+      - $ref: '#/components/schemas/VirusBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    VirusBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the virus
+            alternative_name:
+              type: string
+              description: alternative name for the virus
+            gene_insert:
+              type: string
+              description: Specific gene or genetic insert present in the virus
+            virus_type:
+              type: string
+              description: The virus type
+            plasmid:
+              type: string
+              description: The plasmid that is used in the creation or manipulation of the virus
+            serotype_strain:
+              type: string
+              description: serotype or strain of the virus
+            mutations_deletions:
+              type: string
+              description: genetic mutations or deletions within the virus details
+            tag:
+              type: string
+              description: Tag
+            selectable_marker:
+              type: string
+              description: Selectable marker
+            producer_cell_type:
+              type: string
+              description: Producer cell type
+            viral_coat:
+              type: string
+              description: Viral coat
+            tropism:
+              type: string
+              description: Tropism
+            species:
+              type: string
+              description: The species from which the virus was isolated or generated
+            safety_information:
+              type: string
+              description: safety information details
+            storage_conditions:
+              type: string
+              description: Conditions under which the virus should be stored
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            source:
+              type: string
+              description: The origin of the virus
+            description:
+              type: string
+              description: Description of the virus
+    updateVirus:
+      allOf:
+      - $ref: '#/components/schemas/VirusBaseRequest'

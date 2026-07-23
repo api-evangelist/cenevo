@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Documents API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Documents
+paths:
+  /api/v1/documents:
+    post:
+      summary: Creates a document
+      tags:
+      - Documents
+      parameters: []
+      responses:
+        '201':
+          description: document created
+        '422':
+          description: invalid request - Title cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createDocument'
+        required: true
+    get:
+      summary: List all documents in your account
+      tags:
+      - Documents
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/documents/{id}:
+    put:
+      summary: Update document attributes
+      tags:
+      - Documents
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: document id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: document updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDocument'
+        required: true
+    get:
+      summary: Get document by id
+      tags:
+      - Documents
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: document id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: document not found
+    delete:
+      summary: Delete document
+      tags:
+      - Documents
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: document id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateDocument:
+      allOf:
+      - $ref: '#/components/schemas/DocumentBaseRequest'
+    DocumentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: 'the document title '
+            description:
+              type: string
+              description: the document description
+    createDocument:
+      allOf:
+      - $ref: '#/components/schemas/DocumentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title

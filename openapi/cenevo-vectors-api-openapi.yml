@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Vectors API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Vectors
+paths:
+  /api/v1/vectors:
+    post:
+      summary: Creates a vectors
+      tags:
+      - Vectors
+      parameters: []
+      responses:
+        '201':
+          description: vector created
+        '422':
+          description: invalid request - dataset_id can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createVector'
+        required: true
+    get:
+      summary: List all vectors in your account
+      tags:
+      - Vectors
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/vectors/{id}:
+    put:
+      summary: Update vector attributes
+      tags:
+      - Vectors
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: vector id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: vector updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateVector'
+        required: true
+    get:
+      summary: Get vector by id
+      tags:
+      - Vectors
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: vector id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: vector not found
+    delete:
+      summary: Delete vector
+      tags:
+      - Vectors
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: vector id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateVector:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        dataset_id:
+          type: integer
+          description: the dataset id
+        vector_data:
+          type: string
+          description: 'fields must be same as column headers in the dataset - {"data_header": "item_name"}'
+          example:
+            column1: value1
+            column2: value2
+    createVector:
+      type: object
+      required:
+      - token
+      - dataset_id
+      - vector_data
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        dataset_id:
+          type: integer
+          description: the dataset id
+        vector_data:
+          type: string
+          description: 'fields must be same as column headers in the dataset {"data_header": "item_name"}'
+          example:
+            column1: value1
+            column2: value2

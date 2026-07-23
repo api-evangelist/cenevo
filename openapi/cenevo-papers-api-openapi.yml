@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Papers API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Papers
+paths:
+  /api/v1/papers:
+    post:
+      summary: Add a paper
+      tags:
+      - Papers
+      parameters: []
+      responses:
+        '201':
+          description: paper created
+        '422':
+          description: Name can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createPaper'
+        required: true
+    get:
+      summary: List all papers in your account
+      tags:
+      - Papers
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/papers/{id}:
+    put:
+      summary: Update paper attributes
+      tags:
+      - Papers
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: paper id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: paper updated
+        '422':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePaper'
+        required: true
+    get:
+      summary: Get paper by id
+      tags:
+      - Papers
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: paper id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: paper not found
+    delete:
+      summary: Delete paper
+      tags:
+      - Papers
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: paper id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    PaperBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: 'the papers title '
+            journal:
+              type: string
+              description: the time period in numbers
+            authors:
+              type: string
+              description: ''
+            publication_date:
+              type: string
+              format: date
+              description: 'in the following format yyyy-mm-dd '
+            volume:
+              type: string
+              description: volume
+            pages:
+              type: string
+              description: pages
+            url:
+              type: string
+              description: www.link.com
+            doi:
+              type: string
+              description: digital object identifier
+              example: 10.1002/aur21
+            review:
+              type: string
+              description: Abstract
+    updatePaper:
+      allOf:
+      - $ref: '#/components/schemas/PaperBaseRequest'
+    createPaper:
+      allOf:
+      - $ref: '#/components/schemas/PaperBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

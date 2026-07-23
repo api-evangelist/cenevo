@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Protocols API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Protocols
+paths:
+  /api/v1/protocols:
+    post:
+      summary: Creates a protocol
+      tags:
+      - Protocols
+      parameters: []
+      responses:
+        '201':
+          description: protocol created
+        '422':
+          description: unprocessable Entity - name cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createProtocol'
+        required: true
+    get:
+      summary: List all protocols in your account
+      tags:
+      - Protocols
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/protocols/{id}:
+    put:
+      summary: Update protocol
+      tags:
+      - Protocols
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: protocol id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: protocol updated
+        '422':
+          description: unprocessable Entity - name cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateProtocol'
+        required: true
+    get:
+      summary: Get protocol by id
+      tags:
+      - Protocols
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: protocol id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: protocol not found
+    delete:
+      summary: Delete protocol
+      tags:
+      - Protocols
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: protocol id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createProtocol:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: string
+          example: '{"name":"A protocol name","experiment_procedures":[],"elements":[]}'
+    updateProtocol:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The protocol name

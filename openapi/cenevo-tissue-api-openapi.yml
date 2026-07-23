@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Tissue API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Tissue
+paths:
+  /api/v1/tissues:
+    post:
+      summary: Create a tissue
+      tags:
+      - Tissue
+      description: 'Create a tissue.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTissue'
+        required: true
+    get:
+      summary: List all tissues in your account
+      tags:
+      - Tissue
+      description: 'List all tissues.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/tissues/{id}:
+    put:
+      summary: Update a tissue
+      tags:
+      - Tissue
+      description: 'Update a tissue.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the tissue
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTissue'
+        required: true
+    get:
+      summary: Get tissue by id
+      tags:
+      - Tissue
+      description: 'Get tissue by id.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the tissue
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete tissue
+      tags:
+      - Tissue
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: tissue id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateTissue:
+      allOf:
+      - $ref: '#/components/schemas/TissueBaseRequest'
+    createTissue:
+      allOf:
+      - $ref: '#/components/schemas/TissueBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    TissueBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the tissue
+            alternative_name:
+              type: string
+              description: An alternative name for the tissue
+            species:
+              type: string
+              description: The species from which the tissue is derived
+            genotype_phenotype:
+              type: string
+              description: Genotype/phenotype
+            animal_details:
+              type: string
+              description: Detailed information about the animal from which the tissue was harvested
+            tissue_type:
+              type: string
+              description: 'The type of the tissue '
+            harvest_date:
+              type: string
+              description: Harvest date - in the following format (yyyy-mm-dd)
+              example: '2021-06-21'
+            fixation_embedding_procedure:
+              type: string
+              description: Fixation/embedding procedure
+            applications:
+              type: string
+              description: Applications
+            storage_conditions:
+              type: string
+              description: Storage conditions
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            source:
+              type: string
+              description: The origin of the tissue
+            description:
+              type: string
+              description: Description of the tissue

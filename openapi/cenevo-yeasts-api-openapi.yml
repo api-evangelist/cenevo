@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Yeasts API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Yeasts
+paths:
+  /api/v1/yeasts:
+    post:
+      summary: Create a yeast
+      tags:
+      - Yeasts
+      description: 'Create a yeast.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createYeast'
+        required: true
+    get:
+      summary: List all yeasts in your account
+      tags:
+      - Yeasts
+      description: 'List all yeasts.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+  /api/v1/yeasts/{id}:
+    put:
+      summary: Update a yeast
+      tags:
+      - Yeasts
+      description: 'Update a yeast.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the yeast
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateYeast'
+        required: true
+    get:
+      summary: Get yeast by id
+      tags:
+      - Yeasts
+      description: 'Get a yeast by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the yeast
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete yeast
+      tags:
+      - Yeasts
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: yeast id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createYeast:
+      allOf:
+      - $ref: '#/components/schemas/YeastBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    YeastBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the yeast
+            description:
+              type: string
+              description: Description of the yeast
+            reproduction:
+              type: string
+              description: Details of the mode of reproduction for the yeast
+            genetic_background:
+              type: string
+              description: yeast's genetic lineage or background
+            transgenic_features:
+              type: string
+              description: Transgenic Features
+            phenotype:
+              type: string
+              description: Observable characteristics of the yeast
+            source:
+              type: string
+              description: Origin of the yeast strain
+            owner_id:
+              type: integer
+              description: id of the owner - if omitted, will default to your member id
+    updateYeast:
+      allOf:
+      - $ref: '#/components/schemas/YeastBaseRequest'

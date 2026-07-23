@@ -1,0 +1,300 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Filters API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Filters
+paths:
+  /api/v1/{collection_name}:
+    get:
+      summary: Filter Biocollections items
+      tags:
+      - Filters
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+          default: 1
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+          default: 'true'
+      - name: kendo
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 'true'
+      - name: collection_name
+        in: path
+        description: 'the collection name to filter, example: antibodies'
+        required: true
+        schema:
+          type: string
+      - name: filter[logic]
+        in: query
+        required: true
+        schema:
+          type: string
+          default: and
+      - name: filter[filters][0][field]
+        in: query
+        required: true
+        description: 'Valid fields are:
+
+
+          - title
+
+          - auto_name(SySID)
+
+          - alternative_name
+
+          - description
+
+          - owner_id
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][operator]
+        in: query
+        required: true
+        description: 'Valid operators are:
+
+
+          - contains\doesnotcontain
+
+          - eq\neq
+
+          - startswith\endswith
+
+          - isnullorempty\isnotnullorempty
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][value]
+        in: query
+        description: the filter term
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: filtered
+  /api/v1/biocollections/{collection_name}:
+    get:
+      summary: Filter Custom collections items
+      tags:
+      - Filters
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+          default: 1
+      - name: meta
+        in: query
+        description: show summarized data information - true/false
+        schema:
+          type: string
+          default: 'true'
+      - name: kendo
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 'true'
+      - name: collection_name
+        in: path
+        description: 'the collection name to filter, example: myCollection'
+        required: true
+        schema:
+          type: string
+      - name: filter[logic]
+        in: query
+        required: true
+        schema:
+          type: string
+          default: and
+      - name: filter[filters][0][field]
+        in: query
+        required: true
+        description: 'Valid fields are:
+
+
+          - title
+
+          - auto_name(SySID)
+
+          - alternative_name
+
+          - description
+
+          - owner_id
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][operator]
+        in: query
+        required: true
+        description: 'Valid operators are:
+
+
+          - contains\doesnotcontain
+
+          - eq\neq
+
+          - startswith\endswith
+
+          - isnullorempty\isnotnullorempty
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][value]
+        in: query
+        description: the filter term
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+  /api/v1/{knowledgbase_collection}:
+    get:
+      summary: Filter knowledgbase items
+      tags:
+      - Filters
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+          default: 1
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+          default: 'true'
+      - name: kendo
+        in: query
+        required: true
+        schema:
+          type: string
+          default: 'true'
+      - name: knowledgbase_collection
+        in: path
+        required: true
+        description: 'The collection name to filter:
+
+
+          - projects
+
+          - experiments
+
+          - protocols
+
+          - documents
+
+          - reports
+
+          - datasets
+
+          - recipes
+
+          - papers
+
+          - sops
+
+
+          '
+        schema:
+          type: string
+      - name: filter[logic]
+        in: query
+        required: true
+        schema:
+          type: string
+          default: and
+      - name: filter[filters][0][field]
+        in: query
+        required: true
+        description: 'Valid fields are:
+
+
+          - title
+
+          - id
+
+          - flag (true for Succesful,false for Failed)
+
+          - projects.title(relevant for experiments)
+
+          - start_date\end_date
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][operator]
+        in: query
+        required: true
+        description: 'Valid operators are:
+
+
+          - contains\doesnotcontain
+
+          - eq\neq
+
+          - startswith\endswith
+
+          - isnullorempty\isnotnullorempty
+
+
+          '
+        schema:
+          type: string
+      - name: filter[filters][0][value]
+        in: query
+        description: the filter term
+        required: true
+        schema:
+          type: string
+      - name: tag_ids
+        in: query
+        description: tag id
+        example: '[''3'']'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success

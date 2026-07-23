@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Shopping list API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Shopping list
+paths:
+  /api/v1/shopping_list/add_item:
+    post:
+      summary: Add item
+      tags:
+      - Shopping list
+      description: 'This endpoint allows for adding standard or custom commercial items to the shopping list. It supports two types of item additions:
+
+        1. **Standard Item Addition**: Using the `addItem` schema for predefined commercial item types.
+
+
+        2. **Custom Item Addition**: Using the `addCustomItem` schema for user-defined commercial items and collections.
+
+
+        Ensure the request body matches the structure defined in the referenced schemas for successful operation.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates whether the operation was successful.
+                    example: true
+                  payload:
+                    type: string
+                    description: A message detailing the outcome of the operation.
+                    example: Your order was successfully submitted.
+                  lineitem_id:
+                    type: integer
+                    description: The ID of the order.
+                    example: 76
+                  item:
+                    type: object
+                    description: Detailed information about the item, returned as a JSON object.
+        '422':
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                    example: Collection Item can not be found
+        '401':
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/addItem'
+              - $ref: '#/components/schemas/addCustomItem'
+        required: true
+  /api/v1/shopping_list/{id}/approve:
+    put:
+      summary: Approve order
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the shopping list item to approve
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: order approved
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/shopping_list/{id}/cancel:
+    put:
+      summary: Cancel order
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the shopping list item to cancel
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: order canceled
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/shopping_list/{id}/submit:
+    put:
+      summary: Submit order
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the shopping list item to submit
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: order submited
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/shopping_list/{id}:
+    put:
+      summary: Update order
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the shopping list item to update
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: order updated
+        '422':
+          description: invalid request - quantity cannot be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateOrder'
+        required: true
+    get:
+      summary: Get order by id
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: order id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: order not found
+    delete:
+      summary: Delete shopping list item
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: shopping list item id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/shopping_list:
+    get:
+      summary: List all orders in your account
+      tags:
+      - Shopping list
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+components:
+  schemas:
+    updateOrder:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            price:
+              type: number
+              format: float
+              description: price
+            budget:
+              type: string
+              description: budget
+            currency:
+              type: integer
+              description: '0 = NIS, 1 = DOLLAR, 2 = EURO, 3 = POUND, 4 = NOK '
+            quantity:
+              type: integer
+              description: quantity
+            order_number:
+              type: integer
+              description: order number
+            description:
+              type: string
+              description: description
+    addCustomItem:
+      title: Add custom item
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - collection_type
+          - collection_id
+          - item_id
+          - quantity
+          properties:
+            collection_type:
+              type: string
+              description: The name of the custom collection to which the item belongs.
+            collection_id:
+              type: integer
+              description: The id of the custom collection within the system.
+            item_id:
+              type: integer
+              description: The id of the item to be added to the shopping list
+            price:
+              type: number
+              format: float
+              description: The price of the item
+            currency:
+              type: integer
+            quantity:
+              type: integer
+              description: The number of units of the item to be added to the shopping list.
+            remarks:
+              type: string
+              description: Additional comments or special instructions related to the item.
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    addItem:
+      title: Add item
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - collection_type
+          - item_id
+          - quantity
+          properties:
+            collection_type:
+              type: string
+              description: The type of collection, specified in singular form, such as - Biocollections::Antibody
+            item_id:
+              type: integer
+              description: The id of the item to be added to the shopping list
+            price:
+              type: number
+              format: float
+              description: The price of the item
+            currency:
+              type: integer
+            quantity:
+              type: integer
+              description: The number of units of the item to be added to the shopping list.
+            remarks:
+              type: string
+              description: Additional comments or special instructions related to the item.

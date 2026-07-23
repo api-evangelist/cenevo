@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Compounds API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Compounds
+paths:
+  /api/v1/compounds:
+    post:
+      summary: Creates a compound
+      tags:
+      - Compounds
+      parameters: []
+      responses:
+        '201':
+          description: compound created
+        '422':
+          description: invalid request - Name can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCompound'
+        required: true
+    get:
+      summary: List all compounds in your account
+      tags:
+      - Compounds
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+  /api/v1/compounds/{id}:
+    put:
+      summary: Update compound attributes
+      tags:
+      - Compounds
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: compound id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: compound updated
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCompound'
+        required: true
+    get:
+      summary: Get compound by id
+      tags:
+      - Compounds
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: compound id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: compound not found
+    delete:
+      summary: Delete compound
+      tags:
+      - Compounds
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: compound id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateCompound:
+      allOf:
+      - $ref: '#/components/schemas/CompoundBaseRequest'
+    CompoundBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        smiles:
+          type: string
+          example: C(=O)N1CCC(CCCC(=O)c2ccc(Cl)n(Cc3ncc(o3)-c3ccc(Cl)cc3)c2=O)CC1
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the compound
+            description:
+              type: string
+              description: Updated description of the compound
+            structure:
+              type: string
+              description: Compound structure
+              example: C(=O)N1CCC(CCCC(=O)c2ccc(Cl)n(Cc3ncc(o3)-c3ccc(Cl)cc3)c2=O)CC1
+            cas:
+              type: string
+              description: Compound CAS
+            formula:
+              type: string
+              description: Compound formula
+            molar_mass:
+              type: string
+              description: Compound molar mass
+            density:
+              type: string
+              description: Compound density
+            boiling_point:
+              type: string
+              description: Compound boiling point
+            melting_point:
+              type: string
+              description: Compound melting point
+            hazards:
+              type: string
+              description: Compound hazards
+    createCompound:
+      allOf:
+      - $ref: '#/components/schemas/CompoundBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

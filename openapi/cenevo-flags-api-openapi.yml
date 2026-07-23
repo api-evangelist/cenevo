@@ -1,0 +1,280 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Flags API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Flags
+paths:
+  /api/v1/flags:
+    post:
+      summary: Create a Flag
+      tags:
+      - Flags
+      description: 'Create a flag.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  flag:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: The ID of the flag
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      color:
+                        type: string
+                      icon:
+                        type: string
+                      active:
+                        type: boolean
+                      default:
+                        type: boolean
+                  state:
+                    type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: '''icon2'' is not a valid icon / ''Greenn'' is not a valid color'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createFlag'
+        required: true
+    get:
+      summary: List all flags in your account
+      tags:
+      - Flags
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      description: 'List all flags.
+
+        '
+      responses:
+        '200':
+          description: ok
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+  /api/v1/flags/{id}:
+    put:
+      summary: Update a flag
+      tags:
+      - Flags
+      description: 'Update a flag.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the flag
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_message:
+                    type: string
+                    example: 'Validation failed: Title has already been taken, Title Cannot be changed'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateFlag'
+        required: true
+    get:
+      summary: Get flag by id
+      tags:
+      - Flags
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the flag
+        schema:
+          type: integer
+      description: 'Get a flag by ID.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+    delete:
+      summary: Delete flag
+      tags:
+      - Flags
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: flag id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    createFlag:
+      allOf:
+      - $ref: '#/components/schemas/FlagBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    FlagBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: Specifies the name of the flag
+            icon:
+              type: string
+              description: The icon of the flag
+              enum:
+              - star
+              - bolt
+              - thumbs-up
+              - thumbs-down
+              - question
+              - exclamation
+              - bell
+              - bell-slash
+              - fire
+              - sun
+              example: star
+            color:
+              type: string
+              description: The color of the flag
+              enum:
+              - green-light
+              - green
+              - green-dark
+              - red-light
+              - red
+              - red-dark
+              - blue-light
+              - blue
+              - blue-dark
+              - orange-light
+              - orange
+              - orange-dark
+              - grey-light
+              - grey
+              - grey-dark
+              example: green
+            description:
+              type: string
+              description: General description of the flag
+    updateFlag:
+      allOf:
+      - $ref: '#/components/schemas/FlagBaseRequest'

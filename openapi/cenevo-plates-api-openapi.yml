@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Plates API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Plates
+paths:
+  /api/v1/plates/{id}/duplicate:
+    post:
+      summary: Duplicate a master plate
+      tags:
+      - Plates
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: plate id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: plate duplicated
+        '500':
+          description: invalid request - Name can't be blank
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                names:
+                  type: array
+                  items:
+                    type: string
+                    example: Plate A
+        required: true
+  /api/v1/plates/find_by_name:
+    get:
+      summary: Find a plate by name
+      tags:
+      - Plates
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: true
+        description: plate name
+        example: Plate A
+        schema:
+          type: string
+      responses:
+        '200':
+          description: plate found
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/plates/{id}:
+    get:
+      summary: Get plate by id
+      tags:
+      - Plates
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: plate id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found
+    delete:
+      summary: Delete plate
+      tags:
+      - Plates
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: plate id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+  /api/v1/plates:
+    get:
+      summary: List all plates in your account
+      tags:
+      - Plates
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: the default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: ' show summarized data information - true/false'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '404':
+          description: page not found

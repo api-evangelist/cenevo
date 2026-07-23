@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Bacteria API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Bacteria
+paths:
+  /api/v1/bacteria:
+    post:
+      summary: Create a bacterium
+      tags:
+      - Bacteria
+      description: 'Create a bacterium.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createBacterium'
+        required: true
+    get:
+      summary: List all bacteria in your account
+      tags:
+      - Bacteria
+      description: 'List all bacteria.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+  /api/v1/bacteria/{id}:
+    put:
+      summary: Update bacterium
+      tags:
+      - Bacteria
+      description: 'Update bacterium.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the bacterium
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateBacterium'
+        required: true
+    get:
+      summary: Get bacterium by id
+      tags:
+      - Bacteria
+      description: 'Get a bacterium by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the bacterium
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete bacterium
+      tags:
+      - Bacteria
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the bacterium
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    BacteriumBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the bacterium
+            sensitivity:
+              type: string
+              description: Details the bacterium’s sensitivity to antibiotics or other agents.
+            strain:
+              type: string
+              description: The specific strain of the bacterium
+            source:
+              type: string
+              description: The origin or isolation source of the bacterium (e.g., environmental, clinical).
+            owner_id:
+              type: integer
+              description: The ID of the owner - by default it's your member id
+            description:
+              type: string
+              description: A detailed description of the bacterium
+    updateBacterium:
+      allOf:
+      - $ref: '#/components/schemas/BacteriumBaseRequest'
+    createBacterium:
+      allOf:
+      - $ref: '#/components/schemas/BacteriumBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

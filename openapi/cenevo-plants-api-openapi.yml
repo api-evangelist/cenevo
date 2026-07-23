@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Plants API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Plants
+paths:
+  /api/v1/plants:
+    post:
+      summary: Create a plant
+      tags:
+      - Plants
+      description: 'Create a plant.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createPlant'
+        required: true
+    get:
+      summary: List all plants in your account
+      tags:
+      - Plants
+      description: 'List all plants.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The default call is with page = 1
+        schema:
+          type: integer
+      - name: meta
+        in: query
+        description: Show summarized data information - true/false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          description: 'Error: Unauthorized'
+  /api/v1/plants/{id}:
+    put:
+      summary: Update plant
+      tags:
+      - Plants
+      description: 'Update plant.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the plant
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePlant'
+        required: true
+    get:
+      summary: Get a plant by ID
+      tags:
+      - Plants
+      description: 'Get plant by ID.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the plant
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not found
+        '401':
+          description: 'Error: Unauthorized'
+    delete:
+      summary: Delete plant
+      tags:
+      - Plants
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: plant id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updatePlant:
+      allOf:
+      - $ref: '#/components/schemas/PlantBaseRequest'
+    PlantBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The botanical name of the plant.
+            owner_id:
+              type: integer
+              description: ID of the owner - if omitted, will default to your id
+            phenotype:
+              type: string
+              description: Observable physical or biochemical characteristics of the plant
+            genotype:
+              type: string
+              description: The genetic makeup of the plant
+            generation:
+              type: string
+              description: Generation of the plant
+            harvest_date:
+              type: string
+              format: date
+              description: The date when the plant was harvested, formatted as YYYY-MM-DD
+              example: '2021-03-11'
+            source:
+              type: string
+              description: The origin of the plant
+            description:
+              type: string
+              description: Description of the plant
+    createPlant:
+      allOf:
+      - $ref: '#/components/schemas/PlantBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

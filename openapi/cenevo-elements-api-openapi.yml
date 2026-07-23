@@ -1,0 +1,267 @@
+openapi: 3.0.0
+info:
+  title: Labguru Antibodies Elements API
+  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  version: v1
+tags:
+- name: Elements
+paths:
+  /api/v1/elements:
+    post:
+      summary: Add element
+      tags:
+      - Elements
+      description: 'This endpoint creates an element within a specific section of an ELN or knowledgebase item.
+
+
+        To add an element, specify its type and the corresponding section ID,
+
+        Once created, the element is automatically integrated and displayed in the designated section.
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/addElement'
+              - $ref: '#/components/schemas/addPlateElement'
+        required: true
+  /api/v1/elements/sort:
+    post:
+      summary: Rearrange elements
+      tags:
+      - Elements
+      description: 'This endpoint enables you to change the order of elements within a chosen section.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              - container_id
+              - container_type
+              - list
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                container_id:
+                  type: integer
+                  description: The ID of the section in which the element will be rearranged
+                container_type:
+                  type: string
+                  default: Projects::Experiment
+                  description: The type of container in which the elements will be rearranged
+                list:
+                  type: array
+                  items:
+                    type: integer
+                  description: An array of element IDs that determines the new order in which the elements will be rearranged
+                  example:
+                  - 112
+                  - 110
+                  - 111
+        required: true
+  /api/v1/elements/{id}:
+    put:
+      summary: Update element
+      tags:
+      - Elements
+      description: 'This endpoint updates the content of a specified element by its ID.
+
+
+        Note: Updating the <code>data</code>/<code>form_json</code> field will replace any existing data.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the element
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Invalid request
+        '401':
+          description: 'Error: Unauthorized'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/updateFormElement'
+              - $ref: '#/components/schemas/updateTextElement'
+        required: true
+    get:
+      summary: Get element by id
+      tags:
+      - Elements
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: The ID of the element
+        schema:
+          type: integer
+      description: 'Get an element by ID.
+
+        '
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete element
+      tags:
+      - Elements
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: element id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found
+components:
+  schemas:
+    updateTextElement:
+      title: Update text element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        data:
+          type: string
+          example: The updated text
+    updateFormElement:
+      title: Update form element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        form_json:
+          type: string
+          description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
+          example:
+            Field Name: Field Content
+    addElement:
+      title: Add element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - container_id
+          - container_type
+          - element_type
+          - data
+          description: Valid element types are:<br>• samples<br>• equipment<br>• code<br>• compound<br>• reaction<br>• text<br>• steps<br>• excel<br>• plate<br>
+          properties:
+            name:
+              type: string
+              description: Specifies the name of the element. If not provided, the element will be assigned a default name
+            container_id:
+              type: integer
+              description: The ID of the section to which the element will be added
+            container_type:
+              type: string
+              description: The type of container in which the element will be placed
+              example: ExperimentProcedure
+            element_type:
+              type: string
+              description: The type of element to be added
+            data:
+              type: string
+              nullable: true
+    addPlateElement:
+      title: Add plate element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - container_id
+          - container_type
+          - element_type
+          - data
+          - rows
+          - cols
+          description: Valid plate dimensions are:<br>• 3x2 (6 wells)<br>• 4x3 (12 wells)<br>• 6x4 (24 wells)<br>• 8x6 (48 wells)<br>• 12x6 (72 wells)<br>• 12x8 (96 wells)<br>• 24x16 (384 wells)<br>
+          properties:
+            name:
+              type: string
+              description: Specifies the name of the element. If not provided, the element will be assigned a default name
+            container_id:
+              type: integer
+              description: The ID of the section to which the element will be added
+            container_type:
+              type: string
+              description: The type of container in which the plate element will be placed
+              example: ExperimentProcedure
+            element_type:
+              type: string
+              description: The type of element to be added
+              example: plate
+            cols:
+              type: integer
+              description: the number of columns in the plate layout
+            rows:
+              type: integer
+              description: The number of rows in the plate layout
+            data:
+              type: string
+              nullable: true
