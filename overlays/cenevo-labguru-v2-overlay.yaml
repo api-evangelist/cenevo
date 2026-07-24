@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Labguru API v2
+  version: 1.0.0
+extends: openapi/cenevo-labguru-v2-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: cenevo
+    x-apievangelist-product: Labguru
+    x-apievangelist-review: >-
+      Newer, narrower Labguru surface (projects, experiments, reports,
+      equipment, rodent cages, compound parent structures). Same token-based
+      auth model as v1.
+- target: $.servers
+  update:
+  - url: https://my.labguru.com/api/v2
+    description: Labguru production API (v2)
+- target: $.components.securitySchemes
+  update:
+    SessionToken:
+      type: apiKey
+      in: query
+      name: token
+      description: >-
+        Session token created via POST /api/v1/sessions; passed as the required
+        `token` query parameter on every request.

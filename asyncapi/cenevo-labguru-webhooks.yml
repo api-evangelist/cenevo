@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/cenevo-labguru-v1-openapi.yml
+spec_type: Webhooks
+note: >-
+  Labguru does not publish an AsyncAPI document, but the v1 API exposes a
+  first-class webhook subscription surface. Subscriptions are created against a
+  `trigger_key` and POST a JSON payload to a target `url` when the event fires
+  (Labguru's own automation flows are a common target). The list of available
+  webhook trigger keys is retrievable at runtime via GET /api/v1/webhooks/list.
+surface:
+  management_operations:
+  - method: GET
+    path: /api/v1/webhooks
+    summary: List all webhook subscriptions in your account
+  - method: POST
+    path: /api/v1/webhooks
+    summary: Create a new webhook subscription (item.trigger_key, item.active, item.url)
+  - method: GET
+    path: /api/v1/webhooks/{id}
+    summary: Get a webhook subscription by id
+  - method: PUT
+    path: /api/v1/webhooks/{id}
+    summary: Update webhook subscription attributes
+  - method: DELETE
+    path: /api/v1/webhooks/{id}
+    summary: Delete a webhook subscription
+  - method: GET
+    path: /api/v1/webhooks/list
+    summary: List all available webhook trigger keys
+  subscription_model:
+    fields:
+    - trigger_key: the event to subscribe to (e.g. knowledgebase_document.signed)
+    - active: boolean; subscription is inactive by default
+    - url: target URL that receives the POST when the event fires
+  known_trigger_examples:
+  - knowledgebase_document.signed

@@ -1,0 +1,45 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cenevo-labguru-v1-openapi.yml
+format: rest-json
+note: >-
+  Derived from the HTTP status codes documented across the Labguru API v1
+  OpenAPI responses. Labguru returns plain JSON errors (not RFC 9457
+  application/problem+json). On 422 the message is a validation string, often
+  echoing the failing attribute (e.g. "Name can't be blank"). Counts are the
+  number of operations documenting each status across the v1 spec.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Malformed or invalid input in the request body or parameters.
+  remediation: Check the request payload against the endpoint schema and correct invalid fields.
+  operations_documenting: 4
+  example_operation: POST /api/v1/experiments
+- status: 401
+  title: Unauthorized
+  meaning: Missing, invalid, or expired session token.
+  remediation: >-
+    Create a fresh token via POST /api/v1/sessions and pass it as the required
+    `token` query parameter on every request.
+  operations_documenting: 152
+  example_operation: POST /api/v1/antibodies
+- status: 404
+  title: Not Found
+  meaning: The requested resource does not exist, or the page/collection is out of range.
+  remediation: Verify the resource id and, for list endpoints, the `page` value.
+  operations_documenting: 188
+  example_operation: GET /api/v1/antibodies/{id}
+- status: 422
+  title: Unprocessable Entity
+  meaning: >-
+    Validation failed. The response message typically names the offending
+    attribute (e.g. "Name can't be blank").
+  remediation: Correct the flagged attribute(s) and resubmit.
+  operations_documenting: 113
+  example_operation: POST /api/v1/antibodies
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected server-side error occurred.
+  remediation: Retry the request; if it persists, contact the Labguru API team.
+  operations_documenting: 5
+  example_operation: POST /api/v1/attachments

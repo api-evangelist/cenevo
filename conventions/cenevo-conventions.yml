@@ -1,0 +1,56 @@
+generated: '2026-07-18'
+method: searched
+source: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+sources:
+- openapi/cenevo-labguru-v1-openapi.yml
+- openapi/cenevo-labguru-v2-openapi.yml
+conventions:
+  base_url: https://my.labguru.com/api/v1
+  media_type: application/json
+  also_supports: application/xml
+  authentication:
+    style: session-token
+    parameter: token
+    in: query
+    detail: See authentication/cenevo-authentication.yml
+  pagination:
+    style: page-number
+    params:
+    - name: page
+      in: query
+      description: 1-based page number for list endpoints.
+    - name: meta
+      in: query
+      description: >-
+        When set, list endpoints include pagination/metadata alongside the
+        collection payload.
+    note: >-
+      Labguru list endpoints (e.g. GET /api/v1/antibodies) accept `page` and an
+      optional `meta` flag. There is no documented cursor pagination.
+  filtering:
+    style: kendo-grid
+    params:
+    - filter[logic]
+    - filter[filters][n][field]
+    - filter[filters][n][operator]
+    - filter[filters][n][value]
+    note: >-
+      Several list/search endpoints accept Kendo UI-style filter parameters and
+      a `kendo` flag; a `term` parameter is used for keyword search on some
+      collections.
+  request_body_envelope:
+    style: item-wrapped
+    note: >-
+      Create/update requests wrap the resource under an `item` object alongside
+      the `token`, e.g. {"token":"...","item":{...}}.
+  idempotency:
+    supported: false
+    note: >-
+      Labguru does not document an idempotency-key header or parameter; retries
+      of write operations are not deduplicated by the API.
+  error_envelope:
+    style: json-message
+    detail: See errors/cenevo-problem-types.yml
+  versioning:
+    style: uri-path
+    detail: See lifecycle/cenevo-lifecycle.yml

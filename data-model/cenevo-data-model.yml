@@ -1,0 +1,107 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cenevo-labguru-v1-openapi.yml
+note: >-
+  Entity-relationship graph derived from the Labguru API v1 OpenAPI: resource
+  families (tags/paths) become entities, and id-reference fields found in the
+  request/response schemas (owner_id, item_id, project_id, dataset_id,
+  storage_id, container_id, etc.) become relationships. Labguru groups its
+  scientific inventory under "biocollections" (antibodies, bacteria, cell lines,
+  plasmids, primers, genes, compounds, fungi, worms, flies, viruses, and more).
+entities:
+- name: Experiment
+  paths: [/api/v1/experiments]
+  relationships:
+  - to: Project
+    kind: belongs_to
+    via: project_id
+  - to: Element
+    kind: has_many
+    via: experiment
+  - to: Milestone
+    kind: belongs_to
+    via: milestone_id
+- name: Project
+  paths: [/api/v1/projects]
+  relationships:
+  - to: Milestone
+    kind: has_many
+  - to: Member
+    kind: belongs_to
+    via: owner_id
+- name: Element
+  paths: [/api/v1/elements]
+  relationships:
+  - to: Experiment
+    kind: belongs_to
+    via: element_id
+- name: Dataset
+  paths: [/api/v1/datasets]
+  relationships:
+  - to: Element
+    kind: belongs_to
+    via: dataset_id
+- name: Biocollection
+  description: >-
+    Umbrella for scientific inventory resource families (antibodies, bacteria,
+    cell lines, plasmids, primers, genes, compounds, fungi, worms, flies,
+    lipids, viruses, generic items).
+  paths: [/api/v1/biocollections, /api/v1/antibodies, /api/v1/cell_lines, /api/v1/plasmids]
+  relationships:
+  - to: Stock
+    kind: has_many
+    via: stockable_id
+  - to: Member
+    kind: belongs_to
+    via: owner_id
+- name: Stock
+  paths: [/api/v1/stocks]
+  relationships:
+  - to: Biocollection
+    kind: belongs_to
+    via: stockable_id
+  - to: Box
+    kind: belongs_to
+    via: container_id
+  - to: Storage
+    kind: belongs_to
+    via: storage_id
+- name: Box
+  paths: [/api/v1/boxes]
+  relationships:
+  - to: Storage
+    kind: belongs_to
+    via: storage_id
+- name: Storage
+  paths: [/api/v1/storages, /api/v1/storage_types]
+  relationships:
+  - to: StorageType
+    kind: belongs_to
+    via: storage_type_id
+- name: Equipment
+  paths: [/api/v1/equipment]
+  relationships:
+  - to: MaintenanceEvent
+    kind: has_many
+    via: maintenance_type_id
+- name: Attachment
+  paths: [/api/v1/attachments]
+  relationships:
+  - to: Element
+    kind: belongs_to
+    via: attachment_id
+- name: Webhook
+  paths: [/api/v1/webhooks]
+  description: Event subscription that POSTs to a target URL on a trigger_key.
+- name: Member
+  paths: [/api/v1/members, /api/v1/teams]
+  relationships:
+  - to: Team
+    kind: belongs_to
+    via: team_id
+- name: Comment
+  paths: [/api/v1/comments]
+  relationships:
+  - to: Element
+    kind: belongs_to
+    via: commentable_id

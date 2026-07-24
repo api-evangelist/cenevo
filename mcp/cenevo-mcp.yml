@@ -1,0 +1,67 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/cenevo-labguru-v1-openapi.yml
+note: >-
+  No official hosted/remote Labguru MCP server was found. This is a candidate
+  tool list derived from marquee Labguru API v1 operations (one tool per
+  operation) as a starting point for an MCP server. The full v1 spec exposes
+  330 operations across 74 resource families; the list below is a representative
+  subset of the highest-value read/write flows. Operations are identified by
+  HTTP method + path (the spec does not declare operationIds).
+server:
+  name: cenevo-labguru
+  transport: http
+  url: null
+tools:
+- name: create_session
+  description: Create an API session token from login + password.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/sessions
+- name: list_experiments
+  description: List experiments.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/experiments
+- name: create_experiment
+  description: Create an experiment.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/experiments
+- name: get_experiment
+  description: Get an experiment by id.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/experiments/{id}
+- name: list_projects
+  description: List projects.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/projects
+- name: list_antibodies
+  description: List antibodies.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/antibodies
+- name: create_antibody
+  description: Create an antibody.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/antibodies
+- name: list_cell_lines
+  description: List cell lines.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/cell_lines
+- name: list_plasmids
+  description: List plasmids.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/plasmids
+- name: list_boxes
+  description: List storage boxes.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/boxes
+- name: create_box
+  description: Create a storage box.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/boxes
+- name: list_stocks
+  description: List inventory stocks.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/stocks
+- name: list_datasets
+  description: List datasets.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/datasets
+- name: list_equipment
+  description: List equipment.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/equipment
+- name: create_attachment
+  description: Upload an attachment.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/attachments
+- name: list_webhooks
+  description: List webhook subscriptions.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#GET /api/v1/webhooks
+- name: create_webhook
+  description: Create a webhook subscription for a trigger_key.
+  source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/webhooks

@@ -1,0 +1,47 @@
+generated: '2026-07-18'
+method: searched
+source: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+note: >-
+  First-party Labguru API client libraries are published on the BioData GitHub
+  organization (BioData is the maker of Labguru / Cenevo). They are distributed
+  as source repositories rather than on public package registries (no npm / PyPI
+  / CRAN entries were found for these libraries as of this pass).
+packages:
+- language: python
+  registry: github
+  name: LabguruPython
+  url: https://github.com/BioData/LabguruPython
+  install: git clone https://github.com/BioData/LabguruPython
+  official: true
+  description: Official Python wrapper for the Labguru API.
+- language: python
+  registry: github
+  name: PyLabguru
+  url: https://github.com/BioData/PyLabguru
+  install: git clone https://github.com/BioData/PyLabguru
+  official: true
+  description: >-
+    Python SDK wrapper for the Labguru API (resource clients, e.g.
+    client.antibodies.list / create). README documents `pip install pylabguru`
+    but no published PyPI distribution was found.
+- language: r
+  registry: github
+  name: LabguruR
+  url: https://github.com/BioData/LabguruR
+  install: remotes::install_github("BioData/LabguruR")
+  official: true
+  description: Official R wrapper for the Labguru API.
+- language: java
+  registry: github
+  name: GeneiousLabguruPlugin
+  url: https://github.com/BioData/GeneiousLabguruPlugin
+  install: build from source
+  official: true
+  description: Geneious plugin that connects Geneious to a Labguru account via the API.
+- language: multiple
+  registry: github
+  name: labguru-api-examples
+  url: https://github.com/BioData/labguru-api-examples
+  install: git clone https://github.com/BioData/labguru-api-examples
+  official: true
+  description: Official API usage examples.

@@ -1,0 +1,37 @@
+# Cenevo (Labguru)
+
+> Cenevo is an AI-enabled lab automation company (maker of Labguru and Mosaic, formerly BioData) that helps scientists, research institutions, and biopharmas connect and automate the laboratory. The Labguru API is a JSON / REST API providing create, read, update, and delete access to almost all data in Labguru — antibodies, cell lines, compounds, plasmids, experiments, inventory, storage, equipment, datasets, and webhook subscriptions — using token-based authentication.
+
+## APIs
+
+- [Labguru API v1](https://my.labguru.com/api-docs/index.html): JSON/REST API, 74+ resource families, base https://my.labguru.com/api/v1
+- [Labguru API v2](https://my.labguru.com/api-docs/index.html): newer surface (projects, experiments, reports, equipment), base https://my.labguru.com/api/v2
+
+## Specs
+
+- [OpenAPI v1](https://raw.githubusercontent.com/api-evangelist/cenevo/refs/heads/main/openapi/cenevo-labguru-v1-openapi.yml)
+- [OpenAPI v2](https://raw.githubusercontent.com/api-evangelist/cenevo/refs/heads/main/openapi/cenevo-labguru-v2-openapi.yml)
+
+## Authentication
+
+- Session-token model: POST https://my.labguru.com/api/v1/sessions with login + password (+ optional account_id) returns a token.
+- The token is passed as the required `token` query parameter on every request. SSO customers generate a personal token from account settings.
+
+## Docs
+
+- [API Introduction and Overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)
+- [Interactive API reference (Swagger)](https://my.labguru.com/api-docs/index.html)
+- [Help Center](https://help.labguru.com/en/)
+
+## Clients
+
+- [LabguruPython (official)](https://github.com/BioData/LabguruPython)
+- [PyLabguru (official Python SDK)](https://github.com/BioData/PyLabguru)
+- [LabguruR (official R)](https://github.com/BioData/LabguruR)
+- [API examples](https://github.com/BioData/labguru-api-examples)
+
+## Company
+
+- [Cenevo website](https://www.cenevo.com/)
+- [Blog](https://www.cenevo.com/blog)
+- [GitHub (BioData)](https://github.com/BioData)

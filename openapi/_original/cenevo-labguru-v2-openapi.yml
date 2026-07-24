@@ -1,0 +1,766 @@
+---
+openapi: 3.0.1
+info:
+  title: Labguru API
+  description: |-
+    Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>
+            Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)
+            to be in direct contact with our API team and be informed about the latest updates.<br>
+            ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***
+  version: v2
+components:
+  schemas:
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found
+    createExperimentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - title
+          - project_id
+          - sections
+          properties:
+            title:
+              type: string
+              description: The title of the experiment.
+            project_id:
+              type: integer
+              description: The ID of the project that will contain the experiment
+            sections:
+              type: array
+              description: A list of sections to be added, each with its own set of
+                elements
+              items:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: The title of the section.
+                    example: My Custom Section
+                  elements:
+                    type: array
+                    description: An array of elements within the section, each containing
+                      type-specific data.
+                    items:
+                      type: object
+                      properties:
+                        element_type:
+                          type: string
+                          description: |
+                            The type of element. Valid element types include:
+                            - samples
+                            - equipment
+                            - code
+                            - compound
+                            - reaction
+                            - text
+                            - steps
+                            - excel
+                            - plate
+                          example: text
+                        data:
+                          type: string
+                          description: The content or data of the element.
+                          example: This is a sample text data
+                required:
+                - title
+    CreateExperimentExistingFolder:
+      allOf:
+      - "$ref": "#/components/schemas/createExperimentBaseRequest"
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_id:
+                type: integer
+                description: |-
+                  The ID of the existing milestone (folder) that will contain the experiment.
+                                              Required if milestone name is not provided.
+            required:
+            - milestone_id
+    CreateExperimentNewFolder:
+      allOf:
+      - "$ref": "#/components/schemas/createExperimentBaseRequest"
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_name:
+                type: string
+                description: |-
+                  The name of a new milestone (folder) to be created for the experiment.
+                                          Required if milestone_id is not provided.
+            required:
+            - milestone_name
+paths:
+  "/api/v2/instruments":
+    get:
+      summary: List all equipment in your account
+      tags:
+      - Equipment
+      description: 'List all equipment.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: |-
+          Specifies the page number to retrieve.
+                 Defaults to 1 if not provided.
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: |-
+          Defines the number of items to be returned per page.
+                 If not specified, a default value defined by the system will be used.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+  "/api/v2/experiments/copy_section":
+    post:
+      summary: Copy section to an experiment
+      tags:
+      - Experiments
+      description: |
+        This endpoint copies a section to an experiment.
+
+        Sections can be copied only from experiments or protocols.
+      parameters: []
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Successfully copied the sections.
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+                    description: A list of IDs representing the section IDs of the
+                      newly copied sections within the target experiment
+                    example:
+                    - 1683
+                    - 1684
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Unauthorized"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Sections can be copied only from experiments or protocols
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  type: object
+                  required:
+                  - item_id
+                  - section_id
+                  properties:
+                    item_id:
+                      type: integer
+                      description: The ID of the experiment where the section will
+                        be copied to
+                    section_id:
+                      type: array
+                      items:
+                        type: integer
+                      description: A list of section IDs from the source entity that
+                        are to be copied
+                      example:
+                      - 1671
+                      - 1676
+        required: true
+  "/api/v2/experiments":
+    post:
+      summary: Create a new custom experiment
+      tags:
+      - Experiments
+      description: |
+        This endpoint creates a new experiment within a specified project,
+        including dynamically adding sections and elements to the experiment.
+
+        You can specify an existing folder by its ID or create a new one by providing a folder name.
+
+        **Note:**
+        - Use `milestone_id` to place the experiment in an existing folder.
+
+        - Provide `milestone_name` to create a new folder for this experiment.
+
+        Ensure only one of these options is used per request.
+      parameters: []
+      responses:
+        '201':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed: Title cannot be blank'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Unauthorized"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - "$ref": "#/components/schemas/CreateExperimentExistingFolder"
+              - "$ref": "#/components/schemas/CreateExperimentNewFolder"
+        required: true
+    get:
+      summary: List all experiments in your account
+      tags:
+      - Experiments
+      description: 'List all experiments.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: |-
+          Specifies the page number to retrieve.
+                  Defaults to 1 if not provided.
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: |-
+          Defines the number of items to be returned per page.
+                          If not specified, a default value defined by the system will be used.
+        schema:
+          type: integer
+      - name: to_sign
+        in: query
+        description: |-
+          Retrieve experiments that require the user's signature.
+                          Filters items to only those where the user is expected to sign and that are currently pending a signature.
+        schema:
+          type: boolean
+      - name: to_witness
+        in: query
+        description: |-
+          Retrieve experiments that are waiting to be witnessed.
+                          Filters items to only those with a pending witness signature for the current user.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: You are not authorized to perform this action.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+  "/api/v2/reports/copy_section":
+    post:
+      summary: Copy section to report
+      tags:
+      - Reports
+      description: |
+        This endpoint copies a section to a report.
+
+        Sections can be copied only from experiments or protocols.
+      parameters: []
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Successfully copied the sections.
+                properties:
+                  ids:
+                    type: array
+                    items:
+                      type: integer
+                    description: A list of IDs representing the section IDs of the
+                      newly copied sections within the target Report
+                    example:
+                    - 1683
+                    - 1684
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Unauthorized"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/NotFound"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Sections can be copied only from experiments or protocols
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                item:
+                  type: object
+                  required:
+                  - item_id
+                  - section_id
+                  properties:
+                    item_id:
+                      type: integer
+                      description: The ID of the report where the section will be
+                        copied to
+                    section_id:
+                      type: array
+                      items:
+                        type: integer
+                      description: A list of section IDs from the source entity that
+                        are to be copied
+                      example:
+                      - 1671
+                      - 1676
+        required: true
+  "/api/v2/rodent_cages":
+    get:
+      summary: List all rodent cages in your account
+      tags:
+      - Rodent cages
+      description: 'List all rodent cages.
+
+        '
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: |-
+          Specifies the page number to retrieve.
+                 Defaults to 1 if not provided.
+        schema:
+          type: integer
+      - name: page_size
+        in: query
+        description: |-
+          Defines the number of items to be returned per page.
+                           If not specified, a default value defined by the system will be used.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Unauthorized"
+  "/api/v2/compound_parent_structures":
+    get:
+      summary: List all compound parent structures
+      tags:
+      - Compound Parent Structures
+      description: Returns a list of all compound parent structures.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: success
+        '401':
+          description: unauthorized
+        '403':
+          description: forbidden
+        '404':
+          description: not found
+  "/api/v2/compound_parent_structures/{id}":
+    get:
+      summary: Get a compound parent structure by ID
+      tags:
+      - Compound Parent Structures
+      description: Returns a single compound parent structure by its ID.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '401':
+          description: unauthorized
+        '403':
+          description: forbidden
+        '404':
+          description: not found
+    "/api/v2/compound_parent_structures/{id}":
+    put:
+      summary: Update a compound parent structure by ID
+      tags:
+      - Compound Parent Structures
+      description: Updates a compound parent structure with the specified ID.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  example: YOUR TOKEN IS HERE
+                parent_structure:
+                  type: object
+                  properties:
+                    owner_id:
+                      type: string
+                      description: The ID of the owner
+                      example: '2'
+                    name:
+                      type: string
+                      description: The name of the parent structure
+                      example: Updated Parent Structure Name
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    example: fa0708b0-4dad-4b44-97bc-9284492614d6
+                  id:
+                    type: integer
+                    example: 1
+                  cd_id:
+                    type: integer
+                    example: 1
+                  member_id:
+                    type: integer
+                    example: 7
+                  owner_id:
+                    type: integer
+                    example: 7
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: '2025-03-16T16:25:17.000+02:00'
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: '2024-11-13T11:13:35.000+02:00'
+                  member:
+                    type: string
+                    nullable: true
+                  description:
+                    type: string
+                    nullable: true
+                  auto_name:
+                    type: string
+                    example: CP-24.0001
+                  cas:
+                    type: string
+                    nullable: true
+                  formula:
+                    type: string
+                    nullable: true
+                  molar_mass:
+                    type: number
+                    nullable: true
+                  density:
+                    type: number
+                    nullable: true
+                  boiling_point:
+                    type: number
+                    nullable: true
+                  melting_point:
+                    type: number
+                    nullable: true
+                  hazards:
+                    type: string
+                    nullable: true
+                  purchasable:
+                    type: boolean
+                    nullable: true
+                  composition:
+                    type: string
+                    example: C (77.21%), Cl (22.79%)
+                  smiles:
+                    type: string
+                    example: C1CCCC2(C1)[ClH]CCCC2
+                  canonical_smiles:
+                    type: string
+                    example: C1CCC2(CC1)CCCC[ClH]2
+                  inchi:
+                    type: string
+                    example: InChI=1S/C10H19Cl/c1-2-6-10(7-3-1)8-4-5-9-11-10/h11H,1-9H2
+                  hba:
+                    type: integer
+                    example: 19
+                  hbd:
+                    type: integer
+                    example: 1
+                  num_hvy_atoms:
+                    type: integer
+                    nullable: true
+                  num_rotors:
+                    type: integer
+                    example: 0
+                  polar_surface_area:
+                    type: string
+                    example: '0.0'
+                  logp:
+                    type: string
+                    example: '3.0'
+                  num_aromatic:
+                    type: integer
+                    example: 0
+                  num_aliphatic:
+                    type: integer
+                    example: 2
+                  chemical_formula:
+                    type: string
+                    example: C10H19Cl
+                  molecular_weight:
+                    type: string
+                    example: '174.0'
+                  sp3:
+                    type: string
+                    example: '1.0'
+                  l5:
+                    type: boolean
+                    example: false
+                  manufacturer:
+                    type: string
+                    nullable: true
+                  web_page:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    example: "/user_assets/61/depictions/1/original/depiction.png"
+                  name:
+                    type: string
+                    example: Compound Nov 13 2024, 11:13:35
+                  url:
+                    type: string
+                    example: "/biocollections/compounds/1"
+                  owner:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 7
+                      name:
+                        type: string
+                        example: Roee Biran
+                      url:
+                        type: string
+                        example: "/admin/members/7"
+                  location:
+                    type: string
+                    nullable: true
+                  parents:
+                    type: string
+                    nullable: true
+                  catalog_number:
+                    type: string
+                    nullable: true
+                  produce_by:
+                    type: string
+                    nullable: true
+                  price_with_currency:
+                    type: string
+                    nullable: true
+                  units:
+                    type: string
+                    nullable: true
+                  company_id:
+                    type: integer
+                    nullable: true
+                  unit_size_to_display:
+                    type: string
+                    nullable: true
+        '401':
+          description: unauthorized
+        '403':
+          description: forbidden
+        '404':
+          description: not found
+        '422':
+          description: unprocessable entity
+  "/api/v2/compound_parent_structures/{id}/compounds":
+    get:
+      summary: List compounds for a compound parent structure
+      tags:
+      - Compound Parent Structures
+      description: Returns a list of compounds associated with the specified compound
+        parent structure.
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: success
+        '401':
+          description: unauthorized
+        '403':
+          description: forbidden
+        '404':
+          description: not found
+  "/api/v2/projects/{id}":
+    delete:
+      summary: Delete project
+      tags:
+      - Projects
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: project id
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: no content
+        '404':
+          description: not found

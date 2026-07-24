@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: generated
+skills:
+- file: cenevo-authenticate-and-list-inventory.md
+  name: Authenticate and browse Labguru inventory
+  api: openapi/cenevo-labguru-v1-openapi.yml
+  operations:
+  - POST /api/v1/sessions
+  - GET /api/v1/antibodies
+  - GET /api/v1/cell_lines
+  - GET /api/v1/plasmids
+  - GET /api/v1/boxes
+  - GET /api/v1/stocks
+- file: cenevo-create-experiment.md
+  name: Create a project experiment in Labguru
+  api: openapi/cenevo-labguru-v1-openapi.yml
+  operations:
+  - POST /api/v1/sessions
+  - GET /api/v1/projects
+  - POST /api/v1/experiments
+  - POST /api/v1/elements
+  - POST /api/v1/attachments
+- file: cenevo-subscribe-webhook.md
+  name: Subscribe to Labguru webhooks
+  api: openapi/cenevo-labguru-v1-openapi.yml
+  operations:
+  - POST /api/v1/sessions
+  - GET /api/v1/webhooks/list
+  - POST /api/v1/webhooks
+  - GET /api/v1/webhooks
+  - PUT /api/v1/webhooks/{id}
+  - DELETE /api/v1/webhooks/{id}

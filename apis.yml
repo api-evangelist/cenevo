@@ -1,22 +1,861 @@
 aid: cenevo
 name: Cenevo
-description: Cenevo is a company surfaced as a portfolio company of battery-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Cenevo is an AI-enabled lab automation company (the maker of Labguru and
+  Mosaic, formerly BioData) that helps scientists, research institutions, and
+  biopharmas connect and automate the laboratory. Its platform combines an
+  electronic lab notebook / LIMS (Labguru), cloud-based sample management
+  (Mosaic), AI agents, and 150+ instrument and system integrations to centralize
+  lab data, automate repetitive workflows, and bring governed, auditable agentic
+  intelligence into scientific research. Cenevo exposes the Labguru API, a JSON /
+  REST API providing create, read, update, and delete access to almost all data
+  in Labguru across antibodies, cell lines, compounds, experiments, inventory,
+  storage, equipment, and more, with token-based authentication and webhook
+  subscriptions. It is used by 950+ customers including 8 of the top 10
+  biopharmas.
 url: https://raw.githubusercontent.com/api-evangelist/cenevo/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - battery-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: has-public-openapi
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.cenevo.com/hubfs/favicon-cenevo-bg-white.svg
 tags:
 - Company
-apis: []
+- Lab Automation
+- Laboratory Informatics
+- Electronic Lab Notebook
+- LIMS
+- Sample Management
+- Life Sciences
+- Biotechnology
+- Scientific Research
+- AI Agents
+- Data Management
+apis:
+- aid: cenevo:cenevo-antibodies-api
+  name: Cenevo Antibodies API
+  description: The Antibodies API from Cenevo — 2 operation(s) for antibodies.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Antibodies
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-antibodies-api-openapi.yml
+- aid: cenevo:cenevo-attachments-api
+  name: Cenevo Attachments API
+  description: The Attachments API from Cenevo — 2 operation(s) for attachments.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Attachments
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-attachments-api-openapi.yml
+- aid: cenevo:cenevo-authentication-api
+  name: Cenevo Authentication API
+  description: The Authentication API from Cenevo — 1 operation(s) for authentication.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-authentication-api-openapi.yml
+- aid: cenevo:cenevo-bacteria-api
+  name: Cenevo Bacteria API
+  description: The Bacteria API from Cenevo — 2 operation(s) for bacteria.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Bacteria
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-bacteria-api-openapi.yml
+- aid: cenevo:cenevo-boxes-api
+  name: Cenevo Boxes API
+  description: The Boxes API from Cenevo — 2 operation(s) for boxes.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Boxes
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-boxes-api-openapi.yml
+- aid: cenevo:cenevo-cell-lines-api
+  name: Cenevo Cell lines API
+  description: The Cell lines API from Cenevo — 2 operation(s) for cell lines.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Cell lines
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-cell-lines-api-openapi.yml
+- aid: cenevo:cenevo-comments-api
+  name: Cenevo Comments API
+  description: The Comments API from Cenevo — 2 operation(s) for comments.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-comments-api-openapi.yml
+- aid: cenevo:cenevo-companies-api
+  name: Cenevo Companies API
+  description: The Companies API from Cenevo — 2 operation(s) for companies.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Companies
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-companies-api-openapi.yml
+- aid: cenevo:cenevo-compound-parent-structures-api
+  name: Cenevo Compound Parent Structures API
+  description: >-
+    The Compound Parent Structures API from Cenevo — 3 operation(s) for compound parent structures.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Compound Parent Structures
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-compound-parent-structures-api-openapi.yml
+- aid: cenevo:cenevo-compounds-api
+  name: Cenevo Compounds API
+  description: The Compounds API from Cenevo — 2 operation(s) for compounds.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Compounds
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-compounds-api-openapi.yml
+- aid: cenevo:cenevo-consumables-api
+  name: Cenevo Consumables API
+  description: The Consumables API from Cenevo — 2 operation(s) for consumables.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Consumables
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-consumables-api-openapi.yml
+- aid: cenevo:cenevo-datasets-api
+  name: Cenevo Datasets API
+  description: The Datasets API from Cenevo — 2 operation(s) for datasets.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-datasets-api-openapi.yml
+- aid: cenevo:cenevo-documents-api
+  name: Cenevo Documents API
+  description: The Documents API from Cenevo — 2 operation(s) for documents.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-documents-api-openapi.yml
+- aid: cenevo:cenevo-elements-api
+  name: Cenevo Elements API
+  description: The Elements API from Cenevo — 3 operation(s) for elements.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Elements
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-elements-api-openapi.yml
+- aid: cenevo:cenevo-equipment-api
+  name: Cenevo Equipment API
+  description: The Equipment API from Cenevo — 3 operation(s) for equipment.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Equipment
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-equipment-api-openapi.yml
+- aid: cenevo:cenevo-events-api
+  name: Cenevo Events API
+  description: The Events API from Cenevo — 2 operation(s) for events.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-events-api-openapi.yml
+- aid: cenevo:cenevo-experiments-api
+  name: Cenevo Experiments API
+  description: The Experiments API from Cenevo — 6 operation(s) for experiments.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Experiments
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-experiments-api-openapi.yml
+- aid: cenevo:cenevo-filters-api
+  name: Cenevo Filters API
+  description: The Filters API from Cenevo — 3 operation(s) for filters.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Filters
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-filters-api-openapi.yml
+- aid: cenevo:cenevo-flags-api
+  name: Cenevo Flags API
+  description: The Flags API from Cenevo — 2 operation(s) for flags.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Flags
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-flags-api-openapi.yml
+- aid: cenevo:cenevo-flies-api
+  name: Cenevo Flies API
+  description: The Flies API from Cenevo — 2 operation(s) for flies.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Flies
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-flies-api-openapi.yml
+- aid: cenevo:cenevo-folders-api
+  name: Cenevo Folders API
+  description: The Folders API from Cenevo — 2 operation(s) for folders.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-folders-api-openapi.yml
+- aid: cenevo:cenevo-forms-api
+  name: Cenevo Forms API
+  description: The Forms API from Cenevo — 1 operation(s) for forms.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-forms-api-openapi.yml
+- aid: cenevo:cenevo-fungi-api
+  name: Cenevo Fungi API
+  description: The Fungi API from Cenevo — 2 operation(s) for fungi.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Fungi
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-fungi-api-openapi.yml
+- aid: cenevo:cenevo-generic-items-api
+  name: Cenevo Generic Items API
+  description: The Generic Items API from Cenevo — 2 operation(s) for generic items.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Generic Items
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-generic-items-api-openapi.yml
+- aid: cenevo:cenevo-genes-api
+  name: Cenevo Genes API
+  description: The Genes API from Cenevo — 2 operation(s) for genes.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Genes
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-genes-api-openapi.yml
+- aid: cenevo:cenevo-instrument-usages-api
+  name: Cenevo Instrument usages API
+  description: The Instrument usages API from Cenevo — 1 operation(s) for instrument usages.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Instrument usages
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-instrument-usages-api-openapi.yml
+- aid: cenevo:cenevo-links-api
+  name: Cenevo Links API
+  description: The Links API from Cenevo — 2 operation(s) for links.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Links
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-links-api-openapi.yml
+- aid: cenevo:cenevo-lipids-api
+  name: Cenevo Lipids API
+  description: The Lipids API from Cenevo — 2 operation(s) for lipids.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Lipids
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-lipids-api-openapi.yml
+- aid: cenevo:cenevo-maintenance-event-api
+  name: Cenevo Maintenance event API
+  description: The Maintenance event API from Cenevo — 2 operation(s) for maintenance event.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Maintenance event
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-maintenance-event-api-openapi.yml
+- aid: cenevo:cenevo-maintenance-template-api
+  name: Cenevo Maintenance template API
+  description: The Maintenance template API from Cenevo — 2 operation(s) for maintenance template.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Maintenance template
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-maintenance-template-api-openapi.yml
+- aid: cenevo:cenevo-maintenance-types-api
+  name: Cenevo Maintenance types API
+  description: The Maintenance types API from Cenevo — 2 operation(s) for maintenance types.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Maintenance types
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-maintenance-types-api-openapi.yml
+- aid: cenevo:cenevo-maintenances-api
+  name: Cenevo Maintenances API
+  description: The Maintenances API from Cenevo — 2 operation(s) for maintenances.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Maintenances
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-maintenances-api-openapi.yml
+- aid: cenevo:cenevo-manifest-api
+  name: Cenevo Manifest API
+  description: The Manifest API from Cenevo — 2 operation(s) for manifest.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Manifest
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-manifest-api-openapi.yml
+- aid: cenevo:cenevo-measurements-api
+  name: Cenevo Measurements API
+  description: The Measurements API from Cenevo — 2 operation(s) for measurements.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Measurements
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-measurements-api-openapi.yml
+- aid: cenevo:cenevo-members-api
+  name: Cenevo Members API
+  description: The Members API from Cenevo — 1 operation(s) for members.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-members-api-openapi.yml
+- aid: cenevo:cenevo-notes-api
+  name: Cenevo Notes API
+  description: The Notes API from Cenevo — 2 operation(s) for notes.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-notes-api-openapi.yml
+- aid: cenevo:cenevo-papers-api
+  name: Cenevo Papers API
+  description: The Papers API from Cenevo — 2 operation(s) for papers.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Papers
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-papers-api-openapi.yml
+- aid: cenevo:cenevo-plants-api
+  name: Cenevo Plants API
+  description: The Plants API from Cenevo — 2 operation(s) for plants.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Plants
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-plants-api-openapi.yml
+- aid: cenevo:cenevo-plasmids-api
+  name: Cenevo Plasmids API
+  description: The Plasmids API from Cenevo — 2 operation(s) for plasmids.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Plasmids
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-plasmids-api-openapi.yml
+- aid: cenevo:cenevo-plates-api
+  name: Cenevo Plates API
+  description: The Plates API from Cenevo — 4 operation(s) for plates.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Plates
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-plates-api-openapi.yml
+- aid: cenevo:cenevo-primers-api
+  name: Cenevo Primers API
+  description: The Primers API from Cenevo — 2 operation(s) for primers.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Primers
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-primers-api-openapi.yml
+- aid: cenevo:cenevo-projects-api
+  name: Cenevo Projects API
+  description: The Projects API from Cenevo — 3 operation(s) for projects.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-projects-api-openapi.yml
+- aid: cenevo:cenevo-proteins-api
+  name: Cenevo Proteins API
+  description: The Proteins API from Cenevo — 2 operation(s) for proteins.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Proteins
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-proteins-api-openapi.yml
+- aid: cenevo:cenevo-protocols-api
+  name: Cenevo Protocols API
+  description: The Protocols API from Cenevo — 2 operation(s) for protocols.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Protocols
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-protocols-api-openapi.yml
+- aid: cenevo:cenevo-recipes-api
+  name: Cenevo Recipes API
+  description: The Recipes API from Cenevo — 1 operation(s) for recipes.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Recipes
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-recipes-api-openapi.yml
+- aid: cenevo:cenevo-reports-api
+  name: Cenevo Reports API
+  description: The Reports API from Cenevo — 5 operation(s) for reports.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-reports-api-openapi.yml
+- aid: cenevo:cenevo-request-templates-api
+  name: Cenevo Request templates API
+  description: The Request templates API from Cenevo — 2 operation(s) for request templates.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Request templates
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-request-templates-api-openapi.yml
+- aid: cenevo:cenevo-requests-api
+  name: Cenevo Requests API
+  description: The Requests API from Cenevo — 9 operation(s) for requests.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-requests-api-openapi.yml
+- aid: cenevo:cenevo-rodent-cages-api
+  name: Cenevo Rodent cages API
+  description: The Rodent cages API from Cenevo — 3 operation(s) for rodent cages.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Rodent cages
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-rodent-cages-api-openapi.yml
+- aid: cenevo:cenevo-rodent-specimens-api
+  name: Cenevo Rodent Specimens API
+  description: The Rodent Specimens API from Cenevo — 2 operation(s) for rodent specimens.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Rodent Specimens
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-rodent-specimens-api-openapi.yml
+- aid: cenevo:cenevo-rodent-strains-api
+  name: Cenevo Rodent Strains API
+  description: The Rodent Strains API from Cenevo — 2 operation(s) for rodent strains.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Rodent Strains
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-rodent-strains-api-openapi.yml
+- aid: cenevo:cenevo-sample-pooling-api
+  name: Cenevo Sample Pooling API
+  description: The Sample Pooling API from Cenevo — 1 operation(s) for sample pooling.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Sample Pooling
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-sample-pooling-api-openapi.yml
+- aid: cenevo:cenevo-samples-api
+  name: Cenevo Samples API
+  description: The Samples API from Cenevo — 1 operation(s) for samples.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Samples
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-samples-api-openapi.yml
+- aid: cenevo:cenevo-search-api
+  name: Cenevo Search API
+  description: The Search API from Cenevo — 1 operation(s) for search.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-search-api-openapi.yml
+- aid: cenevo:cenevo-sections-api
+  name: Cenevo Sections API
+  description: The Sections API from Cenevo — 3 operation(s) for sections.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Sections
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-sections-api-openapi.yml
+- aid: cenevo:cenevo-seeds-api
+  name: Cenevo Seeds API
+  description: The Seeds API from Cenevo — 2 operation(s) for seeds.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Seeds
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-seeds-api-openapi.yml
+- aid: cenevo:cenevo-sequences-api
+  name: Cenevo Sequences API
+  description: The Sequences API from Cenevo — 2 operation(s) for sequences.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Sequences
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-sequences-api-openapi.yml
+- aid: cenevo:cenevo-shopping-list-api
+  name: Cenevo Shopping list API
+  description: The Shopping list API from Cenevo — 6 operation(s) for shopping list.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Shopping list
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-shopping-list-api-openapi.yml
+- aid: cenevo:cenevo-signature-flows-api
+  name: Cenevo Signature flows API
+  description: The Signature flows API from Cenevo — 1 operation(s) for signature flows.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Signature flows
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-signature-flows-api-openapi.yml
+- aid: cenevo:cenevo-sops-api
+  name: Cenevo SOPs API
+  description: The SOPs API from Cenevo — 2 operation(s) for sops.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - SOPs
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-sops-api-openapi.yml
+- aid: cenevo:cenevo-stocks-api
+  name: Cenevo Stocks API
+  description: The Stocks API from Cenevo — 7 operation(s) for stocks.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Stocks
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-stocks-api-openapi.yml
+- aid: cenevo:cenevo-storages-api
+  name: Cenevo Storages API
+  description: The Storages API from Cenevo — 2 operation(s) for storages.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Storages
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-storages-api-openapi.yml
+- aid: cenevo:cenevo-submodules-api
+  name: Cenevo Submodules API
+  description: The Submodules API from Cenevo — 7 operation(s) for submodules.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Submodules
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-submodules-api-openapi.yml
+- aid: cenevo:cenevo-tags-api
+  name: Cenevo Tags API
+  description: The Tags API from Cenevo — 2 operation(s) for tags.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-tags-api-openapi.yml
+- aid: cenevo:cenevo-teams-api
+  name: Cenevo Teams API
+  description: The Teams API from Cenevo — 2 operation(s) for teams.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-teams-api-openapi.yml
+- aid: cenevo:cenevo-tissue-api
+  name: Cenevo Tissue API
+  description: The Tissue API from Cenevo — 2 operation(s) for tissue.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Tissue
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-tissue-api-openapi.yml
+- aid: cenevo:cenevo-units-api
+  name: Cenevo Units API
+  description: The Units API from Cenevo — 2 operation(s) for units.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Units
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-units-api-openapi.yml
+- aid: cenevo:cenevo-vectors-api
+  name: Cenevo Vectors API
+  description: The Vectors API from Cenevo — 2 operation(s) for vectors.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Vectors
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-vectors-api-openapi.yml
+- aid: cenevo:cenevo-viruses-api
+  name: Cenevo Viruses API
+  description: The Viruses API from Cenevo — 2 operation(s) for viruses.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Viruses
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-viruses-api-openapi.yml
+- aid: cenevo:cenevo-visualizations-api
+  name: Cenevo Visualizations API
+  description: The Visualizations API from Cenevo — 2 operation(s) for visualizations.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Visualizations
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-visualizations-api-openapi.yml
+- aid: cenevo:cenevo-webhooks-api
+  name: Cenevo Webhooks API
+  description: The Webhooks API from Cenevo — 3 operation(s) for webhooks.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-webhooks-api-openapi.yml
+- aid: cenevo:cenevo-workflows-api
+  name: Cenevo Workflows API
+  description: The Workflows API from Cenevo — 2 operation(s) for workflows.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-workflows-api-openapi.yml
+- aid: cenevo:cenevo-worms-api
+  name: Cenevo Worms API
+  description: The Worms API from Cenevo — 2 operation(s) for worms.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Worms
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-worms-api-openapi.yml
+- aid: cenevo:cenevo-yeasts-api
+  name: Cenevo Yeasts API
+  description: The Yeasts API from Cenevo — 2 operation(s) for yeasts.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Yeasts
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-yeasts-api-openapi.yml
+- aid: cenevo:cenevo-zebrafishes-api
+  name: Cenevo Zebrafishes API
+  description: The Zebrafishes API from Cenevo — 1 operation(s) for zebrafishes.
+  humanURL: https://my.labguru.com/api-docs/index.html
+  baseURL: https://my.labguru.com/api/v1
+  tags:
+  - Zebrafishes
+  properties:
+  - type: OpenAPI
+    url: openapi/cenevo-zebrafishes-api-openapi.yml
+common:
+- type: AgenticAccess
+  url: agentic-access/cenevo-agentic-access.yml
+- type: DomainSecurity
+  url: security/cenevo-domain-security.yml
+- type: Authentication
+  url: authentication/cenevo-authentication.yml
+- type: Packages
+  url: packages/cenevo-packages.yml
+- type: SDKs
+  url: packages/cenevo-packages.yml
+- type: ErrorCatalog
+  url: errors/cenevo-problem-types.yml
+- type: Conventions
+  url: conventions/cenevo-conventions.yml
+- type: DataModel
+  url: data-model/cenevo-data-model.yml
+- type: Lifecycle
+  url: lifecycle/cenevo-lifecycle.yml
+- type: Conformance
+  url: conformance/cenevo-conformance.yml
+- type: MCPServer
+  url: mcp/cenevo-mcp.yml
+- type: LLMsTxt
+  url: llms/cenevo-llms.txt
+- type: Webhooks
+  url: asyncapi/cenevo-labguru-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://help.labguru.com/en/
+- type: Documentation
+  url: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+- type: APIReference
+  url: https://my.labguru.com/api-docs/index.html
+- type: GettingStarted
+  url: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+- type: Support
+  url: https://www.cenevo.com/contact
+- type: Blog
+  url: https://www.cenevo.com/blog
+- type: GitHubOrganization
+  url: https://github.com/BioData
+- type: SignUp
+  url: https://my.labguru.com/users/sign_in
+- type: TermsOfService
+  url: https://www.cenevo.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.cenevo.com/privacy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

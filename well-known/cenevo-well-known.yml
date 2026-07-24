@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  Probed the /.well-known/ discovery surface on the company site (www.cenevo.com)
+  and the API host (my.labguru.com). No discovery documents were served (200);
+  the company site returns 404 for all probed paths and the API host returns 403.
+  Recorded for auditability — absence is valid data.
+hosts:
+- host: https://www.cenevo.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://my.labguru.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403

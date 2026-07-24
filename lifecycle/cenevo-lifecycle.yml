@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+source: https://help.labguru.com/en/articles/6149483-api-introduction-and-overview
+versioning:
+  scheme: uri-path
+  current: v1
+  versions: [v1, v2]
+  detail: >-
+    The Labguru API is versioned in the URI path (/api/v1, /api/v2). v1 is the
+    mature, broad surface (74+ resource families); v2 is a newer, narrower
+    surface (projects, experiments, reports, equipment, rodent cages, compound
+    parent structures). Both are served from https://my.labguru.com.
+  docs: https://my.labguru.com/api-docs/index.html
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No formal deprecation policy or RFC 8594 Sunset/Deprecation header support
+    was found in the docs; the provider states the API doc evolves continuously
+    based on user feedback.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+support:
+  slack: https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug
+  contact: https://www.cenevo.com/contact
+deprecated_operations: []

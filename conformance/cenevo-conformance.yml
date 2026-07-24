@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cenevo-labguru-v1-openapi.yml
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: v1 is OpenAPI 3.0.0, v2 is OpenAPI 3.0.1
+- id: rest-json
+  conforms: true
+  evidence: JSON/REST API with resource-oriented CRUD paths across 74+ families
+- id: oauth2
+  conforms: false
+  evidence: uses a session-token model, not OAuth2
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors are plain JSON messages, not application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no documented Sunset/Deprecation header support
+- id: webhooks
+  conforms: true
+  evidence: /api/v1/webhooks CRUD subscription surface with trigger_key events
+- id: pagination
+  conforms: true
+  evidence: page-number pagination via `page` + `meta` params on list endpoints
+- id: fhir
+  conforms: false
+- id: scim
+  conforms: false
