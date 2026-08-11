@@ -801,6 +801,8 @@ apis:
   - type: OpenAPI
     url: openapi/cenevo-zebrafishes-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/cenevo-labguru-v1-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/cenevo-agentic-access.yml
 - type: DomainSecurity
