@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Plasmids API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plasmids",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all plasmids in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/plasmids",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all plasmids.\n"
+        },
+        {
+          "info": {
+            "name": "Create a plasmid",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/plasmids",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a plasmid.\n"
+        },
+        {
+          "info": {
+            "name": "Get plasmid by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/plasmids/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the plasmid"
+              }
+            ]
+          },
+          "docs": "Get plasmid by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update a plasmid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/plasmids/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the plasmid"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update plasmid.\n"
+        },
+        {
+          "info": {
+            "name": "Delete plasmid",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/plasmids/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "plasmid id"
+              }
+            ]
+          },
+          "docs": "Delete plasmid"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

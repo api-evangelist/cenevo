@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Tissue API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tissue",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all tissues in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/tissues",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all tissues.\n"
+        },
+        {
+          "info": {
+            "name": "Create a tissue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/tissues",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a tissue.\n"
+        },
+        {
+          "info": {
+            "name": "Get tissue by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/tissues/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the tissue"
+              }
+            ]
+          },
+          "docs": "Get tissue by id.\n"
+        },
+        {
+          "info": {
+            "name": "Update a tissue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/tissues/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the tissue"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a tissue.\n"
+        },
+        {
+          "info": {
+            "name": "Delete tissue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/tissues/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "tissue id"
+              }
+            ]
+          },
+          "docs": "Delete tissue"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

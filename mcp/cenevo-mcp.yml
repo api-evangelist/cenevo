@@ -2,13 +2,11 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/cenevo-labguru-v1-openapi.yml
-note: >-
-  No official hosted/remote Labguru MCP server was found. This is a candidate
-  tool list derived from marquee Labguru API v1 operations (one tool per
-  operation) as a starting point for an MCP server. The full v1 spec exposes
-  330 operations across 74 resource families; the list below is a representative
-  subset of the highest-value read/write flows. Operations are identified by
-  HTTP method + path (the spec does not declare operationIds).
+note: No official hosted/remote Labguru MCP server was found. This is a candidate tool list derived from
+  marquee Labguru API v1 operations (one tool per operation) as a starting point for an MCP server. The
+  full v1 spec exposes 330 operations across 74 resource families; the list below is a representative
+  subset of the highest-value read/write flows. Operations are identified by HTTP method + path (the spec
+  does not declare operationIds).
 server:
   name: cenevo-labguru
   transport: http
@@ -65,3 +63,9 @@ tools:
 - name: create_webhook
   description: Create a webhook subscription for a trigger_key.
   source_operation: openapi/cenevo-labguru-v1-openapi.yml#POST /api/v1/webhooks
+deployment:
+  mode: none
+  verified: derived
+  tools: 17
+  checked: '2026-08-12'
+  source: catalog MCP census

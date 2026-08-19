@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Datasets API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all datasets in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/datasets",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all datasets in your account"
+        },
+        {
+          "info": {
+            "name": "Creates a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a dataset"
+        },
+        {
+          "info": {
+            "name": "Get dataset by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/datasets/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ]
+          },
+          "docs": "Get dataset by id"
+        },
+        {
+          "info": {
+            "name": "Delete dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/datasets/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "dataset id"
+              }
+            ]
+          },
+          "docs": "Delete dataset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

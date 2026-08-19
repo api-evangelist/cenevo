@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Signature flows API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signature flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete signature flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/signature_flows/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "signature flow id"
+              }
+            ]
+          },
+          "docs": "Delete signature flow"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

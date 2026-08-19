@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Rodent Specimens API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rodent Specimens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Rodent Specimens in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_specimens",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all Rodent Specimens in your account"
+        },
+        {
+          "info": {
+            "name": "Creates a rodent specimen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/rodent_specimens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a rodent specimen"
+        },
+        {
+          "info": {
+            "name": "Get rodent specimen by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_specimens/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent specimen id"
+              }
+            ]
+          },
+          "docs": "Get rodent specimen by id"
+        },
+        {
+          "info": {
+            "name": "Update rodent specimen attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/rodent_specimens/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent specimen id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update rodent specimen attributes"
+        },
+        {
+          "info": {
+            "name": "Delete rodent specimen",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/rodent_specimens/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent specimen id"
+              }
+            ]
+          },
+          "docs": "Delete rodent specimen"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

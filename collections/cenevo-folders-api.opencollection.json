@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Folders API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all folders in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/milestones",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "period",
+                "value": "current_milestones",
+                "type": "query",
+                "description": "Filters milestones based on their status:\n- `last_milestones`: Retrieves completed milestones.\n- `current_milestones`: Retrieves milestones currently in progress.\n- `future_milestones`: Retrieves planned milestones."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the project for which milestones are being requested."
+              }
+            ]
+          },
+          "docs": "List all folders in your account"
+        },
+        {
+          "info": {
+            "name": "Add a folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/milestones",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a folder"
+        },
+        {
+          "info": {
+            "name": "Get folder by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/milestones/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the folder"
+              }
+            ]
+          },
+          "docs": "Get folder by id"
+        },
+        {
+          "info": {
+            "name": "Update folder attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/milestones/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the folder"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update folder attributes"
+        },
+        {
+          "info": {
+            "name": "Delete folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/milestones/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "folder id"
+              }
+            ]
+          },
+          "docs": "Delete folder"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

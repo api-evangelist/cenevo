@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Primers API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Primers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all primers in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/primers",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all primers.\n"
+        },
+        {
+          "info": {
+            "name": "Creates a primer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/primers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a primer.\n"
+        },
+        {
+          "info": {
+            "name": "Get primer by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/primers/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the primer"
+              }
+            ]
+          },
+          "docs": "Get primer by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update primer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/primers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the primer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a primer.\n"
+        },
+        {
+          "info": {
+            "name": "Delete primer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/primers/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "primer id"
+              }
+            ]
+          },
+          "docs": "Delete primer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

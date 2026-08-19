@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Generic Items API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generic Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all generic items in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/biocollections/:generic_collection_name",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "generic_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "generic collection name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all generic items in your account"
+        },
+        {
+          "info": {
+            "name": "Add a generic item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/biocollections/:generic_collection_name",
+            "params": [
+              {
+                "name": "generic_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "generic collection name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a generic item"
+        },
+        {
+          "info": {
+            "name": "Get generic item by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/biocollections/:generic_collection_name/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "generic_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "generic collection name"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "generic item id"
+              }
+            ]
+          },
+          "docs": "Get generic item by id"
+        },
+        {
+          "info": {
+            "name": "Update generic item attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/biocollections/:generic_collection_name/:id",
+            "params": [
+              {
+                "name": "generic_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "generic collection name"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "generic item id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update generic item attributes"
+        },
+        {
+          "info": {
+            "name": "Delete generic item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/biocollections/:generic_collection_name/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "generic_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "generic collection name"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "generic item id"
+              }
+            ]
+          },
+          "docs": "Delete generic item"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Samples API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Samples",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/samples/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "sample id"
+              }
+            ]
+          },
+          "docs": "Delete sample"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

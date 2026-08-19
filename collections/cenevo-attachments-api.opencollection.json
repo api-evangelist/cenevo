@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Attachments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attachments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload file attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/attachments",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "This endpoint is used for uploading file attachments to various entities.\n\n\nFor a detailed guide on uploading files to sections within ELN & Knowledgebase entities, including a step-by-step process and practical examples in **Python**, refer to our article on: [Uploading Files to Experiments via API](https://help.labguru.com/en/articles/9636468-uploading-files-to-experiments-via-api)\n\n"
+        },
+        {
+          "info": {
+            "name": "Get an attachment by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/attachments/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the attachment "
+              }
+            ]
+          },
+          "docs": "Get an attachment by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Link an attachment to an attachment element",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/attachments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the attachment to be linked with the attachment element"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint links an existing attachment with a specified attachment element by their IDs.\n\n**Important Note:**\n\nAn attachment can only be linked with an attachment element on the same page (such as an experiment, protocol, report, or document) where it was initially uploaded.\n\nBefore linking the attachment, ensure that the target section and attachment element are already in place; if not, create them beforehand.\n\nTo do this, use the \"Add a section\" and \"Add element\" requests. For further ins"
+        },
+        {
+          "info": {
+            "name": "Delete attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/attachments/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "attachment id"
+              }
+            ]
+          },
+          "docs": "Delete attachment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

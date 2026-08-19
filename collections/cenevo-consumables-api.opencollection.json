@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Consumables API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all consumables in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/materials",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all consumables in your account"
+        },
+        {
+          "info": {
+            "name": "Add consumable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/materials",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add consumable"
+        },
+        {
+          "info": {
+            "name": "Get consumable by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/materials/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "consumable id"
+              }
+            ]
+          },
+          "docs": "Get consumable by id"
+        },
+        {
+          "info": {
+            "name": "Update material attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/materials/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "consumable id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update material attributes"
+        },
+        {
+          "info": {
+            "name": "Delete material",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/materials/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "material id"
+              }
+            ]
+          },
+          "docs": "Delete material"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

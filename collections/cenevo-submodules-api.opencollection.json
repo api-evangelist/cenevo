@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Submodules API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Submodules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add parent to an item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/:biocollection_name",
+            "params": [
+              {
+                "name": "biocollection_name",
+                "value": "",
+                "type": "path",
+                "description": "collection name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add parent to an item"
+        },
+        {
+          "info": {
+            "name": "Update item with a new parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/:biocollection_name/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "item id"
+              },
+              {
+                "name": "biocollection_name",
+                "value": "",
+                "type": "path",
+                "description": "collection name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update item with a new parent"
+        },
+        {
+          "info": {
+            "name": "Get parents of an inventory item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/:biocollection_name/:id/get_parents",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "item id"
+              },
+              {
+                "name": "biocollection_name",
+                "value": "",
+                "type": "path",
+                "description": "collection name"
+              }
+            ]
+          },
+          "docs": "Get parents of an inventory item"
+        },
+        {
+          "info": {
+            "name": "Get the derived collections of a collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/:parent_collection_name/get_derived_collections",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "parent collection name"
+              }
+            ]
+          },
+          "docs": "Get the derived collections of a collection"
+        },
+        {
+          "info": {
+            "name": "Get the derived collections of a generic collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/biocollections/:parent_collection_name/get_derived_collections",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "parent collection name"
+              }
+            ]
+          },
+          "docs": "Get the derived collections of a generic collection"
+        },
+        {
+          "info": {
+            "name": "Get the derived items of a collection item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/:parent_collection_name/:id/get_derived_items",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the parent collection item"
+              },
+              {
+                "name": "parent_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "parent collection name"
+              },
+              {
+                "name": "derived_collection_name",
+                "value": "plasmids",
+                "type": "query"
+              },
+              {
+                "name": "derived_collection_id",
+                "value": "",
+                "type": "query",
+                "description": "id of the derived collection - can be used instead of derived_collection_name"
+              }
+            ]
+          },
+          "docs": "Get the derived items of a collection item"
+        },
+        {
+          "info": {
+            "name": "Get the derived items of a generic collection item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/biocollections/:parent_collection_name/:id/get_derived_items",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the parent generic collection item"
+              },
+              {
+                "name": "parent_collection_name",
+                "value": "",
+                "type": "path",
+                "description": "parent generic collection name"
+              },
+              {
+                "name": "derived_collection_name",
+                "value": "plasmids",
+                "type": "query"
+              },
+              {
+                "name": "derived_collection_id",
+                "value": "",
+                "type": "query",
+                "description": "id of a derived generic collection - can be used instead of derived_collection_name"
+              }
+            ]
+          },
+          "docs": "Get the derived items of a generic collection item"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

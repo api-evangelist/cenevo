@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Maintenances API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all maintenances in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/maintenances",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all maintenances in your account"
+        },
+        {
+          "info": {
+            "name": "Add maintenance to equipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/maintenances",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add maintenance to equipment"
+        },
+        {
+          "info": {
+            "name": "Get maintenances by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/maintenances/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance id"
+              }
+            ]
+          },
+          "docs": "Get maintenances by id"
+        },
+        {
+          "info": {
+            "name": "Update maintenance of equipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/maintenances/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update maintenance of equipment"
+        },
+        {
+          "info": {
+            "name": "Delete maintenance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/maintenances/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance id"
+              }
+            ]
+          },
+          "docs": "Delete maintenance"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,164 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Rodent cages API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rodent cages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all rodent cages in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_cages",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all rodent cages.\n\n**Note:** An improved version of this endpoint is available in API v2.\nPlease visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Rodent%20cages/get_api_v2_rodent_cages).\n"
+        },
+        {
+          "info": {
+            "name": "Creates a rodent cage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/rodent_cages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a rodent cage.\n"
+        },
+        {
+          "info": {
+            "name": "Get rodent cage by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_cages/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the rodent cage"
+              }
+            ]
+          },
+          "docs": "Get a rodent cage by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update rodent cage attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/rodent_cages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the rodent cage"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a rodent cage.\n"
+        },
+        {
+          "info": {
+            "name": "Delete rodent cage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/rodent_cages/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent cage id"
+              }
+            ]
+          },
+          "docs": "Delete rodent cage"
+        },
+        {
+          "info": {
+            "name": "List all rodent cages in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/rodent_cages",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the page number to retrieve.\n       Defaults to 1 if not provided."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Defines the number of items to be returned per page.\n                 If not specified, a default value defined by the system will be used."
+              }
+            ]
+          },
+          "docs": "List all rodent cages.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

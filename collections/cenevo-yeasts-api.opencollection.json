@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Yeasts API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Yeasts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all yeasts in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/yeasts",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all yeasts.\n"
+        },
+        {
+          "info": {
+            "name": "Create a yeast",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/yeasts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a yeast.\n"
+        },
+        {
+          "info": {
+            "name": "Get yeast by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/yeasts/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the yeast"
+              }
+            ]
+          },
+          "docs": "Get a yeast by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update a yeast",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/yeasts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the yeast"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a yeast.\n"
+        },
+        {
+          "info": {
+            "name": "Delete yeast",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/yeasts/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "yeast id"
+              }
+            ]
+          },
+          "docs": "Delete yeast"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

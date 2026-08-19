@@ -1,0 +1,297 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Requests API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all requests in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/requests",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all requests in your account.\n"
+        },
+        {
+          "info": {
+            "name": "Create a request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new request based on a specific request template.\n\nThe request will be opened in 'Draft' status.\n"
+        },
+        {
+          "info": {
+            "name": "Get request by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/requests/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ]
+          },
+          "docs": "Get a request by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/requests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a request by its ID.\n"
+        },
+        {
+          "info": {
+            "name": "Delete request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/requests/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "request id"
+              }
+            ]
+          },
+          "docs": "Delete request"
+        },
+        {
+          "info": {
+            "name": "Submit a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/submit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This end point allows authorized users to submit a request for approval from the requester’s team leader.\n\nDraft >> Pending\n\n- Authorized users: admins and request owner.\n"
+        },
+        {
+          "info": {
+            "name": "Approve a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/approve",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This end point allows authorized users to approve a request which was assigned to them,\nthis will automatically move request to be reviewed by the performing team leader.\n\nPending >> Approved\n\n- Authorized users: admins and assignee at the time.\n"
+        },
+        {
+          "info": {
+            "name": "Accept a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/accept",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This end point allows authorized users to accept a request which was assigned to them, and will enable the assignment of a performer from the performing team.\n\nApproved >> Awaiting Assignment\n\n- Authorized users: admins and assignee at the time.\n"
+        },
+        {
+          "info": {
+            "name": "Select performer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/select_performer",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This end point allows authorized users to assign a performer from the performing team.\n\nAwaiting Assignment >> Assigned\n\n- Authorized users: admins and team leader of the performing team.\n"
+        },
+        {
+          "info": {
+            "name": "Start a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/start",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": " This end point allows authorized users to update request status to 'In Progress'.\n\n Assigned >> In Progress\n\n- Authorized users: admins and the performer.\n"
+        },
+        {
+          "info": {
+            "name": "Complete a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/done",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ]
+          },
+          "docs": "  This end point allows authorized users to update request status to 'Completed'\n\n  In Progress >> Completed\n\n- Authorized users: admins and the performer.\n"
+        },
+        {
+          "info": {
+            "name": "Reject a request ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/requests/:id/reject",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request ID"
+              }
+            ]
+          },
+          "docs": "This end point allows authorized users to reject a request\n\nRequest can be rejected from the following statuses:\n  - Pending\n  - Approved\n  - Assigned\n\n\nAuthorized users: admins and assignee at the time.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

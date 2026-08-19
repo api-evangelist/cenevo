@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Sample Pooling API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sample Pooling",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a pool event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/pool_events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint facilitates the creation of pool events and allows for the aggregation of stocks based on selected logic.\n\nIt supports three methods for pooling:\n1. **Fixed Amount Pooling**: Using the `createFixedSamplePoolingEvent` schema, which draws a fixed amount from all listed stocks.\n\n2. **Custom Amount Pooling**: Using the `createCustomSamplePoolingEvent` schema, which allows for drawing custom amounts from each stock.\n3. **Total Consumption Pooling**: Using the `createCustomSamplePoolingE"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Cell lines API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cell lines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all cell lines in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/cell_lines",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all cell lines.\n"
+        },
+        {
+          "info": {
+            "name": "Create a cell line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/cell_lines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a cell line.\n"
+        },
+        {
+          "info": {
+            "name": "Get a cell line by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/cell_lines/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cell line"
+              }
+            ]
+          },
+          "docs": "Get a cell line by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update a cell line ",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/cell_lines/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Cell line"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a cell line.\n"
+        },
+        {
+          "info": {
+            "name": "Delete cell line",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/cell_lines/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "cell line id"
+              }
+            ]
+          },
+          "docs": "Delete cell line"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

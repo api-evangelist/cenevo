@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Compound Parent Structures API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compound Parent Structures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all compound parent structures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/compound_parent_structures",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a list of all compound parent structures."
+        },
+        {
+          "info": {
+            "name": "Get a compound parent structure by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/compound_parent_structures/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a single compound parent structure by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a compound parent structure by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v2/compound_parent_structures/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a compound parent structure with the specified ID."
+        },
+        {
+          "info": {
+            "name": "List compounds for a compound parent structure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/compound_parent_structures/:id/compounds",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of compounds associated with the specified compound parent structure."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

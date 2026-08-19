@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Rodent Strains API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rodent Strains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all rodent strains in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_strains",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all rodent strains in your account"
+        },
+        {
+          "info": {
+            "name": "Creates a rodent strain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/rodent_strains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a rodent strain"
+        },
+        {
+          "info": {
+            "name": "Get rodent strain by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/rodent_strains/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent strain id"
+              }
+            ]
+          },
+          "docs": "Get rodent strain by id"
+        },
+        {
+          "info": {
+            "name": "Update rodent strain attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/rodent_strains/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent strain id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update rodent strain attributes"
+        },
+        {
+          "info": {
+            "name": "Delete rodent strain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/rodent_strains/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "rodent strain id"
+              }
+            ]
+          },
+          "docs": "Delete rodent strain"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,262 @@
+{
+  "item": [
+    {
+      "id": "547ae35a-1148-4694-89d7-abb948a1b7e4",
+      "name": "Sample Pooling",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35733a71-e942-42e6-97d1-99af8c134fee",
+          "name": "Creates a pool event",
+          "request": {
+            "name": "Creates a pool event",
+            "description": {
+              "content": "This endpoint facilitates the creation of pool events and allows for the aggregation of stocks based on selected logic.\n\nIt supports three methods for pooling:\n1. **Fixed Amount Pooling**: Using the `createFixedSamplePoolingEvent` schema, which draws a fixed amount from all listed stocks.\n\n2. **Custom Amount Pooling**: Using the `createCustomSamplePoolingEvent` schema, which allows for drawing custom amounts from each stock.\n3. **Total Consumption Pooling**: Using the `createCustomSamplePoolingEvent` schema, which draws and consumes the entire amount from each stock.\n\nEnsure the request body matches the structure defined in the referenced schemas for successful operation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "pool_events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"pool_type\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"unit_type\": \"<string>\",\n    \"fixed_amount\": \"<integer>\",\n    \"stocks_list\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"pooled_stock_info\": {\n      \"name\": \"<string>\",\n      \"stockable_type\": \"<string>\",\n      \"stockable_id\": \"<integer>\",\n      \"storage_type\": \"<string>\",\n      \"storage_id\": \"<integer>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7434e7e5-5e4f-4887-8408-f160942eddb2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pool_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"pool_type\": \"fixed\",\n    \"unit\": \"µL\",\n    \"unit_type\": \"<string>\",\n    \"fixed_amount\": \"<integer>\",\n    \"stocks_list\": [\n      1291,\n      1293\n    ],\n    \"pooled_stock_info\": {\n      \"name\": \"<string>\",\n      \"stockable_type\": \"Biocollections::Bacterium\",\n      \"stockable_id\": \"<integer>\",\n      \"storage_type\": \"System::Storage::Storage\",\n      \"storage_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7,\n  \"name\": \"string\",\n  \"unit_type\": \"volume\",\n  \"pool_type\": \"fixed\",\n  \"unit\": \"string\",\n  \"initial_amount\": \"2.0\",\n  \"member_id\": 6548,\n  \"stock_id\": 7423,\n  \"stock_name\": \"string\",\n  \"stock_url\": \"/storage/stocks/620\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13d61fa3-ae39-4cbc-8a69-5e0818b8c662",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pool_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"pool_type\": \"fixed\",\n    \"unit\": \"µL\",\n    \"unit_type\": \"<string>\",\n    \"fixed_amount\": \"<integer>\",\n    \"stocks_list\": [\n      1291,\n      1293\n    ],\n    \"pooled_stock_info\": {\n      \"name\": \"<string>\",\n      \"stockable_type\": \"Biocollections::Bacterium\",\n      \"stockable_id\": \"<integer>\",\n      \"storage_type\": \"System::Storage::Storage\",\n      \"storage_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You are not authorized to perform this action.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4067bde6-dd72-41f2-a792-ac34bc5950bf",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pool_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"pool_type\": \"fixed\",\n    \"unit\": \"µL\",\n    \"unit_type\": \"<string>\",\n    \"fixed_amount\": \"<integer>\",\n    \"stocks_list\": [\n      1291,\n      1293\n    ],\n    \"pooled_stock_info\": {\n      \"name\": \"<string>\",\n      \"stockable_type\": \"Biocollections::Bacterium\",\n      \"stockable_id\": \"<integer>\",\n      \"storage_type\": \"System::Storage::Storage\",\n      \"storage_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Resource not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8030b09c-7701-41c9-8b31-a83df6e28515",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "pool_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"pool_type\": \"fixed\",\n    \"unit\": \"µL\",\n    \"unit_type\": \"<string>\",\n    \"fixed_amount\": \"<integer>\",\n    \"stocks_list\": [\n      1291,\n      1293\n    ],\n    \"pooled_stock_info\": {\n      \"name\": \"<string>\",\n      \"stockable_type\": \"Biocollections::Bacterium\",\n      \"stockable_id\": \"<integer>\",\n      \"storage_type\": \"System::Storage::Storage\",\n      \"storage_id\": \"<integer>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"The following stocks weren't found: [1291, 1293]]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "689f36c3-634c-4028-a52c-b6197938814d",
+    "name": "Labguru Antibodies Sample Pooling API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***",
+      "type": "text/plain"
+    }
+  }
+}

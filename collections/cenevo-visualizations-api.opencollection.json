@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Visualizations API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Visualizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "add visualization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/visualizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a visualization.\n\nTo add visualization to a dataset, provide a name, the dataset ID it corresponds to, and an attachment ID (the ID of the visualization file uploaded to Labguru).\nOnce added, the visualization will appear under the 'Visualizations' tab of a dataset.\n\nFor a detailed guide on creating dataset visualizations, including a step-by-step process and practical examples, refer to our comprehensive article: [How To Create Dataset Visualization](https://help.labguru.c"
+        },
+        {
+          "info": {
+            "name": "Delete visualization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/visualizations/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the visualization"
+              }
+            ]
+          },
+          "docs": "This endpoint deletes a visualization.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

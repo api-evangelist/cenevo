@@ -1,0 +1,264 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Experiments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Experiments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all experiments in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/experiments",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all experiments.\n\n**Note:** An improved version of this endpoint is available in API v2.\nPlease visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Experiments/get_api_v2_experiments).\n"
+        },
+        {
+          "info": {
+            "name": "Add an experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/experiments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an experiment"
+        },
+        {
+          "info": {
+            "name": "Get experiment by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/experiments/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get experiment by id"
+        },
+        {
+          "info": {
+            "name": "Update an experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/experiments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "experiment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an experiment"
+        },
+        {
+          "info": {
+            "name": "Delete experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/experiments/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "experiment id"
+              }
+            ]
+          },
+          "docs": "Delete experiment"
+        },
+        {
+          "info": {
+            "name": "List all elements of an experiment ",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/experiments/:id/elements",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the experiment"
+              },
+              {
+                "name": "element_type",
+                "value": "",
+                "type": "query",
+                "description": "The element type:\n- excel\n- text\n- form\n- attachments\n- samples\n- plate\n- steps\n- equipment\n- sketch\n- compound\n- reaction\n- pdf"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The element name - Table 1 / My Samples / Plate - MM D, YYYY HH:MM:SS"
+              }
+            ]
+          },
+          "docs": "List all elements of an experiment "
+        },
+        {
+          "info": {
+            "name": "Add flag to an experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/experiments/:id/set_flag_as",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the experiment that will be flagged"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add flag to an experiment"
+        },
+        {
+          "info": {
+            "name": "Copy section to an experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/experiments/copy_section",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint copies a section to an experiment.\n\nSections can be copied only from experiments or protocols.\n"
+        },
+        {
+          "info": {
+            "name": "List all experiments in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/experiments",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the page number to retrieve.\n        Defaults to 1 if not provided."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Defines the number of items to be returned per page.\n                If not specified, a default value defined by the system will be used."
+              },
+              {
+                "name": "to_sign",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve experiments that require the user's signature.\n                Filters items to only those where the user is expected to sign and that are currently pending a signature."
+              },
+              {
+                "name": "to_witness",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve experiments that are waiting to be witnessed.\n                Filters items to only those with a pending witness signature for the current user."
+              }
+            ]
+          },
+          "docs": "List all experiments.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new custom experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/experiments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new experiment within a specified project,\nincluding dynamically adding sections and elements to the experiment.\n\nYou can specify an existing folder by its ID or create a new one by providing a folder name.\n\n**Note:**\n- Use `milestone_id` to place the experiment in an existing folder.\n\n- Provide `milestone_name` to create a new folder for this experiment.\n\nEnsure only one of these options is used per request.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

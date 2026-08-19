@@ -1,0 +1,1642 @@
+{
+  "item": [
+    {
+      "id": "07228faa-26a3-405b-ac4e-3bc434aa4b63",
+      "name": "Stocks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "641c8ffd-3a2f-4476-bcb4-39bc9d81ec00",
+          "name": "Add stock",
+          "request": {
+            "name": "Add stock",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\",\n  \"item\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ac16851-16ab-4771-9edc-da2b711738c7",
+              "name": "stock created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23025adf-c904-4406-b522-8af1c8a8f090",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ce3944e-2e22-4dc5-8250-a65520dec2cb",
+              "name": "invalid request - Name cannot be blank",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d37bd75-ecb4-4d93-a153-2992b3dc391e",
+          "name": "List all stocks in your account",
+          "request": {
+            "name": "List all stocks in your account",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "the default call is with page = 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "meta",
+                  "value": "true",
+                  "description": "show summarized data information - true/false"
+                },
+                {
+                  "disabled": false,
+                  "key": "stockable_type",
+                  "value": "<string>",
+                  "description": "inventory item type(In order to list all stocks of a stockable item)"
+                },
+                {
+                  "disabled": false,
+                  "key": "stockable_id",
+                  "value": "<integer>",
+                  "description": "inventory item id (In order to list all stocks of a stockable item)"
+                },
+                {
+                  "disabled": false,
+                  "key": "kendo",
+                  "value": "<string>",
+                  "description": "**Implementation of the filter necessitates the utilization of all three components: field name, operator, and value**\n\n**Valid field names are:**\n\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <ul>\n        <li>name</li>\n        <li>id</li>\n        <li>volume_to_display</li>\n        <li>weight_to_display</li>\n        <li>storage_location</li>\n        <li>created_at</li>\n        <li>owner_id</li>\n        <li>description</li>\n        <li>stored_on</li>\n        <li>stored_by</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <ul>\n        <li>privacy</li>\n        <li>container_type</li>\n        <li>units</li>\n        <li>lot</li>\n        <li>expiration_date</li>\n        <li>aliquoted_by</li>\n        <li>aliquoted_on</li>\n        <li>content</li>\n        <li>barcode</li>\n        <li>concentration_to_display</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n**Valid operators are:**\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <strong style=\"font-size: 90%;\">String operators</strong>\n      <ul>\n        <li>contains: contains</li>\n        <li>eq: is equal to</li>\n        <li>neq: is not equal to</li>\n        <li>doesnotcontain: not contains</li>\n        <li>startswith: starts with</li>\n        <li>endswith: ends with</li>\n        <li>isnullorempty: is empty</li>\n        <li>isnotnullorempty: is not empty</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <strong style=\"font-size: 90%;\">Date & Number operators</strong>\n      <ul>\n        <li>_eq: is equal to</li>\n        <li>_neq: is not equal to</li>\n        <li>_gte: is after than or equal to</li>\n        <li>_gt: is after than</li>\n        <li>_lte: is before than or equal to</li>\n        <li>_lt: is before than</li>\n        <li>isnull: is empty</li>\n        <li>isnotnull: is not empty</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n\n\n\n**Value:** The desired search term\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "{\"logic\":\"<string>\",\"filters\":{\"0\":{\"field\":\"<string>\",\"operator\":\"<string>\",\"value\":\"<string>\"},\"1\":{\"field\":\"<string>\",\"operator\":\"<string>\",\"value\":\"<integer>\"},\"2\":{\"field\":\"<string>\",\"operator\":\"<string>\",\"value\":\"<date>\"},\"3\":{\"field\":\"<string>\",\"operator\":\"<string>\",\"value\":\"<string>\"},\"4\":{\"field\":\"<string>\",\"operator\":\"<string>\",\"value\":{\"name\":\"<string>\",\"id\":\"<string>\"}}}}",
+                  "description": "**Implementation of the filter necessitates the utilization of all three components: field name, operator, and value**\n\n**Valid field names are:**\n\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <ul>\n        <li>name</li>\n        <li>id</li>\n        <li>volume_to_display</li>\n        <li>weight_to_display</li>\n        <li>storage_location</li>\n        <li>created_at</li>\n        <li>owner_id</li>\n        <li>description</li>\n        <li>stored_on</li>\n        <li>stored_by</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <ul>\n        <li>privacy</li>\n        <li>container_type</li>\n        <li>units</li>\n        <li>lot</li>\n        <li>expiration_date</li>\n        <li>aliquoted_by</li>\n        <li>aliquoted_on</li>\n        <li>content</li>\n        <li>barcode</li>\n        <li>concentration_to_display</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n**Valid operators are:**\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <strong style=\"font-size: 90%;\">String operators</strong>\n      <ul>\n        <li>contains: contains</li>\n        <li>eq: is equal to</li>\n        <li>neq: is not equal to</li>\n        <li>doesnotcontain: not contains</li>\n        <li>startswith: starts with</li>\n        <li>endswith: ends with</li>\n        <li>isnullorempty: is empty</li>\n        <li>isnotnullorempty: is not empty</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <strong style=\"font-size: 90%;\">Date & Number operators</strong>\n      <ul>\n        <li>_eq: is equal to</li>\n        <li>_neq: is not equal to</li>\n        <li>_gte: is after than or equal to</li>\n        <li>_gt: is after than</li>\n        <li>_lte: is before than or equal to</li>\n        <li>_lt: is before than</li>\n        <li>isnull: is empty</li>\n        <li>isnotnull: is not empty</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n\n\n\n**Value:** The desired search term\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c500a59d-3893-47c3-9154-3f2cd1058fe3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "meta",
+                      "value": "true"
+                    },
+                    {
+                      "key": "stockable_type",
+                      "value": "Biocollections::Tissue"
+                    },
+                    {
+                      "key": "stockable_id",
+                      "value": "105"
+                    },
+                    {
+                      "key": "kendo",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "[object Object]"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "778f3bd4-c5ec-4e19-a3d2-7e95ccb84c46",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "meta",
+                      "value": "true"
+                    },
+                    {
+                      "key": "stockable_type",
+                      "value": "Biocollections::Tissue"
+                    },
+                    {
+                      "key": "stockable_id",
+                      "value": "105"
+                    },
+                    {
+                      "key": "kendo",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "[object Object]"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You are not authorized to perform this action\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a9c4b8f-a534-43d0-9d0a-61e54016c5c7",
+          "name": "Marks stock as consumed",
+          "request": {
+            "name": "Marks stock as consumed",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id",
+                "mark_as_consumed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "268998ad-ecfe-4102-b4bd-944871fef348",
+              "name": "stock marked as consumed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "mark_as_consumed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8de1a439-817f-4126-aa02-1a8b17da58e1",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "mark_as_consumed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d1a5ed8-5f38-4477-861c-44fb5413c05c",
+          "name": "Marks stock as output",
+          "request": {
+            "name": "Marks stock as output",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id",
+                "mark_as_output"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exp_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eadc109c-635c-4aff-9b90-7c99824c6f6f",
+              "name": "stock marked as output",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "mark_as_output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp_id\": 103\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6146b919-7075-44e8-a666-0bcf97737c15",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "mark_as_output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp_id\": 103\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a3386db-c0a8-4438-b473-113f365cb899",
+          "name": "Unmarks stock as output",
+          "request": {
+            "name": "Unmarks stock as output",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id",
+                "unmark_output"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"exp_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7ca09e1-d1b8-4e8a-bb0c-477b43bc2886",
+              "name": "stock unmarked as output",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "unmark_output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp_id\": 103\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72a1f593-b995-485e-912f-d806c8561b9a",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "unmark_output"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"exp_id\": 103\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "967f82b4-2ee3-4288-a432-31c3d9af9ad4",
+          "name": "Update stock weight/volume for stock in sample element",
+          "request": {
+            "name": "Update stock weight/volume for stock in sample element",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id",
+                "update_stock_amount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\",\n  \"unit_type\": \"<string>\",\n  \"element_id\": \"<integer>\",\n  \"amount_used\": \"<string>\",\n  \"unit_type_name\": \"<string>\",\n  \"subtract\": \"<string>\",\n  \"sample_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6de00553-d659-4389-bcc4-588c4eaa3806",
+              "name": "stock amount updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "update_stock_amount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"unit_type\": \"<string>\",\n  \"element_id\": \"<integer>\",\n  \"amount_used\": \"<string>\",\n  \"unit_type_name\": \"mg\",\n  \"subtract\": \"true\",\n  \"sample_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c1d144c-5a28-4a8f-8463-6e20004fc454",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id",
+                    "update_stock_amount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"unit_type\": \"<string>\",\n  \"element_id\": \"<integer>\",\n  \"amount_used\": \"<string>\",\n  \"unit_type_name\": \"mg\",\n  \"subtract\": \"true\",\n  \"sample_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b6128d5-7064-4020-82e4-8416bb5344a0",
+          "name": "Update stock attributes",
+          "request": {
+            "name": "Update stock attributes",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"storage_id\": \"<integer>\",\n    \"storage_type\": \"<string>\",\n    \"stockable_type\": \"<string>\",\n    \"stockable_id\": \"<integer>\",\n    \"location_in_box\": \"<integer>\",\n    \"owner_id\": \"<integer>\",\n    \"expiration_date\": \"<date>\",\n    \"lot\": \"<string>\",\n    \"description\": \"<string>\",\n    \"barcode\": \"<string>\",\n    \"stored_by\": \"<integer>\",\n    \"concentration\": \"<string>\",\n    \"concentration_prefix\": \"<string>\",\n    \"concentration_unit_id\": \"<integer>\",\n    \"concentration_exponent\": \"<integer>\",\n    \"concentration_remarks\": \"<string>\",\n    \"volume\": \"<string>\",\n    \"volume_prefix\": \"<string>\",\n    \"volume_unit_id\": \"<integer>\",\n    \"volume_exponent\": \"<integer>\",\n    \"volume_remarks\": \"<string>\",\n    \"weight\": \"<string>\",\n    \"weight_prefix\": \"<string>\",\n    \"weight_unit_id\": \"<integer>\",\n    \"weight_exponent\": \"<integer>\",\n    \"weight_remarks\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f546f77-34ce-4884-87a8-b7699727423e",
+              "name": "stock updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"storage_id\": \"<integer>\",\n    \"storage_type\": \"<string>\",\n    \"stockable_type\": \"<string>\",\n    \"stockable_id\": \"<integer>\",\n    \"location_in_box\": \"<integer>\",\n    \"owner_id\": \"<integer>\",\n    \"expiration_date\": \"<date>\",\n    \"lot\": \"<string>\",\n    \"description\": \"<string>\",\n    \"barcode\": \"<string>\",\n    \"stored_by\": \"<integer>\",\n    \"concentration\": \"<string>\",\n    \"concentration_prefix\": \"E^\",\n    \"concentration_unit_id\": 9,\n    \"concentration_exponent\": \"<integer>\",\n    \"concentration_remarks\": \"<string>\",\n    \"volume\": \"<string>\",\n    \"volume_prefix\": \"E^\",\n    \"volume_unit_id\": 7,\n    \"volume_exponent\": \"<integer>\",\n    \"volume_remarks\": \"<string>\",\n    \"weight\": \"<string>\",\n    \"weight_prefix\": \"E^\",\n    \"weight_unit_id\": 3,\n    \"weight_exponent\": \"<integer>\",\n    \"weight_remarks\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc576b3c-b4b3-4865-b052-bcc17a258e81",
+              "name": "Error: Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"storage_id\": \"<integer>\",\n    \"storage_type\": \"<string>\",\n    \"stockable_type\": \"<string>\",\n    \"stockable_id\": \"<integer>\",\n    \"location_in_box\": \"<integer>\",\n    \"owner_id\": \"<integer>\",\n    \"expiration_date\": \"<date>\",\n    \"lot\": \"<string>\",\n    \"description\": \"<string>\",\n    \"barcode\": \"<string>\",\n    \"stored_by\": \"<integer>\",\n    \"concentration\": \"<string>\",\n    \"concentration_prefix\": \"E^\",\n    \"concentration_unit_id\": 9,\n    \"concentration_exponent\": \"<integer>\",\n    \"concentration_remarks\": \"<string>\",\n    \"volume\": \"<string>\",\n    \"volume_prefix\": \"E^\",\n    \"volume_unit_id\": 7,\n    \"volume_exponent\": \"<integer>\",\n    \"volume_remarks\": \"<string>\",\n    \"weight\": \"<string>\",\n    \"weight_prefix\": \"E^\",\n    \"weight_unit_id\": 3,\n    \"weight_exponent\": \"<integer>\",\n    \"weight_remarks\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d65bd4d-cf5c-4793-94ef-a9287e9d741f",
+              "name": "invalid request - Name cannot be blank",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"YOUR TOKEN IS HERE\",\n  \"item\": {\n    \"name\": \"<string>\",\n    \"storage_id\": \"<integer>\",\n    \"storage_type\": \"<string>\",\n    \"stockable_type\": \"<string>\",\n    \"stockable_id\": \"<integer>\",\n    \"location_in_box\": \"<integer>\",\n    \"owner_id\": \"<integer>\",\n    \"expiration_date\": \"<date>\",\n    \"lot\": \"<string>\",\n    \"description\": \"<string>\",\n    \"barcode\": \"<string>\",\n    \"stored_by\": \"<integer>\",\n    \"concentration\": \"<string>\",\n    \"concentration_prefix\": \"E^\",\n    \"concentration_unit_id\": 9,\n    \"concentration_exponent\": \"<integer>\",\n    \"concentration_remarks\": \"<string>\",\n    \"volume\": \"<string>\",\n    \"volume_prefix\": \"E^\",\n    \"volume_unit_id\": 7,\n    \"volume_exponent\": \"<integer>\",\n    \"volume_remarks\": \"<string>\",\n    \"weight\": \"<string>\",\n    \"weight_prefix\": \"E^\",\n    \"weight_unit_id\": 3,\n    \"weight_exponent\": \"<integer>\",\n    \"weight_remarks\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b09df8f-49d2-4db5-ae02-77f9248c70ac",
+          "name": "Get stock by id",
+          "request": {
+            "name": "Get stock by id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a32db385-6bd5-4954-9e2d-9dd78571ba0e",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdcaf1b6-43d4-432f-a4e1-058fccf309fd",
+              "name": "stock not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d26c7a9c-c0d7-446e-aec0-9575a87ca7f4",
+          "name": "Delete stock",
+          "request": {
+            "name": "Delete stock",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) stock id"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4bc0605-cda4-4ee0-9f18-695144757b68",
+              "name": "no content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "191ace1c-b028-49e2-956f-54cef78cc45c",
+              "name": "not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) stock id"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69c1ccce-b2cb-4317-9efd-cc3ee69f1f96",
+          "name": "Get stock by barcode/id",
+          "request": {
+            "name": "Get stock by barcode/id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "stocks",
+                "get_stocks_by_barcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "input",
+                  "value": "<string>",
+                  "description": "(Required) Stock’s Barcode or Id "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "48779985-7baa-40f8-8be8-84b843243148",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    "get_stocks_by_barcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "AB-588"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"type\": \"Created\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69782390-2f30-461d-bca1-3a8caaa736dc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "stocks",
+                    "get_stocks_by_barcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "input",
+                      "value": "AB-588"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You are not authorized to perform this action\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "73df78a9-8d28-4363-b760-33759ec1c356",
+    "name": "Labguru Antibodies Stocks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***",
+      "type": "text/plain"
+    }
+  }
+}

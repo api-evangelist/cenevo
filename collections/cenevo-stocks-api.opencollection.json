@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Stocks API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all stocks in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stocks",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              },
+              {
+                "name": "stockable_type",
+                "value": "Biocollections::Tissue",
+                "type": "query",
+                "description": "inventory item type(In order to list all stocks of a stockable item)"
+              },
+              {
+                "name": "stockable_id",
+                "value": "105",
+                "type": "query",
+                "description": "inventory item id (In order to list all stocks of a stockable item)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "**Implementation of the filter necessitates the utilization of all three components: field name, operator, and value**\n\n**Valid field names are:**\n\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <ul>\n        <li>name</li>\n        <li>id</li>\n        <li>volume_to_display</li>\n        <li>weight_to_display</li>\n        <li>storage_location</li>\n        <li>created_at</li>\n        <li>owner_id</li>\n        <li>description</li>\n        <li>stored_on</li>\n        <li>stored_by</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <ul>\n        <li>privacy</li>\n        <li>container_type</li>\n        <li>units</li>\n        <li>lot</li>\n        <li>expiration_date</li>\n        <li>aliquoted_by</li>\n        <li>aliquoted_on</li>\n        <li>content</li>\n        <li>barcode</li>\n        <li>concentration_to_display</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n**Valid operators are:**\n<table style=\"border-collapse: collapse; width: 100%;\">\n  <tr>\n    <td style=\"border: none; padding-right: 15px;\">\n      <strong style=\"font-size: 90%;\">String operators</strong>\n      <ul>\n        <li>contains: contains</li>\n        <li>eq: is equal to</li>\n        <li>neq: is not equal to</li>\n        <li>doesnotcontain: not contains</li>\n        <li>startswith: starts with</li>\n        <li>endswith: ends with</li>\n        <li>isnullorempty: is empty</li>\n        <li>isnotnullorempty: is not empty</li>\n      </ul>\n    </td>\n    <td style=\"border: none;\">\n      <strong style=\"font-size: 90%;\">Date & Number operators</strong>\n      <ul>\n        <li>_eq: is equal to</li>\n        <li>_neq: is not equal to</li>\n        <li>_gte: is after than or equal to</li>\n        <li>_gt: is after than</li>\n        <li>_lte: is before than or equal to</li>\n        <li>_lt: is before than</li>\n        <li>isnull: is empty</li>\n        <li>isnotnull: is not empty</li>\n      </ul>\n    </td>\n  </tr>\n</table>\n\n\n\n\n**Value:** The desired search term\n"
+              }
+            ]
+          },
+          "docs": "List all stocks in your account"
+        },
+        {
+          "info": {
+            "name": "Add stock",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/stocks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add stock"
+        },
+        {
+          "info": {
+            "name": "Marks stock as consumed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/stocks/:id/mark_as_consumed",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Marks stock as consumed"
+        },
+        {
+          "info": {
+            "name": "Marks stock as output",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/stocks/:id/mark_as_output",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks stock as output"
+        },
+        {
+          "info": {
+            "name": "Unmarks stock as output",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/stocks/:id/unmark_output",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Unmarks stock as output"
+        },
+        {
+          "info": {
+            "name": "Update stock weight/volume for stock in sample element",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/stocks/:id/update_stock_amount",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update stock weight/volume for stock in sample element"
+        },
+        {
+          "info": {
+            "name": "Get stock by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stocks/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              }
+            ]
+          },
+          "docs": "Get stock by id"
+        },
+        {
+          "info": {
+            "name": "Update stock attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/stocks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update stock attributes"
+        },
+        {
+          "info": {
+            "name": "Delete stock",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/stocks/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "stock id"
+              }
+            ]
+          },
+          "docs": "Delete stock"
+        },
+        {
+          "info": {
+            "name": "Get stock by barcode/id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/stocks/get_stocks_by_barcode",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "input",
+                "value": "AB-588",
+                "type": "query",
+                "description": "Stock’s Barcode or Id "
+              }
+            ]
+          },
+          "docs": "Get stock by barcode/id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

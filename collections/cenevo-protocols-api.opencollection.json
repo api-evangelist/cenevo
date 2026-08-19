@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Protocols API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Protocols",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all protocols in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/protocols",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all protocols in your account"
+        },
+        {
+          "info": {
+            "name": "Creates a protocol",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/protocols",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a protocol"
+        },
+        {
+          "info": {
+            "name": "Get protocol by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/protocols/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "protocol id"
+              }
+            ]
+          },
+          "docs": "Get protocol by id"
+        },
+        {
+          "info": {
+            "name": "Update protocol",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/protocols/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "protocol id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update protocol"
+        },
+        {
+          "info": {
+            "name": "Delete protocol",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/protocols/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "protocol id"
+              }
+            ]
+          },
+          "docs": "Delete protocol"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

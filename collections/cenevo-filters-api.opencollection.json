@@ -1,0 +1,216 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Filters API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Filter Biocollections items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/:collection_name",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              },
+              {
+                "name": "kendo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "collection_name",
+                "value": "",
+                "type": "path",
+                "description": "the collection name to filter, example: antibodies"
+              },
+              {
+                "name": "filter[logic]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[filters][0][field]",
+                "value": "",
+                "type": "query",
+                "description": "Valid fields are:\n\n- title\n- auto_name(SySID)\n- alternative_name\n- description\n- owner_id\n\n"
+              },
+              {
+                "name": "filter[filters][0][operator]",
+                "value": "",
+                "type": "query",
+                "description": "Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+              },
+              {
+                "name": "filter[filters][0][value]",
+                "value": "",
+                "type": "query",
+                "description": "the filter term"
+              }
+            ]
+          },
+          "docs": "Filter Biocollections items"
+        },
+        {
+          "info": {
+            "name": "Filter Custom collections items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/biocollections/:collection_name",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "show summarized data information - true/false"
+              },
+              {
+                "name": "kendo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "collection_name",
+                "value": "",
+                "type": "path",
+                "description": "the collection name to filter, example: myCollection"
+              },
+              {
+                "name": "filter[logic]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[filters][0][field]",
+                "value": "",
+                "type": "query",
+                "description": "Valid fields are:\n\n- title\n- auto_name(SySID)\n- alternative_name\n- description\n- owner_id\n\n"
+              },
+              {
+                "name": "filter[filters][0][operator]",
+                "value": "",
+                "type": "query",
+                "description": "Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+              },
+              {
+                "name": "filter[filters][0][value]",
+                "value": "",
+                "type": "query",
+                "description": "the filter term"
+              }
+            ]
+          },
+          "docs": "Filter Custom collections items"
+        },
+        {
+          "info": {
+            "name": "Filter knowledgbase items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/:knowledgbase_collection",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              },
+              {
+                "name": "kendo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "knowledgbase_collection",
+                "value": "",
+                "type": "path",
+                "description": "The collection name to filter:\n\n- projects\n- experiments\n- protocols\n- documents\n- reports\n- datasets\n- recipes\n- papers\n- sops\n\n"
+              },
+              {
+                "name": "filter[logic]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[filters][0][field]",
+                "value": "",
+                "type": "query",
+                "description": "Valid fields are:\n\n- title\n- id\n- flag (true for Succesful,false for Failed)\n- projects.title(relevant for experiments)\n- start_date\\end_date\n\n"
+              },
+              {
+                "name": "filter[filters][0][operator]",
+                "value": "",
+                "type": "query",
+                "description": "Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+              },
+              {
+                "name": "filter[filters][0][value]",
+                "value": "",
+                "type": "query",
+                "description": "the filter term"
+              },
+              {
+                "name": "tag_ids",
+                "value": "['3']",
+                "type": "query",
+                "description": "tag id"
+              }
+            ]
+          },
+          "docs": "Filter knowledgbase items"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

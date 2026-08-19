@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Maintenance event API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance event",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all maintenance events in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/maintenance_events",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all maintenance events in your account"
+        },
+        {
+          "info": {
+            "name": "Creates a Maintenance event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/maintenance_events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Maintenance event"
+        },
+        {
+          "info": {
+            "name": "Get maintenance event by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/maintenance_events/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance event id"
+              }
+            ]
+          },
+          "docs": "Get maintenance event by id"
+        },
+        {
+          "info": {
+            "name": "Update maintenance event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/maintenance_events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance event id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update maintenance event"
+        },
+        {
+          "info": {
+            "name": "Delete maintenance event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/maintenance_events/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "maintenance event id"
+              }
+            ]
+          },
+          "docs": "Delete maintenance event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

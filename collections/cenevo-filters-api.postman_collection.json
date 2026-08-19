@@ -1,0 +1,515 @@
+{
+  "item": [
+    {
+      "id": "b155759e-02d2-4c49-a92a-7b63b85c18d2",
+      "name": "Filters",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "815df6d2-9cd6-4304-95c1-2f20767fedca",
+          "name": "Filter Biocollections items",
+          "request": {
+            "name": "Filter Biocollections items",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                ":collection_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "the default call is with page = 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "meta",
+                  "value": "true",
+                  "description": "show summarized data information - true/false"
+                },
+                {
+                  "disabled": false,
+                  "key": "kendo",
+                  "value": "true",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[logic]",
+                  "value": "and",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][field]",
+                  "value": "<string>",
+                  "description": "(Required) Valid fields are:\n\n- title\n- auto_name(SySID)\n- alternative_name\n- description\n- owner_id\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][operator]",
+                  "value": "<string>",
+                  "description": "(Required) Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][value]",
+                  "value": "<string>",
+                  "description": "(Required) the filter term"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collection_name",
+                  "description": "(Required) the collection name to filter, example: antibodies"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f89b1e6-5394-4191-8990-7038dca99b66",
+              "name": "filtered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    ":collection_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "meta",
+                      "value": "true"
+                    },
+                    {
+                      "key": "kendo",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter[logic]",
+                      "value": "and"
+                    },
+                    {
+                      "key": "filter[filters][0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][operator]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][value]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_name",
+                      "description": "(Required) the collection name to filter, example: antibodies"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4aef05a5-3798-4c73-8858-0a57fb08c9c2",
+          "name": "Filter Custom collections items",
+          "request": {
+            "name": "Filter Custom collections items",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "biocollections",
+                ":collection_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "the default call is with page = 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "meta",
+                  "value": "true",
+                  "description": "show summarized data information - true/false"
+                },
+                {
+                  "disabled": false,
+                  "key": "kendo",
+                  "value": "true",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[logic]",
+                  "value": "and",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][field]",
+                  "value": "<string>",
+                  "description": "(Required) Valid fields are:\n\n- title\n- auto_name(SySID)\n- alternative_name\n- description\n- owner_id\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][operator]",
+                  "value": "<string>",
+                  "description": "(Required) Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][value]",
+                  "value": "<string>",
+                  "description": "(Required) the filter term"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collection_name",
+                  "description": "(Required) the collection name to filter, example: myCollection"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6084d8f7-0ecb-49d9-9cae-0dd9133a4eef",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "biocollections",
+                    ":collection_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "meta",
+                      "value": "true"
+                    },
+                    {
+                      "key": "kendo",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter[logic]",
+                      "value": "and"
+                    },
+                    {
+                      "key": "filter[filters][0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][operator]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][value]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_name",
+                      "description": "(Required) the collection name to filter, example: myCollection"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c36a9f55-c40d-4639-b780-21f3d5282925",
+          "name": "Filter knowledgbase items",
+          "request": {
+            "name": "Filter knowledgbase items",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                ":knowledgbase_collection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "the default call is with page = 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "meta",
+                  "value": "true",
+                  "description": " show summarized data information - true/false"
+                },
+                {
+                  "disabled": false,
+                  "key": "kendo",
+                  "value": "true",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[logic]",
+                  "value": "and",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][field]",
+                  "value": "<string>",
+                  "description": "(Required) Valid fields are:\n\n- title\n- id\n- flag (true for Succesful,false for Failed)\n- projects.title(relevant for experiments)\n- start_date\\end_date\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][operator]",
+                  "value": "<string>",
+                  "description": "(Required) Valid operators are:\n\n- contains\\doesnotcontain\n- eq\\neq\n- startswith\\endswith\n- isnullorempty\\isnotnullorempty\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[filters][0][value]",
+                  "value": "<string>",
+                  "description": "(Required) the filter term"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_ids",
+                  "value": "<string>",
+                  "description": "tag id"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "knowledgbase_collection",
+                  "description": "(Required) The collection name to filter:\n\n- projects\n- experiments\n- protocols\n- documents\n- reports\n- datasets\n- recipes\n- papers\n- sops\n\n"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "deafaa87-9d0b-47f1-9c3a-01e882831092",
+              "name": "success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    ":knowledgbase_collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "meta",
+                      "value": "true"
+                    },
+                    {
+                      "key": "kendo",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filter[logic]",
+                      "value": "and"
+                    },
+                    {
+                      "key": "filter[filters][0][field]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][operator]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[filters][0][value]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_ids",
+                      "value": "['3']"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "knowledgbase_collection",
+                      "description": "(Required) The collection name to filter:\n\n- projects\n- experiments\n- protocols\n- documents\n- reports\n- datasets\n- recipes\n- papers\n- sops\n\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4ecc3144-0d24-4278-8c7f-0f8c507b66c1",
+    "name": "Labguru Antibodies Filters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***",
+      "type": "text/plain"
+    }
+  }
+}

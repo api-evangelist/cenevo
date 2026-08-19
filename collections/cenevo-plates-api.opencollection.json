@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Plates API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Duplicate a master plate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/plates/:id/duplicate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "plate id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Duplicate a master plate"
+        },
+        {
+          "info": {
+            "name": "Find a plate by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/plates/find_by_name",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "Plate A",
+                "type": "query",
+                "description": "plate name"
+              }
+            ]
+          },
+          "docs": "Find a plate by name"
+        },
+        {
+          "info": {
+            "name": "Get plate by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/plates/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "plate id"
+              }
+            ]
+          },
+          "docs": "Get plate by id"
+        },
+        {
+          "info": {
+            "name": "Delete plate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/plates/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "plate id"
+              }
+            ]
+          },
+          "docs": "Delete plate"
+        },
+        {
+          "info": {
+            "name": "List all plates in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/plates",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all plates in your account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

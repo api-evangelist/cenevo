@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Genes API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Genes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all genes in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/genes",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all genes.\n"
+        },
+        {
+          "info": {
+            "name": "Create a gene",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/genes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a gene.\n"
+        },
+        {
+          "info": {
+            "name": "Get gene by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/genes/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the gene"
+              }
+            ]
+          },
+          "docs": "Get a gene by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update gene",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/genes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the gene"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a gene.\n"
+        },
+        {
+          "info": {
+            "name": "Delete gene",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/genes/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "gene id"
+              }
+            ]
+          },
+          "docs": "Delete gene"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

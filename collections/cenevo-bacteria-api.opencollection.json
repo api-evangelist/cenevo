@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Bacteria API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bacteria",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all bacteria in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/bacteria",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all bacteria.\n"
+        },
+        {
+          "info": {
+            "name": "Create a bacterium",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/bacteria",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a bacterium.\n"
+        },
+        {
+          "info": {
+            "name": "Get bacterium by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/bacteria/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bacterium"
+              }
+            ]
+          },
+          "docs": "Get a bacterium by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update bacterium",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/bacteria/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bacterium"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update bacterium.\n"
+        },
+        {
+          "info": {
+            "name": "Delete bacterium",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/bacteria/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the bacterium"
+              }
+            ]
+          },
+          "docs": "Delete bacterium"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

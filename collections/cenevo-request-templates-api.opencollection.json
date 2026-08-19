@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Request templates API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Request templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all request templates in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/request_templates",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": "Show summarized data information"
+              }
+            ]
+          },
+          "docs": "List all request templates in your account you have visibility permissions to."
+        },
+        {
+          "info": {
+            "name": "Create a request template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/request_templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a request template."
+        },
+        {
+          "info": {
+            "name": "Get request by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/request_templates/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request template ID"
+              }
+            ]
+          },
+          "docs": "Get request template by ID that you have access to."
+        },
+        {
+          "info": {
+            "name": "Update request template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/request_templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The request template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a request template you have editing permissions to."
+        },
+        {
+          "info": {
+            "name": "Delete request template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/request_templates/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "request template id"
+              }
+            ]
+          },
+          "docs": "Delete request template"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

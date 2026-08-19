@@ -1,0 +1,211 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Shopping list API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shopping list",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/shopping_list/add_item",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows for adding standard or custom commercial items to the shopping list. It supports two types of item additions:\n1. **Standard Item Addition**: Using the `addItem` schema for predefined commercial item types.\n\n2. **Custom Item Addition**: Using the `addCustomItem` schema for user-defined commercial items and collections.\n\nEnsure the request body matches the structure defined in the referenced schemas for successful operation.\n"
+        },
+        {
+          "info": {
+            "name": "Approve order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id/approve",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shopping list item to approve"
+              }
+            ]
+          },
+          "docs": "Approve order"
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id/cancel",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shopping list item to cancel"
+              }
+            ]
+          },
+          "docs": "Cancel order"
+        },
+        {
+          "info": {
+            "name": "Submit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id/submit",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shopping list item to submit"
+              }
+            ]
+          },
+          "docs": "Submit order"
+        },
+        {
+          "info": {
+            "name": "Get order by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "order id"
+              }
+            ]
+          },
+          "docs": "Get order by id"
+        },
+        {
+          "info": {
+            "name": "Update order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shopping list item to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update order"
+        },
+        {
+          "info": {
+            "name": "Delete shopping list item",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/shopping_list/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "shopping list item id"
+              }
+            ]
+          },
+          "docs": "Delete shopping list item"
+        },
+        {
+          "info": {
+            "name": "List all orders in your account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/shopping_list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "the default call is with page = 1"
+              },
+              {
+                "name": "meta",
+                "value": "",
+                "type": "query",
+                "description": " show summarized data information - true/false"
+              }
+            ]
+          },
+          "docs": "List all orders in your account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Elements API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Elements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add element",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/elements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates an element within a specific section of an ELN or knowledgebase item.\n\nTo add an element, specify its type and the corresponding section ID,\nOnce created, the element is automatically integrated and displayed in the designated section.\n"
+        },
+        {
+          "info": {
+            "name": "Rearrange elements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/elements/sort",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint enables you to change the order of elements within a chosen section.\n"
+        },
+        {
+          "info": {
+            "name": "Get element by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/elements/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the element"
+              }
+            ]
+          },
+          "docs": "Get an element by ID.\n"
+        },
+        {
+          "info": {
+            "name": "Update element",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/elements/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the element"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint updates the content of a specified element by its ID.\n\nNote: Updating the <code>data</code>/<code>form_json</code> field will replace any existing data.\n"
+        },
+        {
+          "info": {
+            "name": "Delete element",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/elements/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "element id"
+              }
+            ]
+          },
+          "docs": "Delete element"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

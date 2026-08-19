@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Instrument usages API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instrument usages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete instrument usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/samples/:sample_id/instrument_usages/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sample_id",
+                "value": "",
+                "type": "path",
+                "description": "sample id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "instrument usage id"
+              }
+            ]
+          },
+          "docs": "Delete instrument usage"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

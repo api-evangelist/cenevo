@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Labguru Antibodies Measurements API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Measurements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add measurements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/measurements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows the submission of measurement data from connected equipment to a specific experiment,\n\nIt accepts a measurement value and populates it into a designated form input field.\n\nFor more information and a detailed example of how to use the ‘Measurement’ endpoint, refer to our article on [How to capture data from instruments using the 'measurement' API endpoint](https://help.labguru.com/en/articles/10300263-how-to-capture-data-from-instruments-using-the-measurement-api-endpoint)\n"
+        },
+        {
+          "info": {
+            "name": "Delete measurement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/measurements/:id",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "measurement id"
+              }
+            ]
+          },
+          "docs": "Delete measurement"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
