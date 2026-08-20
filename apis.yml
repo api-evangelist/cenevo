@@ -206,6 +206,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -376,6 +378,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Manifests
+  tags_raw:
   - Manifest
   properties:
   - type: OpenAPI
@@ -466,6 +470,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -696,6 +702,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
@@ -756,6 +764,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
