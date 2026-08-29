@@ -823,6 +823,9 @@ apis:
   - type: OpenAPI
     url: openapi/cenevo-zebrafishes-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/cenevo-capability-edges.yml
+  name: Cenevo Business Capability Map
 - type: Overlay
   url: overlays/cenevo-labguru-v1-overlay.yaml
 - type: AgenticAccess

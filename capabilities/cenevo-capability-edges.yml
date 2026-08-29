@@ -1,0 +1,74 @@
+slug: cenevo
+provider: Cenevo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Experiments
+  spec_file: cenevo-experiments-api-openapi.yml
+  capability_id: BC-810.30
+  capability_id_l1: BC-810
+  capability_name: Experimentation & Prototyping Management
+  confidence: 0.85
+  evidence: POST /api/v1/experiments 'Add an experiment'; 'List all elements of an experiment'; 'Create
+    a new custom experiment'
+  reason: Full lifecycle of laboratory experiment records in an electronic lab notebook maps directly
+    to Experimentation & Prototyping Management ('lab work, prototypes, proofs of concept') under R&D
+    Management.
+- tag: Plasmids
+  spec_file: cenevo-plasmids-api-openapi.yml
+  capability_id: BC-810
+  capability_id_l1: BC-810
+  capability_name: Research & Development Management
+  confidence: 0.7
+  evidence: POST /api/v1/plasmids — "Create a plasmid"; schema PlasmidBaseRequest
+  reason: Plasmid registry is a molecular-biology research entity catalogue in the electronic lab notebook,
+    squarely research/lab data rather than any commercial capability.
+- tag: Primers
+  spec_file: cenevo-primers-api-openapi.yml
+  capability_id: BC-810
+  capability_id_l1: BC-810
+  capability_name: Research & Development Management
+  confidence: 0.7
+  evidence: POST /api/v1/primers — "Creates a primer"; schema PrimerBaseRequest
+  reason: Primer catalogue is a molecular-biology research reagent registry within the lab notebook, i.e.
+    R&D data management.
+- tag: Proteins
+  spec_file: cenevo-proteins-api-openapi.yml
+  capability_id: BC-810
+  capability_id_l1: BC-810
+  capability_name: Research & Development Management
+  confidence: 0.7
+  evidence: POST /api/v1/proteins — "Create a protein"; schema ProteinBaseRequest
+  reason: Protein entity registry in the electronic lab notebook is laboratory research data management,
+    not a commercial or IT capability.
+- tag: Shopping list
+  spec_file: cenevo-shopping-list-api-openapi.yml
+  capability_id: BC-500.40
+  capability_id_l1: BC-500
+  capability_name: Procure-to-Pay Operations Management
+  confidence: 0.7
+  evidence: PUT /api/v1/shopping_list/{id}/submit "Submit order"; PUT /api/v1/shopping_list/{id}/approve
+    "Approve order"; POST /api/v1/shopping_list/add_item "Add item"
+  reason: Requisition-style ordering of lab items with submit/approve/cancel order workflow — day-to-day
+    procure-to-pay requisition operations rather than a shopping cart for external customers.
+- tag: Webhooks
+  spec_file: cenevo-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /api/v1/webhooks  Create a new webhook subscription
+  reason: Operations manage the lifecycle of outbound webhook subscriptions exposed to integrating developers
+    (create/list/update/delete subscription), which matches Webhook & Event Subscription Management within
+    the vendor's developer/API ecosystem. Confidence held moderate because webhook endpoints are often
+    pure plumbing rather than a governed subscription programme.
