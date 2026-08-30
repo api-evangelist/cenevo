@@ -390,7 +390,7 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
-  - Manifests
+  - Manifest
   tags_raw:
   - Manifest
   properties:
