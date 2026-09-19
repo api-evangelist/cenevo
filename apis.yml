@@ -107,6 +107,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Box
+  tags_raw:
   - Boxes
   properties:
   - type: OpenAPI
@@ -432,6 +434,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Paper
+  tags_raw:
   - Papers
   properties:
   - type: OpenAPI
@@ -504,6 +508,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Protocol
+  tags_raw:
   - Protocols
   properties:
   - type: OpenAPI
@@ -624,6 +630,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Seed
+  tags_raw:
   - Seeds
   properties:
   - type: OpenAPI
@@ -766,6 +774,8 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
+  - Visualization
+  tags_raw:
   - Visualizations
   properties:
   - type: OpenAPI
