@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 6
+edge_count: 9
 edges:
 - tag: Maintenances
   spec_file: cenevo-maintenances-api-openapi.yml
@@ -65,6 +65,26 @@ edges:
     account"
   reason: Plasmid registration and lookup is a research-entity/sample repository registry in the ELN,
     matching compound and sample library/repository management in a discovery-research context.
+- tag: Primers
+  spec_file: cenevo-primers-api-openapi.yml
+  capability_id: BC-810
+  capability_id_l1: BC-810
+  capability_name: Research & Development Management
+  confidence: 0.7
+  evidence: POST /api/v1/primers — "Creates a primer"; schema PrimerBaseRequest
+  reason: Primer catalogue is a molecular-biology research reagent registry within the lab notebook, i.e.
+    R&D data management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Proteins
+  spec_file: cenevo-proteins-api-openapi.yml
+  capability_id: BC-810
+  capability_id_l1: BC-810
+  capability_name: Research & Development Management
+  confidence: 0.7
+  evidence: POST /api/v1/proteins — "Create a protein"; schema ProteinBaseRequest
+  reason: Protein entity registry in the electronic lab notebook is laboratory research data management,
+    not a commercial or IT capability.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Shopping list
   spec_file: cenevo-shopping-list-api-openapi.yml
   capability_id: BC-500.40
@@ -75,3 +95,15 @@ edges:
     order; POST /api/v1/shopping_list/add_item  Add item
   reason: 'Lab requisition workflow: items are added to a shopping list, then submitted, approved or cancelled
     as an order. That is requisition-to-order procurement operations rather than any lab-science capability.'
+- tag: Webhooks
+  spec_file: cenevo-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /api/v1/webhooks  Create a new webhook subscription
+  reason: Operations manage the lifecycle of outbound webhook subscriptions exposed to integrating developers
+    (create/list/update/delete subscription), which matches Webhook & Event Subscription Management within
+    the vendor's developer/API ecosystem. Confidence held moderate because webhook endpoints are often
+    pure plumbing rather than a governed subscription programme.
+  recovered_from: sweep-20260828T235257Z-edges.json
