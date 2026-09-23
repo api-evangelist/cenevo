@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Worms API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Worms API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Worms
@@ -11,9 +19,7 @@ paths:
       summary: Create a worm
       tags:
       - Worms
-      description: 'Create a worm.
-
-        '
+      description: Create a worm.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createWorm'
         required: true
+      operationId: postApiV1Worms
+      x-operation-id-source: derived
     get:
       summary: List all worms in your account
       tags:
       - Worms
-      description: 'List all worms.
-
-        '
+      description: List all worms.
       parameters:
       - name: token
         in: query
@@ -56,14 +62,14 @@ paths:
           description: OK
         '404':
           description: Not found
+      operationId: getApiV1Worms
+      x-operation-id-source: derived
   /api/v1/worms/{id}:
     put:
       summary: Update a worm
       tags:
       - Worms
-      description: 'Update a worm.
-
-        '
+      description: Update a worm.
       parameters:
       - name: id
         in: path
@@ -84,13 +90,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updateWorm'
         required: true
+      operationId: putApiV1WormsById
+      x-operation-id-source: derived
     get:
       summary: Get worm by id
       tags:
       - Worms
-      description: 'Get a worm by ID.
-
-        '
+      description: Get a worm by ID.
       parameters:
       - name: token
         in: query
@@ -108,6 +114,8 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1WormsById
+      x-operation-id-source: derived
     delete:
       summary: Delete worm
       tags:
@@ -129,6 +137,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1WormsById
+      x-operation-id-source: derived
 components:
   schemas:
     createWorm:

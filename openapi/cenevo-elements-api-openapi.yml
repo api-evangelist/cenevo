@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Elements API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Elements API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Elements
@@ -16,9 +24,7 @@ paths:
 
         To add an element, specify its type and the corresponding section ID,
 
-        Once created, the element is automatically integrated and displayed in the designated section.
-
-        '
+        Once created, the element is automatically integrated and displayed in the designated section.'
       parameters: []
       responses:
         '201':
@@ -35,14 +41,14 @@ paths:
               - $ref: '#/components/schemas/addElement'
               - $ref: '#/components/schemas/addPlateElement'
         required: true
+      operationId: postApiV1Elements
+      x-operation-id-source: derived
   /api/v1/elements/sort:
     post:
       summary: Rearrange elements
       tags:
       - Elements
-      description: 'This endpoint enables you to change the order of elements within a chosen section.
-
-        '
+      description: This endpoint enables you to change the order of elements within a chosen section.
       parameters: []
       responses:
         '200':
@@ -82,6 +88,8 @@ paths:
                   - 110
                   - 111
         required: true
+      operationId: postApiV1ElementsSort
+      x-operation-id-source: derived
   /api/v1/elements/{id}:
     put:
       summary: Update element
@@ -90,9 +98,7 @@ paths:
       description: 'This endpoint updates the content of a specified element by its ID.
 
 
-        Note: Updating the <code>data</code>/<code>form_json</code> field will replace any existing data.
-
-        '
+        Note: Updating the data/form_json field will replace any existing data.'
       parameters:
       - name: id
         in: path
@@ -115,6 +121,8 @@ paths:
               - $ref: '#/components/schemas/updateFormElement'
               - $ref: '#/components/schemas/updateTextElement'
         required: true
+      operationId: putApiV1ElementsById
+      x-operation-id-source: derived
     get:
       summary: Get element by id
       tags:
@@ -131,14 +139,14 @@ paths:
         description: The ID of the element
         schema:
           type: integer
-      description: 'Get an element by ID.
-
-        '
+      description: Get an element by ID.
       responses:
         '200':
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1ElementsById
+      x-operation-id-source: derived
     delete:
       summary: Delete element
       tags:
@@ -160,20 +168,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1ElementsById
+      x-operation-id-source: derived
 components:
   schemas:
-    updateTextElement:
-      title: Update text element
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        data:
-          type: string
-          example: The updated text
     updateFormElement:
       title: Update form element
       type: object
@@ -188,40 +186,6 @@ components:
           description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
           example:
             Field Name: Field Content
-    addElement:
-      title: Add element
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - container_id
-          - container_type
-          - element_type
-          - data
-          description: Valid element types are:<br>• samples<br>• equipment<br>• code<br>• compound<br>• reaction<br>• text<br>• steps<br>• excel<br>• plate<br>
-          properties:
-            name:
-              type: string
-              description: Specifies the name of the element. If not provided, the element will be assigned a default name
-            container_id:
-              type: integer
-              description: The ID of the section to which the element will be added
-            container_type:
-              type: string
-              description: The type of container in which the element will be placed
-              example: ExperimentProcedure
-            element_type:
-              type: string
-              description: The type of element to be added
-            data:
-              type: string
-              nullable: true
     addPlateElement:
       title: Add plate element
       type: object
@@ -263,5 +227,53 @@ components:
               type: integer
               description: The number of rows in the plate layout
             data:
+              type:
+              - string
+              - 'null'
+    addElement:
+      title: Add element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - container_id
+          - container_type
+          - element_type
+          - data
+          description: Valid element types are:<br>• samples<br>• equipment<br>• code<br>• compound<br>• reaction<br>• text<br>• steps<br>• excel<br>• plate<br>
+          properties:
+            name:
               type: string
-              nullable: true
+              description: Specifies the name of the element. If not provided, the element will be assigned a default name
+            container_id:
+              type: integer
+              description: The ID of the section to which the element will be added
+            container_type:
+              type: string
+              description: The type of container in which the element will be placed
+              example: ExperimentProcedure
+            element_type:
+              type: string
+              description: The type of element to be added
+            data:
+              type:
+              - string
+              - 'null'
+    updateTextElement:
+      title: Update text element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        data:
+          type: string
+          example: The updated text

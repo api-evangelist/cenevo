@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Compounds API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Compounds API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Compounds
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createCompound'
         required: true
+      operationId: postApiV1Compounds
+      x-operation-id-source: derived
     get:
       summary: List all compounds in your account
       tags:
@@ -50,6 +60,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Compounds
+      x-operation-id-source: derived
   /api/v1/compounds/{id}:
     put:
       summary: Update compound attributes
@@ -75,6 +87,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateCompound'
         required: true
+      operationId: putApiV1CompoundsById
+      x-operation-id-source: derived
     get:
       summary: Get compound by id
       tags:
@@ -96,6 +110,8 @@ paths:
           description: success
         '404':
           description: compound not found
+      operationId: getApiV1CompoundsById
+      x-operation-id-source: derived
     delete:
       summary: Delete compound
       tags:
@@ -117,11 +133,19 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1CompoundsById
+      x-operation-id-source: derived
 components:
   schemas:
-    updateCompound:
+    createCompound:
       allOf:
       - $ref: '#/components/schemas/CompoundBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     CompoundBaseRequest:
       type: object
       required:
@@ -167,12 +191,6 @@ components:
             hazards:
               type: string
               description: Compound hazards
-    createCompound:
+    updateCompound:
       allOf:
       - $ref: '#/components/schemas/CompoundBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Measurements API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Measurements API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Measurements
@@ -17,9 +25,7 @@ paths:
         It accepts a measurement value and populates it into a designated form input field.
 
 
-        For more information and a detailed example of how to use the ‘Measurement’ endpoint, refer to our article on [How to capture data from instruments using the ''measurement'' API endpoint](https://help.labguru.com/en/articles/10300263-how-to-capture-data-from-instruments-using-the-measurement-api-endpoint)
-
-        '
+        For more information and a detailed example of how to use the ‘Measurement’ endpoint, refer to our article on How to capture data from instruments using the ''measurement'' API endpoint'
       parameters: []
       responses:
         '201':
@@ -64,6 +70,8 @@ paths:
                       type: string
                       description: The measurement value received from the connected equipment
         required: true
+      operationId: postApiV1Measurements
+      x-operation-id-source: derived
   /api/v1/measurements/{id}:
     delete:
       summary: Delete measurement
@@ -86,17 +94,19 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1MeasurementsById
+      x-operation-id-source: derived
 components:
   schemas:
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     NotFound:
       type: object
       properties:
         error:
           type: string
           example: Resource not found
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action

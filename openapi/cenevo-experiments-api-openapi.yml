@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Experiments API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
-  version: v1
+  title: Cenevo Experiments API
+  version: '1.0'
+  description: 'Operations tagged Experiments across 2 of this provider''s published API definitions: cenevo-labguru-v1-openapi.yml, cenevo-labguru-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Experiments
 paths:
@@ -25,6 +25,8 @@ paths:
             schema:
               $ref: '#/components/schemas/addExperiment'
         required: true
+      operationId: postApiV1Experiments
+      x-operation-id-source: derived
     get:
       summary: List all experiments in your account
       tags:
@@ -35,9 +37,7 @@ paths:
 
         **Note:** An improved version of this endpoint is available in API v2.
 
-        Please visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Experiments/get_api_v2_experiments).
-
-        '
+        Please visit API v2 docs.'
       parameters:
       - name: token
         in: query
@@ -59,6 +59,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Experiments
+      x-operation-id-source: derived
   /api/v1/experiments/{id}:
     put:
       summary: Update an experiment
@@ -84,6 +86,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateExperiment'
         required: true
+      operationId: putApiV1ExperimentsById
+      x-operation-id-source: derived
     get:
       summary: Get experiment by id
       tags:
@@ -104,6 +108,8 @@ paths:
           description: success
         '404':
           description: experiment not found
+      operationId: getApiV1ExperimentsById
+      x-operation-id-source: derived
     delete:
       summary: Delete experiment
       tags:
@@ -125,9 +131,11 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1ExperimentsById
+      x-operation-id-source: derived
   /api/v1/experiments/{id}/elements:
     get:
-      summary: 'List all elements of an experiment '
+      summary: List all elements of an experiment
       tags:
       - Experiments
       parameters:
@@ -179,6 +187,8 @@ paths:
       responses:
         '200':
           description: success
+      operationId: getApiV1ExperimentsByIdElements
+      x-operation-id-source: derived
   /api/v1/experiments/{id}/set_flag_as:
     post:
       summary: Add flag to an experiment
@@ -248,6 +258,8 @@ paths:
                   type: integer
                   description: The ID of the flag
         required: true
+      operationId: postApiV1ExperimentsByIdSetFlagAs
+      x-operation-id-source: derived
   /api/v2/experiments/copy_section:
     post:
       summary: Copy section to an experiment
@@ -256,9 +268,7 @@ paths:
       description: 'This endpoint copies a section to an experiment.
 
 
-        Sections can be copied only from experiments or protocols.
-
-        '
+        Sections can be copied only from experiments or protocols.'
       parameters: []
       responses:
         '200':
@@ -328,6 +338,8 @@ paths:
                       - 1671
                       - 1676
         required: true
+      operationId: postApiV2ExperimentsCopySection
+      x-operation-id-source: derived
   /api/v2/experiments:
     post:
       summary: Create a new custom experiment
@@ -349,9 +361,7 @@ paths:
         - Provide `milestone_name` to create a new folder for this experiment.
 
 
-        Ensure only one of these options is used per request.
-
-        '
+        Ensure only one of these options is used per request.'
       parameters: []
       responses:
         '201':
@@ -380,13 +390,13 @@ paths:
               - $ref: '#/components/schemas/CreateExperimentExistingFolder'
               - $ref: '#/components/schemas/CreateExperimentNewFolder'
         required: true
+      operationId: postApiV2Experiments
+      x-operation-id-source: derived
     get:
       summary: List all experiments in your account
       tags:
       - Experiments
-      description: 'List all experiments.
-
-        '
+      description: List all experiments.
       parameters:
       - name: token
         in: query
@@ -432,11 +442,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFound'
+      operationId: getApiV2Experiments
+      x-operation-id-source: derived
 components:
   schemas:
     updateExperiment:
       allOf:
       - $ref: '#/components/schemas/ExperimentBaseRequest'
+    ExperimentBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The experiment title
+            project_id:
+              type: integer
+              description: The project id
+            milestone_id:
+              type: integer
+              description: You can also provide a milestone_name(string) instead of milestone_id(integer)
+            protocol_id:
+              type: integer
+              description: 'Start experiment from protocol by providing the protocol id '
+    addExperiment:
+      allOf:
+      - $ref: '#/components/schemas/ExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - project_id
+            - milestone_id
+    CreateExperimentExistingFolder:
+      allOf:
+      - $ref: '#/components/schemas/createExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_id:
+                type: integer
+                description: "The ID of the existing milestone (folder) that will contain the experiment.\n                            Required if milestone name is not provided."
+            required:
+            - milestone_id
+    CreateExperimentNewFolder:
+      allOf:
+      - $ref: '#/components/schemas/createExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_name:
+                type: string
+                description: "The name of a new milestone (folder) to be created for the experiment.\n                        Required if milestone_id is not provided."
+            required:
+            - milestone_name
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
     createExperimentBaseRequest:
       type: object
       required:
@@ -504,75 +588,6 @@ components:
                           example: This is a sample text data
                 required:
                 - title
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
-    NotFound:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Resource not found
-    CreateExperimentExistingFolder:
-      allOf:
-      - $ref: '#/components/schemas/createExperimentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            properties:
-              milestone_id:
-                type: integer
-                description: "The ID of the existing milestone (folder) that will contain the experiment.\n                            Required if milestone name is not provided."
-            required:
-            - milestone_id
-    addExperiment:
-      allOf:
-      - $ref: '#/components/schemas/ExperimentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
-            - project_id
-            - milestone_id
-    ExperimentBaseRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            title:
-              type: string
-              description: The experiment title
-            project_id:
-              type: integer
-              description: The project id
-            milestone_id:
-              type: integer
-              description: You can also provide a milestone_name(string) instead of milestone_id(integer)
-            protocol_id:
-              type: integer
-              description: 'Start experiment from protocol by providing the protocol id '
-    CreateExperimentNewFolder:
-      allOf:
-      - $ref: '#/components/schemas/createExperimentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            properties:
-              milestone_name:
-                type: string
-                description: "The name of a new milestone (folder) to be created for the experiment.\n                        Required if milestone_id is not provided."
-            required:
-            - milestone_name
+x-refined-from:
+- cenevo-labguru-v1-openapi.yml
+- cenevo-labguru-v2-openapi.yml

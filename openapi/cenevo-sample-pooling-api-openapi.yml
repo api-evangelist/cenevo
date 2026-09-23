@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Sample Pooling API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Sample Pooling API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Sample Pooling
@@ -24,9 +32,7 @@ paths:
         3. **Total Consumption Pooling**: Using the `createCustomSamplePoolingEvent` schema, which draws and consumes the entire amount from each stock.
 
 
-        Ensure the request body matches the structure defined in the referenced schemas for successful operation.
-
-        '
+        Ensure the request body matches the structure defined in the referenced schemas for successful operation.'
       parameters: []
       responses:
         '200':
@@ -106,78 +112,10 @@ paths:
               - $ref: '#/components/schemas/createFixedSamplePoolingEvent'
               - $ref: '#/components/schemas/createCustomSamplePoolingEvent'
               - $ref: '#/components/schemas/createConsumeSamplePoolingEvent'
+      operationId: postApiV1PoolEvents
+      x-operation-id-source: derived
 components:
   schemas:
-    createConsumeSamplePoolingEvent:
-      title: Create consume sample pooling event
-      type: object
-      description: draw the entire amount and consume.
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - name
-          - unit_type
-          - pool_type
-          - unit
-          - stocks_list
-          - pooled_stock_info
-          properties:
-            name:
-              type: string
-              description: The description of pool purpose
-            unit_type:
-              type: string
-              description: volume/weight
-            pool_type:
-              type: string
-              example: consume
-            unit:
-              type: string
-              example: µL
-              description: 'Valid units of measurement are:
-
-
-                - For ''volume'': ''nL'', ''µL'', ''mL'', ''L''
-
-                - For ''weight'': ''ng'', ''µg'', ''mg'', ''g'', ''Kg'''
-            stocks_list:
-              type: array
-              description: List of stock IDs from which to draw
-              items:
-                type: integer
-              example:
-              - 1291
-              - 1293
-            pooled_stock_info:
-              type: object
-              description: "Contains all the necessary stock fields for creating a stock during the pooling event.\n                    This object may include all the relevant stock properties."
-              required:
-              - name
-              - stockable_type
-              - stockable_id
-              - storage_type
-              - storage_id
-              properties:
-                stockable_type:
-                  type: string
-                  description: "Identifies the class name of the stock item, such as 'Biocollections::Bacterium'.\n                      This indicates the category of the entity and must match valid system-defined class names."
-                  example: Biocollections::Bacterium
-                stockable_id:
-                  type: integer
-                storage_type:
-                  type: string
-                  description: Specifies the storage classification, such as 'System::Storage::Storage', indicating the type of storage facility used for the item.
-                  example: System::Storage::Storage
-                storage_id:
-                  type: integer
-                name:
-                  type: string
     createFixedSamplePoolingEvent:
       title: Create fixed sample pooling event
       type: object
@@ -319,6 +257,76 @@ components:
                 storage_type:
                   type: string
                   description: "Specifies the storage classification, such as 'System::Storage::Storage',\n                        indicating the type of storage facility used for the item."
+                  example: System::Storage::Storage
+                storage_id:
+                  type: integer
+                name:
+                  type: string
+    createConsumeSamplePoolingEvent:
+      title: Create consume sample pooling event
+      type: object
+      description: draw the entire amount and consume.
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - unit_type
+          - pool_type
+          - unit
+          - stocks_list
+          - pooled_stock_info
+          properties:
+            name:
+              type: string
+              description: The description of pool purpose
+            unit_type:
+              type: string
+              description: volume/weight
+            pool_type:
+              type: string
+              example: consume
+            unit:
+              type: string
+              example: µL
+              description: 'Valid units of measurement are:
+
+
+                - For ''volume'': ''nL'', ''µL'', ''mL'', ''L''
+
+                - For ''weight'': ''ng'', ''µg'', ''mg'', ''g'', ''Kg'''
+            stocks_list:
+              type: array
+              description: List of stock IDs from which to draw
+              items:
+                type: integer
+              example:
+              - 1291
+              - 1293
+            pooled_stock_info:
+              type: object
+              description: "Contains all the necessary stock fields for creating a stock during the pooling event.\n                    This object may include all the relevant stock properties."
+              required:
+              - name
+              - stockable_type
+              - stockable_id
+              - storage_type
+              - storage_id
+              properties:
+                stockable_type:
+                  type: string
+                  description: "Identifies the class name of the stock item, such as 'Biocollections::Bacterium'.\n                      This indicates the category of the entity and must match valid system-defined class names."
+                  example: Biocollections::Bacterium
+                stockable_id:
+                  type: integer
+                storage_type:
+                  type: string
+                  description: Specifies the storage classification, such as 'System::Storage::Storage', indicating the type of storage facility used for the item.
                   example: System::Storage::Storage
                 storage_id:
                   type: integer

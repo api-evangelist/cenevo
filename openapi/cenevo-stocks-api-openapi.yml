@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Stocks API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Stocks API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Stocks
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createStock'
         required: true
+      operationId: postApiV1Stocks
+      x-operation-id-source: derived
     get:
       summary: List all stocks in your account
       tags:
@@ -72,6 +82,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
+      operationId: getApiV1Stocks
+      x-operation-id-source: derived
   /api/v1/stocks/{id}/mark_as_consumed:
     post:
       summary: Marks stock as consumed
@@ -94,6 +106,8 @@ paths:
           description: stock marked as consumed
         '401':
           description: 'Error: Unauthorized'
+      operationId: postApiV1StocksByIdMarkAsConsumed
+      x-operation-id-source: derived
   /api/v1/stocks/{id}/mark_as_output:
     post:
       summary: Marks stock as output
@@ -129,6 +143,8 @@ paths:
                   description: the experiment id
                   example: 103
         required: true
+      operationId: postApiV1StocksByIdMarkAsOutput
+      x-operation-id-source: derived
   /api/v1/stocks/{id}/unmark_output:
     post:
       summary: Unmarks stock as output
@@ -164,6 +180,8 @@ paths:
                   description: the experiment id
                   example: 103
         required: true
+      operationId: postApiV1StocksByIdUnmarkOutput
+      x-operation-id-source: derived
   /api/v1/stocks/{id}/update_stock_amount:
     post:
       summary: Update stock weight/volume for stock in sample element
@@ -192,6 +210,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateStockAmountInSampleElement'
         required: true
+      operationId: postApiV1StocksByIdUpdateStockAmount
+      x-operation-id-source: derived
   /api/v1/stocks/{id}:
     put:
       summary: Update stock attributes
@@ -217,6 +237,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateStock'
         required: true
+      operationId: putApiV1StocksById
+      x-operation-id-source: derived
     get:
       summary: Get stock by id
       tags:
@@ -238,6 +260,8 @@ paths:
           description: success
         '404':
           description: stock not found
+      operationId: getApiV1StocksById
+      x-operation-id-source: derived
     delete:
       summary: Delete stock
       tags:
@@ -259,6 +283,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1StocksById
+      x-operation-id-source: derived
   /api/v1/stocks/get_stocks_by_barcode:
     get:
       summary: Get stock by barcode/id
@@ -290,6 +316,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
+      operationId: getApiV1StocksGetStocksByBarcode
+      x-operation-id-source: derived
 components:
   schemas:
     createStock:
@@ -308,6 +336,134 @@ components:
     updateStock:
       allOf:
       - $ref: '#/components/schemas/StockBaseRequest'
+    StockBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: 'the stock name '
+            storage_id:
+              type: integer
+              description: 'type of storages: 1 - Room, 21 - Shelf, 61 - Closet, 81 - Drawer, 111 - Cage, 120 - Refrigerator ,121 - Freezer, 181 - Rack Cell , 201 - Cryo container, 251 - Slide Rack, 261 - Rack Cell, 322 - Rack, 323 - Rack Cell, 321 - Other'
+            storage_type:
+              type: string
+              description: 'storage class name - [Box - System::Storage::Box] [all other storages type - System::Storage::Storage] '
+            stockable_type:
+              type: string
+              description: 'class name of the stockable item type, such as: Biocollections::Antibody'
+            stockable_id:
+              type: integer
+              description: stockable item id
+            location_in_box:
+              type: integer
+              description: if storage is grid box, indicates numerical location in box
+            owner_id:
+              type: integer
+              description: id of the owner - by default it's your member id
+            expiration_date:
+              type: string
+              format: date
+              description: 'in the following format: yyyy-mm-dd '
+            lot:
+              type: string
+              description: number of batch
+            description:
+              type: string
+              description: general description
+            barcode:
+              type: string
+              description: 'barcode '
+            stored_by:
+              type: integer
+              description: member id
+            concentration:
+              type: string
+              description: concentration
+            concentration_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            concentration_unit_id:
+              type: integer
+              description: 9-mg/mL, 10-g/L, 11-M, 12-mM, 13-µM, 14-µg/mL, 15-ng/µL, 16-ratio, 17-%, 18-g/mL
+              example: 9
+            concentration_exponent:
+              type: integer
+              description: concentration exponent
+            concentration_remarks:
+              type: string
+              description: concentration remarks
+            volume:
+              type: string
+              description: volume
+            volume_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            volume_unit_id:
+              type: integer
+              description: 6-L, 7-mL, 8-µL
+              example: 7
+            volume_exponent:
+              type: integer
+              description: volume exponent
+            volume_remarks:
+              type: string
+              description: volume remarks
+            weight:
+              type: string
+              description: weight
+            weight_prefix:
+              type: string
+              description: x10^/E^
+              example: E^
+            weight_unit_id:
+              type: integer
+              description: 1 -Kg, 2-g, 3-mg, 4-µg, 5-ng
+              example: 3
+            weight_exponent:
+              type: integer
+              description: weight exponent
+            weight_remarks:
+              type: string
+              description: weight remarks
+    updateStockAmountInSampleElement:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        unit_type:
+          type: string
+          description: weight/volume
+        element_id:
+          type: integer
+          description: the samples element id
+        amount_used:
+          type: string
+          description: amount_used
+          example: 15
+        unit_type_name:
+          type: string
+          description: unit_type_name
+          example: mg
+        subtract:
+          type: string
+          description: 'true'
+          example: 'true'
+        sample_id:
+          type: integer
+          description: the sample id
     Unauthorized:
       type: object
       properties:
@@ -420,105 +576,6 @@ components:
                           type: string
                           example: '[1]'
                           description: User id in the following format "[1]"
-    StockBaseRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            name:
-              type: string
-              description: 'the stock name '
-            storage_id:
-              type: integer
-              description: 'type of storages: 1 - Room, 21 - Shelf, 61 - Closet, 81 - Drawer, 111 - Cage, 120 - Refrigerator ,121 - Freezer, 181 - Rack Cell , 201 - Cryo container, 251 - Slide Rack, 261 - Rack Cell, 322 - Rack, 323 - Rack Cell, 321 - Other'
-            storage_type:
-              type: string
-              description: 'storage class name - [Box - System::Storage::Box] [all other storages type - System::Storage::Storage] '
-            stockable_type:
-              type: string
-              description: 'class name of the stockable item type, such as: Biocollections::Antibody'
-            stockable_id:
-              type: integer
-              description: stockable item id
-            location_in_box:
-              type: integer
-              description: if storage is grid box, indicates numerical location in box
-            owner_id:
-              type: integer
-              description: id of the owner - by default it's your member id
-            expiration_date:
-              type: string
-              format: date
-              description: 'in the following format: yyyy-mm-dd '
-            lot:
-              type: string
-              description: number of batch
-            description:
-              type: string
-              description: general description
-            barcode:
-              type: string
-              description: 'barcode '
-            stored_by:
-              type: integer
-              description: member id
-            concentration:
-              type: string
-              description: concentration
-            concentration_prefix:
-              type: string
-              description: x10^/E^
-              example: E^
-            concentration_unit_id:
-              type: integer
-              description: 9-mg/mL, 10-g/L, 11-M, 12-mM, 13-µM, 14-µg/mL, 15-ng/µL, 16-ratio, 17-%, 18-g/mL
-              example: 9
-            concentration_exponent:
-              type: integer
-              description: concentration exponent
-            concentration_remarks:
-              type: string
-              description: concentration remarks
-            volume:
-              type: string
-              description: volume
-            volume_prefix:
-              type: string
-              description: x10^/E^
-              example: E^
-            volume_unit_id:
-              type: integer
-              description: 6-L, 7-mL, 8-µL
-              example: 7
-            volume_exponent:
-              type: integer
-              description: volume exponent
-            volume_remarks:
-              type: string
-              description: volume remarks
-            weight:
-              type: string
-              description: weight
-            weight_prefix:
-              type: string
-              description: x10^/E^
-              example: E^
-            weight_unit_id:
-              type: integer
-              description: 1 -Kg, 2-g, 3-mg, 4-µg, 5-ng
-              example: 3
-            weight_exponent:
-              type: integer
-              description: weight exponent
-            weight_remarks:
-              type: string
-              description: weight remarks
     OK:
       type: object
       properties:
@@ -527,32 +584,3 @@ components:
         type:
           type: string
           example: Created
-    updateStockAmountInSampleElement:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        unit_type:
-          type: string
-          description: weight/volume
-        element_id:
-          type: integer
-          description: the samples element id
-        amount_used:
-          type: string
-          description: amount_used
-          example: 15
-        unit_type_name:
-          type: string
-          description: unit_type_name
-          example: mg
-        subtract:
-          type: string
-          description: 'true'
-          example: 'true'
-        sample_id:
-          type: integer
-          description: the sample id

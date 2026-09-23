@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Plasmids API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Plasmids API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Plasmids
@@ -11,9 +19,7 @@ paths:
       summary: Create a plasmid
       tags:
       - Plasmids
-      description: 'Create a plasmid.
-
-        '
+      description: Create a plasmid.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createPlasmid'
         required: true
+      operationId: postApiV1Plasmids
+      x-operation-id-source: derived
     get:
       summary: List all plasmids in your account
       tags:
       - Plasmids
-      description: 'List all plasmids.
-
-        '
+      description: List all plasmids.
       parameters:
       - name: token
         in: query
@@ -58,14 +64,14 @@ paths:
           description: Not found
         '401':
           description: 'Error: Unauthorized'
+      operationId: getApiV1Plasmids
+      x-operation-id-source: derived
   /api/v1/plasmids/{id}:
     put:
       summary: Update a plasmid
       tags:
       - Plasmids
-      description: 'Update plasmid.
-
-        '
+      description: Update plasmid.
       parameters:
       - name: id
         in: path
@@ -86,13 +92,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updatePlasmid'
         required: true
+      operationId: putApiV1PlasmidsById
+      x-operation-id-source: derived
     get:
       summary: Get plasmid by ID
       tags:
       - Plasmids
-      description: 'Get plasmid by ID.
-
-        '
+      description: Get plasmid by ID.
       parameters:
       - name: token
         in: query
@@ -112,6 +118,8 @@ paths:
           description: Not found
         '401':
           description: 'Error: Unauthorized'
+      operationId: getApiV1PlasmidsById
+      x-operation-id-source: derived
     delete:
       summary: Delete plasmid
       tags:
@@ -133,11 +141,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1PlasmidsById
+      x-operation-id-source: derived
 components:
   schemas:
-    updatePlasmid:
-      allOf:
-      - $ref: '#/components/schemas/PlasmidBaseRequest'
     PlasmidBaseRequest:
       type: object
       required:
@@ -191,3 +198,6 @@ components:
             type: object
             required:
             - title
+    updatePlasmid:
+      allOf:
+      - $ref: '#/components/schemas/PlasmidBaseRequest'

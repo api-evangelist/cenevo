@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Workflows API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Workflows API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Workflows
@@ -29,6 +37,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1WorkflowsById
+      x-operation-id-source: derived
     delete:
       summary: Delete workflow
       tags:
@@ -50,6 +60,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1WorkflowsById
+      x-operation-id-source: derived
   /api/v1/workflows:
     get:
       summary: List all workflows in your account
@@ -77,3 +89,5 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Workflows
+      x-operation-id-source: derived

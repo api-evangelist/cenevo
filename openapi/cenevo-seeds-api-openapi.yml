@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Seeds API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Seeds API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Seeds
@@ -11,9 +19,7 @@ paths:
       summary: Creates a seed
       tags:
       - Seeds
-      description: 'Create a seed.
-
-        '
+      description: Create a seed.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createSeed'
         required: true
+      operationId: postApiV1Seeds
+      x-operation-id-source: derived
     get:
       summary: List all seeds in your account
       tags:
       - Seeds
-      description: 'List all seeds.
-
-        '
+      description: List all seeds.
       parameters:
       - name: token
         in: query
@@ -56,14 +62,14 @@ paths:
           description: OK
         '404':
           description: Not found
+      operationId: getApiV1Seeds
+      x-operation-id-source: derived
   /api/v1/seeds/{id}:
     put:
       summary: Update a seed
       tags:
       - Seeds
-      description: 'Update a seed.
-
-        '
+      description: Update a seed.
       parameters:
       - name: id
         in: path
@@ -84,13 +90,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updateSeed'
         required: true
+      operationId: putApiV1SeedsById
+      x-operation-id-source: derived
     get:
       summary: Get seed by id
       tags:
       - Seeds
-      description: 'Get a seed by ID.
-
-        '
+      description: Get a seed by ID.
       parameters:
       - name: token
         in: query
@@ -108,6 +114,8 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1SeedsById
+      x-operation-id-source: derived
     delete:
       summary: Delete seed
       tags:
@@ -129,17 +137,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1SeedsById
+      x-operation-id-source: derived
 components:
   schemas:
-    createSeed:
-      allOf:
-      - $ref: '#/components/schemas/SeedBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     SeedBaseRequest:
       type: object
       required:
@@ -182,3 +183,12 @@ components:
     updateSeed:
       allOf:
       - $ref: '#/components/schemas/SeedBaseRequest'
+    createSeed:
+      allOf:
+      - $ref: '#/components/schemas/SeedBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

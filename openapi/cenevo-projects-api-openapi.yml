@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Projects API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
-  version: v1
+  title: Cenevo Projects API
+  version: '1.0'
+  description: 'Operations tagged Projects across 2 of this provider''s published API definitions: cenevo-labguru-v1-openapi.yml, cenevo-labguru-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Projects
 paths:
@@ -25,6 +25,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createProject'
         required: true
+      operationId: postApiV1Projects
+      x-operation-id-source: derived
     get:
       summary: List all projects in your account
       tags:
@@ -50,6 +52,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Projects
+      x-operation-id-source: derived
   /api/v1/projects/{id}:
     put:
       summary: Update a project
@@ -75,6 +79,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateProject'
         required: true
+      operationId: putApiV1ProjectsById
+      x-operation-id-source: derived
     get:
       summary: Get project by id
       tags:
@@ -96,6 +102,8 @@ paths:
           description: success
         '404':
           description: project not found
+      operationId: getApiV1ProjectsById
+      x-operation-id-source: derived
   /api/v2/projects/{id}:
     delete:
       summary: Delete project
@@ -118,11 +126,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV2ProjectsById
+      x-operation-id-source: derived
 components:
   schemas:
-    updateProject:
-      allOf:
-      - $ref: '#/components/schemas/ProjectBaseRequest'
     createProject:
       allOf:
       - $ref: '#/components/schemas/ProjectBaseRequest'
@@ -132,6 +139,9 @@ components:
             type: object
             required:
             - title
+    updateProject:
+      allOf:
+      - $ref: '#/components/schemas/ProjectBaseRequest'
     ProjectBaseRequest:
       type: object
       required:
@@ -162,3 +172,6 @@ components:
             owner_id:
               type: integer
               description: 'ID of the owner (default: your member id)'
+x-refined-from:
+- cenevo-labguru-v1-openapi.yml
+- cenevo-labguru-v2-openapi.yml

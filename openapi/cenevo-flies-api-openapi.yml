@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Flies API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Flies API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Flies
@@ -11,9 +19,7 @@ paths:
       summary: Create a Fly
       tags:
       - Flies
-      description: 'Create a fly.
-
-        '
+      description: Create a fly.
       parameters: []
       responses:
         '201':
@@ -28,6 +34,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createFly'
         required: true
+      operationId: postApiV1Flies
+      x-operation-id-source: derived
     get:
       summary: List all flies in your account
       tags:
@@ -48,22 +56,20 @@ paths:
         description: Show summarized data information - true/false
         schema:
           type: string
-      description: 'List all flies.
-
-        '
+      description: List all flies.
       responses:
         '200':
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1Flies
+      x-operation-id-source: derived
   /api/v1/flies/{id}:
     put:
       summary: Update a fly
       tags:
       - Flies
-      description: 'Update a fly.
-
-        '
+      description: Update a fly.
       parameters:
       - name: id
         in: path
@@ -84,6 +90,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateFly'
         required: true
+      operationId: putApiV1FliesById
+      x-operation-id-source: derived
     get:
       summary: Get fly by id
       tags:
@@ -100,14 +108,14 @@ paths:
         description: The ID of the fly
         schema:
           type: integer
-      description: 'Get a fly by ID.
-
-        '
+      description: Get a fly by ID.
       responses:
         '200':
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1FliesById
+      x-operation-id-source: derived
     delete:
       summary: Delete fly
       tags:
@@ -129,6 +137,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1FliesById
+      x-operation-id-source: derived
 components:
   schemas:
     createFly:

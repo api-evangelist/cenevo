@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Bacteria API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Bacteria API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Bacteria
@@ -11,9 +19,7 @@ paths:
       summary: Create a bacterium
       tags:
       - Bacteria
-      description: 'Create a bacterium.
-
-        '
+      description: Create a bacterium.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createBacterium'
         required: true
+      operationId: postApiV1Bacteria
+      x-operation-id-source: derived
     get:
       summary: List all bacteria in your account
       tags:
       - Bacteria
-      description: 'List all bacteria.
-
-        '
+      description: List all bacteria.
       parameters:
       - name: token
         in: query
@@ -56,14 +62,14 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1Bacteria
+      x-operation-id-source: derived
   /api/v1/bacteria/{id}:
     put:
       summary: Update bacterium
       tags:
       - Bacteria
-      description: 'Update bacterium.
-
-        '
+      description: Update bacterium.
       parameters:
       - name: id
         in: path
@@ -84,13 +90,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updateBacterium'
         required: true
+      operationId: putApiV1BacteriaById
+      x-operation-id-source: derived
     get:
       summary: Get bacterium by id
       tags:
       - Bacteria
-      description: 'Get a bacterium by ID.
-
-        '
+      description: Get a bacterium by ID.
       parameters:
       - name: token
         in: query
@@ -108,6 +114,8 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1BacteriaById
+      x-operation-id-source: derived
     delete:
       summary: Delete bacterium
       tags:
@@ -129,8 +137,22 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1BacteriaById
+      x-operation-id-source: derived
 components:
   schemas:
+    updateBacterium:
+      allOf:
+      - $ref: '#/components/schemas/BacteriumBaseRequest'
+    createBacterium:
+      allOf:
+      - $ref: '#/components/schemas/BacteriumBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     BacteriumBaseRequest:
       type: object
       required:
@@ -160,15 +182,3 @@ components:
             description:
               type: string
               description: A detailed description of the bacterium
-    updateBacterium:
-      allOf:
-      - $ref: '#/components/schemas/BacteriumBaseRequest'
-    createBacterium:
-      allOf:
-      - $ref: '#/components/schemas/BacteriumBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Rodent Strains API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Rodent Strains API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Rodent Strains
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createRodentStrain'
         required: true
+      operationId: postApiV1RodentStrains
+      x-operation-id-source: derived
     get:
       summary: List all rodent strains in your account
       tags:
@@ -50,6 +60,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1RodentStrains
+      x-operation-id-source: derived
   /api/v1/rodent_strains/{id}:
     put:
       summary: Update rodent strain attributes
@@ -75,6 +87,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateRodentStrain'
         required: true
+      operationId: putApiV1RodentStrainsById
+      x-operation-id-source: derived
     get:
       summary: Get rodent strain by id
       tags:
@@ -96,6 +110,8 @@ paths:
           description: success
         '404':
           description: rodent strain not found
+      operationId: getApiV1RodentStrainsById
+      x-operation-id-source: derived
     delete:
       summary: Delete rodent strain
       tags:
@@ -117,8 +133,22 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1RodentStrainsById
+      x-operation-id-source: derived
 components:
   schemas:
+    createRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'
     RodentStrainBaseRequest:
       type: object
       required:
@@ -154,15 +184,3 @@ components:
             description:
               type: string
               description: Description of the strain
-    updateRodentStrain:
-      allOf:
-      - $ref: '#/components/schemas/RodentStrainBaseRequest'
-    createRodentStrain:
-      allOf:
-      - $ref: '#/components/schemas/RodentStrainBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

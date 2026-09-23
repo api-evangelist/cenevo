@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Plates API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Plates API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Plates
@@ -39,6 +47,8 @@ paths:
                     type: string
                     example: Plate A
         required: true
+      operationId: postApiV1PlatesByIdDuplicate
+      x-operation-id-source: derived
   /api/v1/plates/find_by_name:
     get:
       summary: Find a plate by name
@@ -64,6 +74,8 @@ paths:
           description: invalid request
         '401':
           description: 'Error: Unauthorized'
+      operationId: getApiV1PlatesFindByName
+      x-operation-id-source: derived
   /api/v1/plates/{id}:
     get:
       summary: Get plate by id
@@ -86,6 +98,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1PlatesById
+      x-operation-id-source: derived
     delete:
       summary: Delete plate
       tags:
@@ -107,6 +121,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1PlatesById
+      x-operation-id-source: derived
   /api/v1/plates:
     get:
       summary: List all plates in your account
@@ -133,3 +149,5 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Plates
+      x-operation-id-source: derived

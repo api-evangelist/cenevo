@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Links API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Links API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Links
@@ -29,6 +37,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createLink'
         required: true
+      operationId: postApiV1Links
+      x-operation-id-source: derived
     get:
       summary: Get link by uuid
       tags:
@@ -64,6 +74,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
+      operationId: getApiV1Links
+      x-operation-id-source: derived
   /api/v1/links/{id}:
     put:
       summary: Update a link
@@ -101,6 +113,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateLink'
         required: true
+      operationId: putApiV1LinksById
+      x-operation-id-source: derived
     get:
       summary: Get link by id
       tags:
@@ -128,6 +142,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
+      operationId: getApiV1LinksById
+      x-operation-id-source: derived
     delete:
       summary: Delete link
       tags:
@@ -149,11 +165,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1LinksById
+      x-operation-id-source: derived
 components:
   schemas:
-    updateLink:
-      allOf:
-      - $ref: '#/components/schemas/LinkBaseRequest'
     createLink:
       allOf:
       - $ref: '#/components/schemas/LinkBaseRequest'
@@ -174,6 +189,9 @@ components:
         message:
           type: string
           example: You are not authorized to perform this action
+    updateLink:
+      allOf:
+      - $ref: '#/components/schemas/LinkBaseRequest'
     LinkBaseRequest:
       type: object
       required:

@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Reports API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
-  version: v1
+  title: Cenevo Reports API
+  version: '1.0'
+  description: 'Operations tagged Reports across 2 of this provider''s published API definitions: cenevo-labguru-v1-openapi.yml, cenevo-labguru-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Reports
 paths:
@@ -25,6 +25,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createReport'
         required: true
+      operationId: postApiV1Reports
+      x-operation-id-source: derived
     get:
       summary: List all reports in your account
       tags:
@@ -50,6 +52,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Reports
+      x-operation-id-source: derived
   /api/v1/reports/add_section_to_report:
     post:
       summary: Add section to report
@@ -69,6 +73,8 @@ paths:
             schema:
               $ref: '#/components/schemas/addAnExperimentSectionToReport'
         required: true
+      operationId: postApiV1ReportsAddSectionToReport
+      x-operation-id-source: derived
   /api/v1/reports/add_cover_to_report:
     post:
       summary: Add cover to report
@@ -86,6 +92,8 @@ paths:
             schema:
               $ref: '#/components/schemas/addCoverToReport'
         required: true
+      operationId: postApiV1ReportsAddCoverToReport
+      x-operation-id-source: derived
   /api/v1/reports/{id}:
     put:
       summary: Update reports attributes
@@ -111,6 +119,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateReport'
         required: true
+      operationId: putApiV1ReportsById
+      x-operation-id-source: derived
     get:
       summary: Get report by id
       tags:
@@ -132,6 +142,8 @@ paths:
           description: success
         '404':
           description: report not found
+      operationId: getApiV1ReportsById
+      x-operation-id-source: derived
     delete:
       summary: Delete report
       tags:
@@ -153,6 +165,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1ReportsById
+      x-operation-id-source: derived
   /api/v2/reports/copy_section:
     post:
       summary: Copy section to report
@@ -161,9 +175,7 @@ paths:
       description: 'This endpoint copies a section to a report.
 
 
-        Sections can be copied only from experiments or protocols.
-
-        '
+        Sections can be copied only from experiments or protocols.'
       parameters: []
       responses:
         '200':
@@ -233,6 +245,8 @@ paths:
                       - 1671
                       - 1676
         required: true
+      operationId: postApiV2ReportsCopySection
+      x-operation-id-source: derived
 components:
   schemas:
     createReport:
@@ -247,26 +261,6 @@ components:
     updateReport:
       allOf:
       - $ref: '#/components/schemas/ReportBaseRequest'
-    ReportBaseRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            title:
-              type: string
-              description: 'the report title '
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     addAnExperimentSectionToReport:
       type: object
       required:
@@ -288,12 +282,6 @@ components:
               type: string
               description: the experiment procedure id to copy
               example: '32'
-    NotFound:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Resource not found
     addCoverToReport:
       type: object
       required:
@@ -315,3 +303,32 @@ components:
               type: string
               description: cover page data in HTML format
               example: <h1>Cover Page Heading</h1>
+    ReportBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: 'the report title '
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+x-refined-from:
+- cenevo-labguru-v1-openapi.yml
+- cenevo-labguru-v2-openapi.yml

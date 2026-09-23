@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Sections API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Sections API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Sections
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createSection'
         required: true
+      operationId: postApiV1Sections
+      x-operation-id-source: derived
   /api/v1/sections/sort:
     post:
       summary: Sort sections
@@ -45,6 +55,8 @@ paths:
             schema:
               $ref: '#/components/schemas/moveSection'
         required: true
+      operationId: postApiV1SectionsSort
+      x-operation-id-source: derived
   /api/v1/sections/{id}:
     put:
       summary: Update section
@@ -70,6 +82,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateSection'
         required: true
+      operationId: putApiV1SectionsById
+      x-operation-id-source: derived
     get:
       summary: Get section by id
       tags:
@@ -91,6 +105,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1SectionsById
+      x-operation-id-source: derived
     delete:
       summary: Delete section
       tags:
@@ -112,6 +128,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1SectionsById
+      x-operation-id-source: derived
 components:
   schemas:
     moveSection:
@@ -140,6 +158,30 @@ components:
           example:
           - 110
           - 111
+    updateSection:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: the name of the section
+            container_id:
+              type: integer
+              description: The ID of the experiment/protocol/report the section belongs to
+            container_type:
+              type: string
+              description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
+              example: Projects::Experiment
+            position:
+              type: integer
+              description: the section position
     createSection:
       type: object
       required:
@@ -164,30 +206,6 @@ components:
             container_type:
               type: string
               description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
-              example: Projects::Experiment
-            position:
-              type: integer
-              description: the section position
-    updateSection:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            name:
-              type: string
-              description: the name of the section
-            container_id:
-              type: integer
-              description: The ID of the experiment/protocol/report the section belongs to
-            container_type:
-              type: string
-              description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
               example: Projects::Experiment
             position:
               type: integer

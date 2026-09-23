@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Submodules API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Submodules API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Submodules
@@ -48,6 +56,8 @@ paths:
                         type: string
                         example: 85ed5fca-1114-49ec-8661-48563534efb2
         required: true
+      operationId: postApiV1ByBiocollectionName
+      x-operation-id-source: derived
   /api/v1/{biocollection_name}/{id}:
     put:
       summary: Update item with a new parent
@@ -96,6 +106,8 @@ paths:
                         type: string
                         example: 85ed5fca-1114-49ec-8661-48563534efb2
         required: true
+      operationId: putApiV1ByBiocollectionNameById
+      x-operation-id-source: derived
   /api/v1/{biocollection_name}/{id}/get_parents:
     get:
       summary: Get parents of an inventory item
@@ -124,6 +136,8 @@ paths:
           description: success
         '404':
           description: item not found
+      operationId: getApiV1ByBiocollectionNameByIdGetParents
+      x-operation-id-source: derived
   /api/v1/{parent_collection_name}/get_derived_collections:
     get:
       summary: Get the derived collections of a collection
@@ -146,6 +160,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1ByParentCollectionNameGetDerivedCollections
+      x-operation-id-source: derived
   /api/v1/biocollections/{parent_collection_name}/get_derived_collections:
     get:
       summary: Get the derived collections of a generic collection
@@ -168,6 +184,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1BiocollectionsByParentCollectionNameGetDerivedCollections
+      x-operation-id-source: derived
   /api/v1/{parent_collection_name}/{id}/get_derived_items:
     get:
       summary: Get the derived items of a collection item
@@ -207,6 +225,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1ByParentCollectionNameByIdGetDerivedItems
+      x-operation-id-source: derived
   /api/v1/biocollections/{parent_collection_name}/{id}/get_derived_items:
     get:
       summary: Get the derived items of a generic collection item
@@ -246,3 +266,5 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1BiocollectionsByParentCollectionNameByIdGetDerivedItems
+      x-operation-id-source: derived

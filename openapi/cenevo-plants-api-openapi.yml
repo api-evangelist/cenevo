@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Plants API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Plants API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Plants
@@ -11,9 +19,7 @@ paths:
       summary: Create a plant
       tags:
       - Plants
-      description: 'Create a plant.
-
-        '
+      description: Create a plant.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createPlant'
         required: true
+      operationId: postApiV1Plants
+      x-operation-id-source: derived
     get:
       summary: List all plants in your account
       tags:
       - Plants
-      description: 'List all plants.
-
-        '
+      description: List all plants.
       parameters:
       - name: token
         in: query
@@ -58,14 +64,14 @@ paths:
           description: Not found
         '401':
           description: 'Error: Unauthorized'
+      operationId: getApiV1Plants
+      x-operation-id-source: derived
   /api/v1/plants/{id}:
     put:
       summary: Update plant
       tags:
       - Plants
-      description: 'Update plant.
-
-        '
+      description: Update plant.
       parameters:
       - name: id
         in: path
@@ -86,13 +92,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updatePlant'
         required: true
+      operationId: putApiV1PlantsById
+      x-operation-id-source: derived
     get:
       summary: Get a plant by ID
       tags:
       - Plants
-      description: 'Get plant by ID.
-
-        '
+      description: Get plant by ID.
       parameters:
       - name: token
         in: query
@@ -112,6 +118,8 @@ paths:
           description: Not found
         '401':
           description: 'Error: Unauthorized'
+      operationId: getApiV1PlantsById
+      x-operation-id-source: derived
     delete:
       summary: Delete plant
       tags:
@@ -133,11 +141,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1PlantsById
+      x-operation-id-source: derived
 components:
   schemas:
-    updatePlant:
-      allOf:
-      - $ref: '#/components/schemas/PlantBaseRequest'
     PlantBaseRequest:
       type: object
       required:
@@ -175,6 +182,9 @@ components:
             description:
               type: string
               description: Description of the plant
+    updatePlant:
+      allOf:
+      - $ref: '#/components/schemas/PlantBaseRequest'
     createPlant:
       allOf:
       - $ref: '#/components/schemas/PlantBaseRequest'

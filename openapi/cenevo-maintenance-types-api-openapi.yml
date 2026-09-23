@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Maintenance types API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Maintenance types API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Maintenance types
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createMaintenanceType'
         required: true
+      operationId: postApiV1MaintenanceTypes
+      x-operation-id-source: derived
     get:
       summary: List all maintenance types in your account
       tags:
@@ -50,6 +60,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1MaintenanceTypes
+      x-operation-id-source: derived
   /api/v1/maintenance_types/{id}:
     put:
       summary: Update maintenance type
@@ -75,6 +87,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateMaintenanceType'
         required: true
+      operationId: putApiV1MaintenanceTypesById
+      x-operation-id-source: derived
     get:
       summary: Get maintenance type by id
       tags:
@@ -96,6 +110,8 @@ paths:
           description: success
         '404':
           description: maintenance type not found
+      operationId: getApiV1MaintenanceTypesById
+      x-operation-id-source: derived
     delete:
       summary: Delete maintenance type
       tags:
@@ -117,24 +133,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1MaintenanceTypesById
+      x-operation-id-source: derived
 components:
   schemas:
-    updateMaintenanceType:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: The new name of the maintenance type
     createMaintenanceType:
       type: object
       required:
@@ -151,3 +153,19 @@ components:
             name:
               type: string
               description: The name of the maintenance type
+    updateMaintenanceType:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: The new name of the maintenance type

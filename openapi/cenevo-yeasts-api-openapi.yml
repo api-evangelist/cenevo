@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Yeasts API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Yeasts API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Yeasts
@@ -11,9 +19,7 @@ paths:
       summary: Create a yeast
       tags:
       - Yeasts
-      description: 'Create a yeast.
-
-        '
+      description: Create a yeast.
       parameters: []
       responses:
         '201':
@@ -28,13 +34,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createYeast'
         required: true
+      operationId: postApiV1Yeasts
+      x-operation-id-source: derived
     get:
       summary: List all yeasts in your account
       tags:
       - Yeasts
-      description: 'List all yeasts.
-
-        '
+      description: List all yeasts.
       parameters:
       - name: token
         in: query
@@ -56,14 +62,14 @@ paths:
           description: OK
         '404':
           description: Not found
+      operationId: getApiV1Yeasts
+      x-operation-id-source: derived
   /api/v1/yeasts/{id}:
     put:
       summary: Update a yeast
       tags:
       - Yeasts
-      description: 'Update a yeast.
-
-        '
+      description: Update a yeast.
       parameters:
       - name: id
         in: path
@@ -84,13 +90,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updateYeast'
         required: true
+      operationId: putApiV1YeastsById
+      x-operation-id-source: derived
     get:
       summary: Get yeast by id
       tags:
       - Yeasts
-      description: 'Get a yeast by ID.
-
-        '
+      description: Get a yeast by ID.
       parameters:
       - name: token
         in: query
@@ -108,6 +114,8 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1YeastsById
+      x-operation-id-source: derived
     delete:
       summary: Delete yeast
       tags:
@@ -129,17 +137,10 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1YeastsById
+      x-operation-id-source: derived
 components:
   schemas:
-    createYeast:
-      allOf:
-      - $ref: '#/components/schemas/YeastBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     YeastBaseRequest:
       type: object
       required:
@@ -175,6 +176,15 @@ components:
             owner_id:
               type: integer
               description: id of the owner - if omitted, will default to your member id
+    createYeast:
+      allOf:
+      - $ref: '#/components/schemas/YeastBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     updateYeast:
       allOf:
       - $ref: '#/components/schemas/YeastBaseRequest'

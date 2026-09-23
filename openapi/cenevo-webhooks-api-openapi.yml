@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Webhooks API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Webhooks API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Webhooks
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createWebhook'
         required: true
+      operationId: postApiV1Webhooks
+      x-operation-id-source: derived
     get:
       summary: List all webhooks in your account
       tags:
@@ -50,6 +60,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1Webhooks
+      x-operation-id-source: derived
   /api/v1/webhooks/{id}:
     put:
       summary: Update webhook attributes
@@ -75,6 +87,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateWebhook'
         required: true
+      operationId: putApiV1WebhooksById
+      x-operation-id-source: derived
     get:
       summary: Get webhook by id
       tags:
@@ -96,6 +110,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1WebhooksById
+      x-operation-id-source: derived
     delete:
       summary: Delete webhook
       tags:
@@ -117,6 +133,8 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1WebhooksById
+      x-operation-id-source: derived
   /api/v1/webhooks/list:
     get:
       summary: List all webhooks available
@@ -133,8 +151,33 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1WebhooksList
+      x-operation-id-source: derived
 components:
   schemas:
+    updateWebhook:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            trigger_key:
+              type: string
+              description: trigger key
+              example: knowledgebase_document.signed
+            active:
+              type: boolean
+              description: by default it's false
+              example: false
+            url:
+              type: string
+              description: url
+              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json
     createWebhook:
       type: object
       required:
@@ -149,29 +192,6 @@ components:
           - trigger_key
           - active
           - url
-          properties:
-            trigger_key:
-              type: string
-              description: trigger key
-              example: knowledgebase_document.signed
-            active:
-              type: boolean
-              description: by default it's false
-              example: false
-            url:
-              type: string
-              description: url
-              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json
-    updateWebhook:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
           properties:
             trigger_key:
               type: string

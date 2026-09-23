@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Requests API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Requests API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Requests
@@ -14,9 +22,7 @@ paths:
       description: 'Create a new request based on a specific request template.
 
 
-        The request will be opened in ''Draft'' status.
-
-        '
+        The request will be opened in ''Draft'' status.'
       parameters: []
       responses:
         '201':
@@ -47,13 +53,13 @@ paths:
             schema:
               $ref: '#/components/schemas/createRequest'
         required: true
+      operationId: postApiV1Requests
+      x-operation-id-source: derived
     get:
       summary: List all requests in your account
       tags:
       - Requests
-      description: 'List all requests in your account.
-
-        '
+      description: List all requests in your account.
       parameters:
       - name: token
         in: query
@@ -85,14 +91,14 @@ paths:
                   message:
                     type: string
                     example: You are not authorized to perform this action.
+      operationId: getApiV1Requests
+      x-operation-id-source: derived
   /api/v1/requests/{id}:
     put:
-      summary: Update a request 
+      summary: Update a request
       tags:
       - Requests
-      description: 'Update a request by its ID.
-
-        '
+      description: Update a request by its ID.
       parameters:
       - name: id
         in: path
@@ -139,13 +145,13 @@ paths:
             schema:
               $ref: '#/components/schemas/updateRequest'
         required: true
+      operationId: putApiV1RequestsById
+      x-operation-id-source: derived
     get:
       summary: Get request by id
       tags:
       - Requests
-      description: 'Get a request by ID.
-
-        '
+      description: Get a request by ID.
       parameters:
       - name: token
         in: query
@@ -181,6 +187,8 @@ paths:
                   message:
                     type: string
                     example: You are not authorized to perform this action.
+      operationId: getApiV1RequestsById
+      x-operation-id-source: derived
     delete:
       summary: Delete request
       tags:
@@ -202,9 +210,11 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1RequestsById
+      x-operation-id-source: derived
   /api/v1/requests/{id}/submit:
     patch:
-      summary: Submit a request 
+      summary: Submit a request
       tags:
       - Requests
       description: 'This end point allows authorized users to submit a request for approval from the requester’s team leader.
@@ -213,9 +223,7 @@ paths:
         Draft >> Pending
 
 
-        - Authorized users: admins and request owner.
-
-        '
+        - Authorized users: admins and request owner.'
       parameters:
       - name: id
         in: path
@@ -262,9 +270,11 @@ paths:
             schema:
               $ref: '#/components/schemas/submitRequest'
         required: true
+      operationId: patchApiV1RequestsByIdSubmit
+      x-operation-id-source: derived
   /api/v1/requests/{id}/approve:
     patch:
-      summary: Approve a request 
+      summary: Approve a request
       tags:
       - Requests
       description: 'This end point allows authorized users to approve a request which was assigned to them,
@@ -275,9 +285,7 @@ paths:
         Pending >> Approved
 
 
-        - Authorized users: admins and assignee at the time.
-
-        '
+        - Authorized users: admins and assignee at the time.'
       parameters:
       - name: id
         in: path
@@ -314,9 +322,11 @@ paths:
             schema:
               $ref: '#/components/schemas/approvedRequest'
         required: true
+      operationId: patchApiV1RequestsByIdApprove
+      x-operation-id-source: derived
   /api/v1/requests/{id}/accept:
     patch:
-      summary: Accept a request 
+      summary: Accept a request
       tags:
       - Requests
       description: 'This end point allows authorized users to accept a request which was assigned to them, and will enable the assignment of a performer from the performing team.
@@ -325,9 +335,7 @@ paths:
         Approved >> Awaiting Assignment
 
 
-        - Authorized users: admins and assignee at the time.
-
-        '
+        - Authorized users: admins and assignee at the time.'
       parameters:
       - name: id
         in: path
@@ -364,6 +372,8 @@ paths:
             schema:
               $ref: '#/components/schemas/acceptRequest'
         required: true
+      operationId: patchApiV1RequestsByIdAccept
+      x-operation-id-source: derived
   /api/v1/requests/{id}/select_performer:
     patch:
       summary: Select performer
@@ -375,9 +385,7 @@ paths:
         Awaiting Assignment >> Assigned
 
 
-        - Authorized users: admins and team leader of the performing team.
-
-        '
+        - Authorized users: admins and team leader of the performing team.'
       parameters:
       - name: id
         in: path
@@ -414,12 +422,20 @@ paths:
             schema:
               $ref: '#/components/schemas/selectPerformer'
         required: true
+      operationId: patchApiV1RequestsByIdSelectPerformer
+      x-operation-id-source: derived
   /api/v1/requests/{id}/start:
     patch:
-      summary: Start a request 
+      summary: Start a request
       tags:
       - Requests
-      description: " This end point allows authorized users to update request status to 'In Progress'.\n\n Assigned >> In Progress\n\n- Authorized users: admins and the performer.\n"
+      description: 'This end point allows authorized users to update request status to ''In Progress''.
+
+
+        Assigned >> In Progress
+
+
+        - Authorized users: admins and the performer.'
       parameters:
       - name: id
         in: path
@@ -456,12 +472,20 @@ paths:
             schema:
               $ref: '#/components/schemas/startRequest'
         required: true
+      operationId: patchApiV1RequestsByIdStart
+      x-operation-id-source: derived
   /api/v1/requests/{id}/done:
     patch:
-      summary: Complete a request 
+      summary: Complete a request
       tags:
       - Requests
-      description: "  This end point allows authorized users to update request status to 'Completed'\n\n  In Progress >> Completed\n\n- Authorized users: admins and the performer.\n"
+      description: 'This end point allows authorized users to update request status to ''Completed''
+
+
+        In Progress >> Completed
+
+
+        - Authorized users: admins and the performer.'
       parameters:
       - name: token
         in: query
@@ -497,12 +521,26 @@ paths:
                   message:
                     type: string
                     example: You are not authorized to perform this action.
+      operationId: patchApiV1RequestsByIdDone
+      x-operation-id-source: derived
   /api/v1/requests/{id}/reject:
     patch:
-      summary: Reject a request 
+      summary: Reject a request
       tags:
       - Requests
-      description: "This end point allows authorized users to reject a request\n\nRequest can be rejected from the following statuses:\n  - Pending\n  - Approved\n  - Assigned\n\n\nAuthorized users: admins and assignee at the time.\n"
+      description: 'This end point allows authorized users to reject a request
+
+
+        Request can be rejected from the following statuses:
+
+        - Pending
+
+        - Approved
+
+        - Assigned
+
+
+        Authorized users: admins and assignee at the time.'
       parameters:
       - name: token
         in: query
@@ -528,46 +566,10 @@ paths:
                   message:
                     type: string
                     example: You are not authorized to perform this action.
+      operationId: patchApiV1RequestsByIdReject
+      x-operation-id-source: derived
 components:
   schemas:
-    selectPerformer:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - performed_by
-          properties:
-            performed_by:
-              type: integer
-              description: The ID of the member which will perform the request
-    submitRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the request
-            team_id:
-              type: integer
-              description: The performing team ID
-            due_date:
-              type: string
-              format: date
-              description: Date in the following format - 'YYYY-MM-DD'
-              example: '2024-03-11'
     approvedRequest:
       type: object
       required:
@@ -596,26 +598,6 @@ components:
               - High
               - Urgent
               example: Medium
-    acceptRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            priority:
-              type: string
-              description: Specifies the priority level of the request. By default - Low
-              enum:
-              - Low
-              - Medium
-              - High
-              - Urgent
-              example: Medium
     startRequest:
       type: object
       required:
@@ -630,34 +612,6 @@ components:
             performed_by:
               type: integer
               description: The ID of the member which will perform the request
-    createRequest:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - request_template_id
-          properties:
-            name:
-              type: string
-              description: The name of the request
-            request_template_id:
-              type: integer
-              description: The ID of the request template to start the request from
-            priority:
-              type: string
-              description: Specifies the priority level of the request. By default - Low
-              enum:
-              - Low
-              - Medium
-              - High
-              - Urgent
-              example: Medium
     updateRequest:
       type: object
       required:
@@ -701,3 +655,89 @@ components:
               format: date
               description: Date in the following format - 'YYYY-MM-DD'
               example: '2024-03-11'
+    acceptRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+    createRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - request_template_id
+          properties:
+            name:
+              type: string
+              description: The name of the request
+            request_template_id:
+              type: integer
+              description: The ID of the request template to start the request from
+            priority:
+              type: string
+              description: Specifies the priority level of the request. By default - Low
+              enum:
+              - Low
+              - Medium
+              - High
+              - Urgent
+              example: Medium
+    submitRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the request
+            team_id:
+              type: integer
+              description: The performing team ID
+            due_date:
+              type: string
+              format: date
+              description: Date in the following format - 'YYYY-MM-DD'
+              example: '2024-03-11'
+    selectPerformer:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - performed_by
+          properties:
+            performed_by:
+              type: integer
+              description: The ID of the member which will perform the request

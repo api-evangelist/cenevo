@@ -1,8 +1,8 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Rodent cages API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
-  version: v1
+  title: Cenevo Rodent cages API
+  version: '1.0'
+  description: 'Operations tagged Rodent cages across 2 of this provider''s published API definitions: cenevo-labguru-v1-openapi.yml, cenevo-labguru-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
 tags:
 - name: Rodent cages
 paths:
@@ -11,9 +11,7 @@ paths:
       summary: Creates a rodent cage
       tags:
       - Rodent cages
-      description: 'Create a rodent cage.
-
-        '
+      description: Create a rodent cage.
       parameters: []
       responses:
         '200':
@@ -40,6 +38,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createRodentCage'
         required: true
+      operationId: postApiV1RodentCages
+      x-operation-id-source: derived
     get:
       summary: List all rodent cages in your account
       tags:
@@ -50,9 +50,7 @@ paths:
 
         **Note:** An improved version of this endpoint is available in API v2.
 
-        Please visit [API v2 docs](/api-docs/index.html?urls.primaryName=API%20V2%20Docs#/Rodent%20cages/get_api_v2_rodent_cages).
-
-        '
+        Please visit API v2 docs.'
       parameters:
       - name: token
         in: query
@@ -74,14 +72,14 @@ paths:
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1RodentCages
+      x-operation-id-source: derived
   /api/v1/rodent_cages/{id}:
     put:
       summary: Update rodent cage attributes
       tags:
       - Rodent cages
-      description: 'Update a rodent cage.
-
-        '
+      description: Update a rodent cage.
       parameters:
       - name: id
         in: path
@@ -114,6 +112,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateRodentCage'
         required: true
+      operationId: putApiV1RodentCagesById
+      x-operation-id-source: derived
     get:
       summary: Get rodent cage by id
       tags:
@@ -130,14 +130,14 @@ paths:
         description: The ID of the rodent cage
         schema:
           type: integer
-      description: 'Get a rodent cage by ID.
-
-        '
+      description: Get a rodent cage by ID.
       responses:
         '200':
           description: OK
         '404':
           description: Not Found
+      operationId: getApiV1RodentCagesById
+      x-operation-id-source: derived
     delete:
       summary: Delete rodent cage
       tags:
@@ -159,14 +159,14 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1RodentCagesById
+      x-operation-id-source: derived
   /api/v2/rodent_cages:
     get:
       summary: List all rodent cages in your account
       tags:
       - Rodent cages
-      description: 'List all rodent cages.
-
-        '
+      description: List all rodent cages.
       parameters:
       - name: token
         in: query
@@ -192,26 +192,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Unauthorized'
+      operationId: getApiV2RodentCages
+      x-operation-id-source: derived
 components:
   schemas:
     updateRodentCage:
       allOf:
       - $ref: '#/components/schemas/RodentCageBaseRequest'
-    createRodentCage:
-      allOf:
-      - $ref: '#/components/schemas/RodentCageBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     RodentCageBaseRequest:
       type: object
       required:
@@ -238,3 +225,21 @@ components:
             owner_id:
               type: integer
               description: id of the owner - by default it's your member id
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
+    createRodentCage:
+      allOf:
+      - $ref: '#/components/schemas/RodentCageBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+x-refined-from:
+- cenevo-labguru-v1-openapi.yml
+- cenevo-labguru-v2-openapi.yml

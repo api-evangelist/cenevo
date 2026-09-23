@@ -1,7 +1,15 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Labguru Antibodies Maintenance template API
-  description: "Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.<br>\n        Join our dedicated [Slack channel](https://join.slack.com/t/labgurus/shared_invite/zt-199glfagl-QZQ_bKl7vLAi8CQSuNrRug)\n        to be in direct contact with our API team and be informed about the latest updates.<br>\n        ***[API introduction and overview](https://help.labguru.com/en/articles/6149483-api-introduction-and-overview)***"
+  title: Labguru Maintenance template API
+  description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
+
+
+    Join our dedicated Slack channel
+
+    to be in direct contact with our API team and be informed about the latest updates.
+
+
+    ***API introduction and overview***'
   version: v1
 tags:
 - name: Maintenance template
@@ -25,6 +33,8 @@ paths:
             schema:
               $ref: '#/components/schemas/createMaintenanceTemplate'
         required: true
+      operationId: postApiV1MaintenanceTemplates
+      x-operation-id-source: derived
     get:
       summary: List all maintenance templates in your account
       tags:
@@ -50,6 +60,8 @@ paths:
           description: success
         '404':
           description: page not found
+      operationId: getApiV1MaintenanceTemplates
+      x-operation-id-source: derived
   /api/v1/maintenance_templates/{id}:
     put:
       summary: Update maintenance template
@@ -75,6 +87,8 @@ paths:
             schema:
               $ref: '#/components/schemas/updateMaintenanceTemplate'
         required: true
+      operationId: putApiV1MaintenanceTemplatesById
+      x-operation-id-source: derived
     get:
       summary: Get maintenance template by id
       tags:
@@ -96,6 +110,8 @@ paths:
           description: success
         '404':
           description: maintenance tempalte not found
+      operationId: getApiV1MaintenanceTemplatesById
+      x-operation-id-source: derived
     delete:
       summary: Delete maintenance template
       tags:
@@ -117,8 +133,24 @@ paths:
           description: no content
         '404':
           description: not found
+      operationId: deleteApiV1MaintenanceTemplatesById
+      x-operation-id-source: derived
 components:
   schemas:
+    updateMaintenanceTemplate:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'
+    createMaintenanceTemplate:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - equipment_type
+            - maintenance_type_id
+            - data
     MaintenanceTemplateBaseRequest:
       type: object
       required:
@@ -140,17 +172,3 @@ components:
               type: string
               description: templates fields in the follwing json format
               example: '[{"title":"Detergent","value":"Wateriii:"}]'
-    createMaintenanceTemplate:
-      allOf:
-      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - equipment_type
-            - maintenance_type_id
-            - data
-    updateMaintenanceTemplate:
-      allOf:
-      - $ref: '#/components/schemas/MaintenanceTemplateBaseRequest'
