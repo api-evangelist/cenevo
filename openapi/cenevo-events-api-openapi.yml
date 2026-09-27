@@ -137,9 +137,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateEvent:
+    createEvent:
       allOf:
       - $ref: '#/components/schemas/EventBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+            - start_date
+            - end_date
     EventBaseRequest:
       type: object
       required:
@@ -190,14 +198,6 @@ components:
               type: string
               description: the item class name - System::Instrument
               example: System::Instrument
-    createEvent:
+    updateEvent:
       allOf:
       - $ref: '#/components/schemas/EventBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
-            - start_date
-            - end_date

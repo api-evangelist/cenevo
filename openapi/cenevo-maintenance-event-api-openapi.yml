@@ -137,6 +137,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateMaintenanceEvent:
+      allOf:
+      - $ref: '#/components/schemas/MaintenanceEventBaseRequest'
     createMaintenanceEvent:
       allOf:
       - $ref: '#/components/schemas/MaintenanceEventBaseRequest'
@@ -151,9 +154,6 @@ components:
             - data
             - performed_by
             - performed_at
-    updateMaintenanceEvent:
-      allOf:
-      - $ref: '#/components/schemas/MaintenanceEventBaseRequest'
     MaintenanceEventBaseRequest:
       type: object
       required:

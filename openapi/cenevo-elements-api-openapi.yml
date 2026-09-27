@@ -172,8 +172,8 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateFormElement:
-      title: Update form element
+    updateTextElement:
+      title: Update text element
       type: object
       required:
       - token
@@ -181,11 +181,9 @@ components:
         token:
           type: string
           example: YOUR TOKEN IS HERE
-        form_json:
+        data:
           type: string
-          description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
-          example:
-            Field Name: Field Content
+          example: The updated text
     addPlateElement:
       title: Add plate element
       type: object
@@ -265,8 +263,8 @@ components:
               type:
               - string
               - 'null'
-    updateTextElement:
-      title: Update text element
+    updateFormElement:
+      title: Update form element
       type: object
       required:
       - token
@@ -274,6 +272,8 @@ components:
         token:
           type: string
           example: YOUR TOKEN IS HERE
-        data:
+        form_json:
           type: string
-          example: The updated text
+          description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
+          example:
+            Field Name: Field Content

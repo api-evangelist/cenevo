@@ -137,6 +137,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createMaterial:
+      allOf:
+      - $ref: '#/components/schemas/MaterialBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateMaterial:
+      allOf:
+      - $ref: '#/components/schemas/MaterialBaseRequest'
     MaterialBaseRequest:
       type: object
       required:
@@ -182,15 +194,3 @@ components:
             currency:
               type: integer
               description: '0 = NIS, 1 = DOLLAR, 2 = EURO, 3 = POUND, 4 = NOK '
-    updateMaterial:
-      allOf:
-      - $ref: '#/components/schemas/MaterialBaseRequest'
-    createMaterial:
-      allOf:
-      - $ref: '#/components/schemas/MaterialBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

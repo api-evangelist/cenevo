@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Labguru SO Ps API
+  title: Labguru SOPs API
   description: 'Labguru API is a JSON / REST based API, get started by reviewing the documentation below or code samples.
 
 
@@ -151,6 +151,9 @@ components:
             title:
               type: string
               description: The name of the SOP
+    updateSOP:
+      allOf:
+      - $ref: '#/components/schemas/SOPBaseRequest'
     createSOP:
       allOf:
       - $ref: '#/components/schemas/SOPBaseRequest'
@@ -160,6 +163,3 @@ components:
             type: object
             required:
             - title
-    updateSOP:
-      allOf:
-      - $ref: '#/components/schemas/SOPBaseRequest'

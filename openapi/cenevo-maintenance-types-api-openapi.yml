@@ -137,22 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createMaintenanceType:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: The name of the maintenance type
     updateMaintenanceType:
       type: object
       required:
@@ -169,3 +153,19 @@ components:
             name:
               type: string
               description: The new name of the maintenance type
+    createMaintenanceType:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: The name of the maintenance type

@@ -141,9 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateFungus:
-      allOf:
-      - $ref: '#/components/schemas/FungusBaseRequest'
     createFungus:
       allOf:
       - $ref: '#/components/schemas/FungusBaseRequest'
@@ -200,3 +197,6 @@ components:
             description:
               type: string
               description: Description of the fungus
+    updateFungus:
+      allOf:
+      - $ref: '#/components/schemas/FungusBaseRequest'

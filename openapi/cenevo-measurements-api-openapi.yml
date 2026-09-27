@@ -98,15 +98,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NotFound:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Resource not found
     Unauthorized:
       type: object
       properties:
         message:
           type: string
           example: You are not authorized to perform this action
+    NotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Resource not found

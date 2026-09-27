@@ -292,6 +292,12 @@ components:
             remarks:
               type: string
               description: Additional comments or special instructions related to the item.
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
     updateOrder:
       type: object
       required:
@@ -360,9 +366,3 @@ components:
             remarks:
               type: string
               description: Additional comments or special instructions related to the item.
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action

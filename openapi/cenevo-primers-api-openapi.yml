@@ -154,6 +154,9 @@ components:
             type: object
             required:
             - title
+    updatePrimer:
+      allOf:
+      - $ref: '#/components/schemas/PrimerBaseRequest'
     PrimerBaseRequest:
       type: object
       required:
@@ -216,6 +219,3 @@ components:
             description:
               type: string
               description: A detailed description of the primer
-    updatePrimer:
-      allOf:
-      - $ref: '#/components/schemas/PrimerBaseRequest'
