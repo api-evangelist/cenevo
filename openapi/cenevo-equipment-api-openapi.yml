@@ -173,6 +173,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createEquipment:
+      allOf:
+      - $ref: '#/components/schemas/EquipmentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateEquipment:
+      allOf:
+      - $ref: '#/components/schemas/EquipmentBaseRequest'
     EquipmentBaseRequest:
       type: object
       required:
@@ -213,18 +225,6 @@ components:
             description:
               type: string
               description: 'general description '
-    updateEquipment:
-      allOf:
-      - $ref: '#/components/schemas/EquipmentBaseRequest'
-    createEquipment:
-      allOf:
-      - $ref: '#/components/schemas/EquipmentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
 x-refined-from:
 - cenevo-labguru-v1-openapi.yml
 - cenevo-labguru-v2-openapi.yml

@@ -137,15 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createRodentStrain:
-      allOf:
-      - $ref: '#/components/schemas/RodentStrainBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     updateRodentStrain:
       allOf:
       - $ref: '#/components/schemas/RodentStrainBaseRequest'
@@ -184,3 +175,12 @@ components:
             description:
               type: string
               description: Description of the strain
+    createRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

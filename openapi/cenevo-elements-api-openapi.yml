@@ -172,6 +172,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateFormElement:
+      title: Update form element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        form_json:
+          type: string
+          description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
+          example:
+            Field Name: Field Content
+    addElement:
+      title: Add element
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - container_id
+          - container_type
+          - element_type
+          - data
+          description: Valid element types are:<br>• samples<br>• equipment<br>• code<br>• compound<br>• reaction<br>• text<br>• steps<br>• excel<br>• plate<br>
+          properties:
+            name:
+              type: string
+              description: Specifies the name of the element. If not provided, the element will be assigned a default name
+            container_id:
+              type: integer
+              description: The ID of the section to which the element will be added
+            container_type:
+              type: string
+              description: The type of container in which the element will be placed
+              example: ExperimentProcedure
+            element_type:
+              type: string
+              description: The type of element to be added
+            data:
+              type:
+              - string
+              - 'null'
     updateTextElement:
       title: Update text element
       type: object
@@ -228,52 +277,3 @@ components:
               type:
               - string
               - 'null'
-    addElement:
-      title: Add element
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - container_id
-          - container_type
-          - element_type
-          - data
-          description: Valid element types are:<br>• samples<br>• equipment<br>• code<br>• compound<br>• reaction<br>• text<br>• steps<br>• excel<br>• plate<br>
-          properties:
-            name:
-              type: string
-              description: Specifies the name of the element. If not provided, the element will be assigned a default name
-            container_id:
-              type: integer
-              description: The ID of the section to which the element will be added
-            container_type:
-              type: string
-              description: The type of container in which the element will be placed
-              example: ExperimentProcedure
-            element_type:
-              type: string
-              description: The type of element to be added
-            data:
-              type:
-              - string
-              - 'null'
-    updateFormElement:
-      title: Update form element
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        form_json:
-          type: string
-          description: "A JSON string containing key-value pairs that specify updates to the form fields.\n                  Each key corresponds to a form field name and the value specifies the new content for that field."
-          example:
-            Field Name: Field Content

@@ -201,6 +201,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateRequestTemplate:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the request template
+            request_type:
+              type: string
+              description: The type of request
     createRequestTemplate:
       type: object
       required:
@@ -213,23 +230,6 @@ components:
           type: object
           required:
           - request_type
-          properties:
-            name:
-              type: string
-              description: The name of the request template
-            request_type:
-              type: string
-              description: The type of request
-    updateRequestTemplate:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
           properties:
             name:
               type: string

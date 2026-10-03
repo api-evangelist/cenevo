@@ -132,6 +132,34 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createSection:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - name
+          - container_id
+          - container_type
+          properties:
+            name:
+              type: string
+              description: the name of the section
+            container_id:
+              type: integer
+              description: The ID of the experiment/protocol/report the section belongs to
+            container_type:
+              type: string
+              description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
+              example: Projects::Experiment
+            position:
+              type: integer
+              description: the section position
     moveSection:
       type: object
       required:
@@ -178,34 +206,6 @@ components:
             container_type:
               type: string
               description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
-              example: Projects::Experiment
-            position:
-              type: integer
-              description: the section position
-    createSection:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - name
-          - container_id
-          - container_type
-          properties:
-            name:
-              type: string
-              description: the name of the section
-            container_id:
-              type: integer
-              description: The ID of the experiment/protocol/report the section belongs to
-            container_type:
-              type: string
-              description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
               example: Projects::Experiment
             position:
               type: integer

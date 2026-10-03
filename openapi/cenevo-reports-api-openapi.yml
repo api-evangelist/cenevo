@@ -249,27 +249,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    addCoverToReport:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - report_id
-          - data
-          properties:
-            report_id:
-              type: integer
-              description: the report id
-            data:
-              type: string
-              description: cover page data in HTML format
-              example: <h1>Cover Page Heading</h1>
     createReport:
       allOf:
       - $ref: '#/components/schemas/ReportBaseRequest'
@@ -279,6 +258,23 @@ components:
             type: object
             required:
             - title
+    ReportBaseRequest:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            title:
+              type: string
+              description: 'the report title '
+    updateReport:
+      allOf:
+      - $ref: '#/components/schemas/ReportBaseRequest'
     addAnExperimentSectionToReport:
       type: object
       required:
@@ -300,7 +296,7 @@ components:
               type: string
               description: the experiment procedure id to copy
               example: '32'
-    ReportBaseRequest:
+    addCoverToReport:
       type: object
       required:
       - token
@@ -310,25 +306,29 @@ components:
           example: YOUR TOKEN IS HERE
         item:
           type: object
+          required:
+          - report_id
+          - data
           properties:
-            title:
+            report_id:
+              type: integer
+              description: the report id
+            data:
               type: string
-              description: 'the report title '
-    updateReport:
-      allOf:
-      - $ref: '#/components/schemas/ReportBaseRequest'
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
+              description: cover page data in HTML format
+              example: <h1>Cover Page Heading</h1>
     NotFound:
       type: object
       properties:
         error:
           type: string
           example: Resource not found
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
 x-refined-from:
 - cenevo-labguru-v1-openapi.yml
 - cenevo-labguru-v2-openapi.yml

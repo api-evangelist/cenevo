@@ -141,6 +141,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateVirus:
+      allOf:
+      - $ref: '#/components/schemas/VirusBaseRequest'
+    createVirus:
+      allOf:
+      - $ref: '#/components/schemas/VirusBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     VirusBaseRequest:
       type: object
       required:
@@ -206,15 +218,3 @@ components:
             description:
               type: string
               description: Description of the virus
-    updateVirus:
-      allOf:
-      - $ref: '#/components/schemas/VirusBaseRequest'
-    createVirus:
-      allOf:
-      - $ref: '#/components/schemas/VirusBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

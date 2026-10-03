@@ -137,23 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateVector:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        dataset_id:
-          type: integer
-          description: the dataset id
-        vector_data:
-          type: string
-          description: 'fields must be same as column headers in the dataset - {"data_header": "item_name"}'
-          example:
-            column1: value1
-            column2: value2
     createVector:
       type: object
       required:
@@ -170,6 +153,23 @@ components:
         vector_data:
           type: string
           description: 'fields must be same as column headers in the dataset {"data_header": "item_name"}'
+          example:
+            column1: value1
+            column2: value2
+    updateVector:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        dataset_id:
+          type: integer
+          description: the dataset id
+        vector_data:
+          type: string
+          description: 'fields must be same as column headers in the dataset - {"data_header": "item_name"}'
           example:
             column1: value1
             column2: value2

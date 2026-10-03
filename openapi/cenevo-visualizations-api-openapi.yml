@@ -77,12 +77,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     addVisualization:
       type: object
       required:
@@ -107,3 +101,9 @@ components:
             attachment_id:
               type: integer
               description: The ID of the attachment (image) that will appear under the 'Visualization' tab of the dataset
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action

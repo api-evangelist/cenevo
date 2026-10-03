@@ -172,12 +172,6 @@ components:
     updateLink:
       allOf:
       - $ref: '#/components/schemas/LinkBaseRequest'
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     LinkBaseRequest:
       type: object
       required:
@@ -221,3 +215,9 @@ components:
             - target_type
             - source_uuid
             - target_uuid
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action

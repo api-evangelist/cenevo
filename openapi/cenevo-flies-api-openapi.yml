@@ -141,18 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateFly:
-      allOf:
-      - $ref: '#/components/schemas/FlyBaseRequest'
-    createFly:
-      allOf:
-      - $ref: '#/components/schemas/FlyBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     FlyBaseRequest:
       type: object
       required:
@@ -191,3 +179,15 @@ components:
             description:
               type: string
               description: Description of the fly
+    createFly:
+      allOf:
+      - $ref: '#/components/schemas/FlyBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+    updateFly:
+      allOf:
+      - $ref: '#/components/schemas/FlyBaseRequest'

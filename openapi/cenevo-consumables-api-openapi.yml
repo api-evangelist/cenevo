@@ -137,6 +137,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateMaterial:
+      allOf:
+      - $ref: '#/components/schemas/MaterialBaseRequest'
     createMaterial:
       allOf:
       - $ref: '#/components/schemas/MaterialBaseRequest'
@@ -146,9 +149,6 @@ components:
             type: object
             required:
             - name
-    updateMaterial:
-      allOf:
-      - $ref: '#/components/schemas/MaterialBaseRequest'
     MaterialBaseRequest:
       type: object
       required:

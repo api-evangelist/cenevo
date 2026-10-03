@@ -137,6 +137,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateCompound:
+      allOf:
+      - $ref: '#/components/schemas/CompoundBaseRequest'
     createCompound:
       allOf:
       - $ref: '#/components/schemas/CompoundBaseRequest'
@@ -146,9 +149,6 @@ components:
             type: object
             required:
             - name
-    updateCompound:
-      allOf:
-      - $ref: '#/components/schemas/CompoundBaseRequest'
     CompoundBaseRequest:
       type: object
       required:

@@ -137,9 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateStorage:
-      allOf:
-      - $ref: '#/components/schemas/StorageBaseRequest'
     StorageBaseRequest:
       type: object
       required:
@@ -163,6 +160,9 @@ components:
             temperature:
               type: integer
               description: temperature of the storage unit.
+    updateStorage:
+      allOf:
+      - $ref: '#/components/schemas/StorageBaseRequest'
     createStorage:
       allOf:
       - $ref: '#/components/schemas/StorageBaseRequest'

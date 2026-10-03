@@ -141,6 +141,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateWorm:
+      allOf:
+      - $ref: '#/components/schemas/WormBaseRequest'
     WormBaseRequest:
       type: object
       required:
@@ -189,9 +192,6 @@ components:
             description:
               type: string
               description: Description of the worm
-    updateWorm:
-      allOf:
-      - $ref: '#/components/schemas/WormBaseRequest'
     createWorm:
       allOf:
       - $ref: '#/components/schemas/WormBaseRequest'

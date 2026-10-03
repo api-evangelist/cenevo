@@ -137,16 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createRodentSpecimen:
-      allOf:
-      - $ref: '#/components/schemas/RodentSpecimenBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
-            - status
     updateRodentSpecimen:
       allOf:
       - $ref: '#/components/schemas/RodentSpecimenBaseRequest'
@@ -205,3 +195,13 @@ components:
             source:
               type: string
               description: source
+    createRodentSpecimen:
+      allOf:
+      - $ref: '#/components/schemas/RodentSpecimenBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+            - status

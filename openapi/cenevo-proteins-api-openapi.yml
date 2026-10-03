@@ -141,9 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateProtein:
-      allOf:
-      - $ref: '#/components/schemas/ProteinBaseRequest'
     ProteinBaseRequest:
       type: object
       required:
@@ -203,6 +200,9 @@ components:
             description:
               type: string
               description: A detailed description of the protein
+    updateProtein:
+      allOf:
+      - $ref: '#/components/schemas/ProteinBaseRequest'
     createProtein:
       allOf:
       - $ref: '#/components/schemas/ProteinBaseRequest'

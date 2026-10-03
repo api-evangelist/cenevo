@@ -198,6 +198,9 @@ components:
             description:
               type: string
               description: Detailed description of the lipid
+    updateLipid:
+      allOf:
+      - $ref: '#/components/schemas/LipidBaseRequest'
     createLipid:
       allOf:
       - $ref: '#/components/schemas/LipidBaseRequest'
@@ -207,6 +210,3 @@ components:
             type: object
             required:
             - name
-    updateLipid:
-      allOf:
-      - $ref: '#/components/schemas/LipidBaseRequest'
