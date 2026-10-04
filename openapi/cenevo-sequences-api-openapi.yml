@@ -151,9 +151,6 @@ components:
             required:
             - title
             - seq
-    updateSequence:
-      allOf:
-      - $ref: '#/components/schemas/SequenceBaseRequest'
     SequenceBaseRequest:
       type: object
       required:
@@ -187,3 +184,6 @@ components:
             description:
               type: string
               description: Description of the sequence
+    updateSequence:
+      allOf:
+      - $ref: '#/components/schemas/SequenceBaseRequest'

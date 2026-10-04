@@ -133,30 +133,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateMaintenance:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - item_id
-          properties:
-            item_id:
-              type: integer
-              description: The ID of the equipment
-            frequency_period:
-              type: integer
-              description: the time period in numbers
-              example: '15'
-            frequency_frame:
-              type: string
-              description: one of the following time frames - hour/day/week/month/year
-              example: day
     createMaintenance:
       type: object
       required:
@@ -192,3 +168,27 @@ components:
               type: string
               description: one of the following time frames - hour/day/week/month/year
               example: year
+    updateMaintenance:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - item_id
+          properties:
+            item_id:
+              type: integer
+              description: The ID of the equipment
+            frequency_period:
+              type: integer
+              description: the time period in numbers
+              example: '15'
+            frequency_frame:
+              type: string
+              description: one of the following time frames - hour/day/week/month/year
+              example: day

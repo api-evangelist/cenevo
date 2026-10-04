@@ -180,9 +180,6 @@ components:
             description:
               type: string
               description: Description of the seed
-    updateSeed:
-      allOf:
-      - $ref: '#/components/schemas/SeedBaseRequest'
     createSeed:
       allOf:
       - $ref: '#/components/schemas/SeedBaseRequest'
@@ -192,3 +189,6 @@ components:
             type: object
             required:
             - name
+    updateSeed:
+      allOf:
+      - $ref: '#/components/schemas/SeedBaseRequest'

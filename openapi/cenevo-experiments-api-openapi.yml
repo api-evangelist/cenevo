@@ -446,6 +446,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    addExperiment:
+      allOf:
+      - $ref: '#/components/schemas/ExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - project_id
+            - milestone_id
+    updateExperiment:
+      allOf:
+      - $ref: '#/components/schemas/ExperimentBaseRequest'
     ExperimentBaseRequest:
       type: object
       required:
@@ -469,20 +483,12 @@ components:
             protocol_id:
               type: integer
               description: 'Start experiment from protocol by providing the protocol id '
-    addExperiment:
-      allOf:
-      - $ref: '#/components/schemas/ExperimentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
-            - project_id
-            - milestone_id
-    updateExperiment:
-      allOf:
-      - $ref: '#/components/schemas/ExperimentBaseRequest'
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
     NotFound:
       type: object
       properties:
@@ -556,25 +562,6 @@ components:
                           example: This is a sample text data
                 required:
                 - title
-    CreateExperimentNewFolder:
-      allOf:
-      - $ref: '#/components/schemas/createExperimentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            properties:
-              milestone_name:
-                type: string
-                description: "The name of a new milestone (folder) to be created for the experiment.\n                        Required if milestone_id is not provided."
-            required:
-            - milestone_name
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
     CreateExperimentExistingFolder:
       allOf:
       - $ref: '#/components/schemas/createExperimentBaseRequest'
@@ -588,6 +575,19 @@ components:
                 description: "The ID of the existing milestone (folder) that will contain the experiment.\n                            Required if milestone name is not provided."
             required:
             - milestone_id
+    CreateExperimentNewFolder:
+      allOf:
+      - $ref: '#/components/schemas/createExperimentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            properties:
+              milestone_name:
+                type: string
+                description: "The name of a new milestone (folder) to be created for the experiment.\n                        Required if milestone_id is not provided."
+            required:
+            - milestone_name
 x-refined-from:
 - cenevo-labguru-v1-openapi.yml
 - cenevo-labguru-v2-openapi.yml

@@ -143,6 +143,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createAntibody:
+      allOf:
+      - $ref: '#/components/schemas/AntibodyBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
     AntibodyBaseRequest:
       type: object
       required:
@@ -197,15 +206,6 @@ components:
             description:
               type: string
               description: A detailed description of the antibody
-    createAntibody:
-      allOf:
-      - $ref: '#/components/schemas/AntibodyBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
     updateAntibody:
       allOf:
       - $ref: '#/components/schemas/AntibodyBaseRequest'

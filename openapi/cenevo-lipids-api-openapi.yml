@@ -145,6 +145,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateLipid:
+      allOf:
+      - $ref: '#/components/schemas/LipidBaseRequest'
+    createLipid:
+      allOf:
+      - $ref: '#/components/schemas/LipidBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     LipidBaseRequest:
       type: object
       required:
@@ -198,15 +210,3 @@ components:
             description:
               type: string
               description: Detailed description of the lipid
-    updateLipid:
-      allOf:
-      - $ref: '#/components/schemas/LipidBaseRequest'
-    createLipid:
-      allOf:
-      - $ref: '#/components/schemas/LipidBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

@@ -137,9 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateRodentStrain:
-      allOf:
-      - $ref: '#/components/schemas/RodentStrainBaseRequest'
     RodentStrainBaseRequest:
       type: object
       required:
@@ -184,3 +181,6 @@ components:
             type: object
             required:
             - name
+    updateRodentStrain:
+      allOf:
+      - $ref: '#/components/schemas/RodentStrainBaseRequest'

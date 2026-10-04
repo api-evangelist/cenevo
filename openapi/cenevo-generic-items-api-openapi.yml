@@ -167,9 +167,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateGenericItem:
-      allOf:
-      - $ref: '#/components/schemas/GenericItemBaseRequest'
     createGenericItem:
       allOf:
       - $ref: '#/components/schemas/GenericItemBaseRequest'
@@ -196,3 +193,6 @@ components:
             description:
               type: string
               description: Text description for this generic item
+    updateGenericItem:
+      allOf:
+      - $ref: '#/components/schemas/GenericItemBaseRequest'

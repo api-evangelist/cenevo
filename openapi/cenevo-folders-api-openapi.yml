@@ -144,23 +144,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateFolder:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            project_id:
-              type: integer
-              description: The ID of the project
-            title:
-              type: string
-              description: The folder title
     createFolder:
       type: object
       required:
@@ -174,6 +157,23 @@ components:
           required:
           - project_id
           - title
+          properties:
+            project_id:
+              type: integer
+              description: The ID of the project
+            title:
+              type: string
+              description: The folder title
+    updateFolder:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
           properties:
             project_id:
               type: integer

@@ -137,17 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createProtocol:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: string
-          example: '{"name":"A protocol name","experiment_procedures":[],"elements":[]}'
     updateProtocol:
       type: object
       required:
@@ -162,3 +151,14 @@ components:
             name:
               type: string
               description: The protocol name
+    createProtocol:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: string
+          example: '{"name":"A protocol name","experiment_procedures":[],"elements":[]}'

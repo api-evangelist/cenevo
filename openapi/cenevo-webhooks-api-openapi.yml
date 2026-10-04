@@ -155,29 +155,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateWebhook:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            trigger_key:
-              type: string
-              description: trigger key
-              example: knowledgebase_document.signed
-            active:
-              type: boolean
-              description: by default it's false
-              example: false
-            url:
-              type: string
-              description: url
-              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json
     createWebhook:
       type: object
       required:
@@ -192,6 +169,29 @@ components:
           - trigger_key
           - active
           - url
+          properties:
+            trigger_key:
+              type: string
+              description: trigger key
+              example: knowledgebase_document.signed
+            active:
+              type: boolean
+              description: by default it's false
+              example: false
+            url:
+              type: string
+              description: url
+              example: https://prod-flow.labguru.com/flows/1234567/flow_runs.json
+    updateWebhook:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
           properties:
             trigger_key:
               type: string

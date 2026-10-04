@@ -141,6 +141,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createGene:
+      allOf:
+      - $ref: '#/components/schemas/GeneBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
     GeneBaseRequest:
       type: object
       required:
@@ -180,12 +189,3 @@ components:
     updateGene:
       allOf:
       - $ref: '#/components/schemas/GeneBaseRequest'
-    createGene:
-      allOf:
-      - $ref: '#/components/schemas/GeneBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title

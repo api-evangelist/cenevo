@@ -151,6 +151,9 @@ components:
             title:
               type: string
               description: The name of the SOP
+    updateSOP:
+      allOf:
+      - $ref: '#/components/schemas/SOPBaseRequest'
     createSOP:
       allOf:
       - $ref: '#/components/schemas/SOPBaseRequest'
@@ -160,6 +163,3 @@ components:
             type: object
             required:
             - title
-    updateSOP:
-      allOf:
-      - $ref: '#/components/schemas/SOPBaseRequest'

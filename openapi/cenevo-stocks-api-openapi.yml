@@ -320,38 +320,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateStock:
-      allOf:
-      - $ref: '#/components/schemas/StockBaseRequest'
-    updateStockAmountInSampleElement:
+    Unauthorized:
       type: object
-      required:
-      - token
       properties:
-        token:
+        message:
           type: string
-          example: YOUR TOKEN IS HERE
-        unit_type:
+          example: You are not authorized to perform this action
+    OK:
+      type: object
+      properties:
+        message:
           type: string
-          description: weight/volume
-        element_id:
-          type: integer
-          description: the samples element id
-        amount_used:
+        type:
           type: string
-          description: amount_used
-          example: 15
-        unit_type_name:
-          type: string
-          description: unit_type_name
-          example: mg
-        subtract:
-          type: string
-          description: 'true'
-          example: 'true'
-        sample_id:
-          type: integer
-          description: the sample id
+          example: Created
     indexFiltering:
       type: object
       required:
@@ -471,20 +453,9 @@ components:
             - storage_type
             - stockable_type
             - stockable_id
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
-    OK:
-      type: object
-      properties:
-        message:
-          type: string
-        type:
-          type: string
-          example: Created
+    updateStock:
+      allOf:
+      - $ref: '#/components/schemas/StockBaseRequest'
     StockBaseRequest:
       type: object
       required:
@@ -584,3 +555,32 @@ components:
             weight_remarks:
               type: string
               description: weight remarks
+    updateStockAmountInSampleElement:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        unit_type:
+          type: string
+          description: weight/volume
+        element_id:
+          type: integer
+          description: the samples element id
+        amount_used:
+          type: string
+          description: amount_used
+          example: 15
+        unit_type_name:
+          type: string
+          description: unit_type_name
+          example: mg
+        subtract:
+          type: string
+          description: 'true'
+          example: 'true'
+        sample_id:
+          type: integer
+          description: the sample id

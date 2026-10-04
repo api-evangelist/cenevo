@@ -169,9 +169,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
     updateLink:
       allOf:
       - $ref: '#/components/schemas/LinkBaseRequest'
+    createLink:
+      allOf:
+      - $ref: '#/components/schemas/LinkBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - source_id
+            - source_type
+            - target_id
+            - target_type
+            - source_uuid
+            - target_uuid
     LinkBaseRequest:
       type: object
       required:
@@ -201,23 +221,3 @@ components:
             target_uuid:
               type: string
               description: The UUID of the target item
-    createLink:
-      allOf:
-      - $ref: '#/components/schemas/LinkBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - source_id
-            - source_type
-            - target_id
-            - target_type
-            - source_uuid
-            - target_uuid
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action

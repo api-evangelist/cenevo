@@ -137,9 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateEvent:
-      allOf:
-      - $ref: '#/components/schemas/EventBaseRequest'
     createEvent:
       allOf:
       - $ref: '#/components/schemas/EventBaseRequest'
@@ -151,6 +148,9 @@ components:
             - name
             - start_date
             - end_date
+    updateEvent:
+      allOf:
+      - $ref: '#/components/schemas/EventBaseRequest'
     EventBaseRequest:
       type: object
       required:

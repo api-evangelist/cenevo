@@ -227,6 +227,15 @@ components:
     updateFlag:
       allOf:
       - $ref: '#/components/schemas/FlagBaseRequest'
+    createFlag:
+      allOf:
+      - $ref: '#/components/schemas/FlagBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
     FlagBaseRequest:
       type: object
       required:
@@ -279,12 +288,3 @@ components:
             description:
               type: string
               description: General description of the flag
-    createFlag:
-      allOf:
-      - $ref: '#/components/schemas/FlagBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title

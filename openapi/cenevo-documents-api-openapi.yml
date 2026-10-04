@@ -137,9 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateDocument:
-      allOf:
-      - $ref: '#/components/schemas/DocumentBaseRequest'
     createDocument:
       allOf:
       - $ref: '#/components/schemas/DocumentBaseRequest'
@@ -166,3 +163,6 @@ components:
             description:
               type: string
               description: the document description
+    updateDocument:
+      allOf:
+      - $ref: '#/components/schemas/DocumentBaseRequest'

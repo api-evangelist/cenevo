@@ -148,15 +148,6 @@ components:
     updatePlant:
       allOf:
       - $ref: '#/components/schemas/PlantBaseRequest'
-    createPlant:
-      allOf:
-      - $ref: '#/components/schemas/PlantBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     PlantBaseRequest:
       type: object
       required:
@@ -194,3 +185,12 @@ components:
             description:
               type: string
               description: Description of the plant
+    createPlant:
+      allOf:
+      - $ref: '#/components/schemas/PlantBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

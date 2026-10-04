@@ -125,6 +125,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateAttachment:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - element_id
+          properties:
+            element_id:
+              type: integer
+              description: The ID of the attachment element to which the attachment will be linked
     createAttachment:
       type: object
       properties:
@@ -149,19 +165,3 @@ components:
       - token
       - item[attachment]
       - item[title]
-    updateAttachment:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - element_id
-          properties:
-            element_id:
-              type: integer
-              description: The ID of the attachment element to which the attachment will be linked

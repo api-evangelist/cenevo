@@ -132,7 +132,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createSection:
+    updateSection:
       type: object
       required:
       - token
@@ -142,10 +142,6 @@ components:
           example: YOUR TOKEN IS HERE
         item:
           type: object
-          required:
-          - name
-          - container_id
-          - container_type
           properties:
             name:
               type: string
@@ -155,7 +151,7 @@ components:
               description: The ID of the experiment/protocol/report the section belongs to
             container_type:
               type: string
-              description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
+              description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
               example: Projects::Experiment
             position:
               type: integer
@@ -186,7 +182,7 @@ components:
           example:
           - 110
           - 111
-    updateSection:
+    createSection:
       type: object
       required:
       - token
@@ -196,6 +192,10 @@ components:
           example: YOUR TOKEN IS HERE
         item:
           type: object
+          required:
+          - name
+          - container_id
+          - container_type
           properties:
             name:
               type: string
@@ -205,7 +205,7 @@ components:
               description: The ID of the experiment/protocol/report the section belongs to
             container_type:
               type: string
-              description: the type of the container - Projects::Experiment\Knowledgebase::Protocol\Knowledgebase::Report
+              description: the type of the container - Projects::Experiment | Knowledgebase::Protocol | Knowledgebase::AbstractDocument
               example: Projects::Experiment
             position:
               type: integer

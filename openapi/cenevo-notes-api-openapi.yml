@@ -137,16 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createNote:
-      allOf:
-      - $ref: '#/components/schemas/NoteBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
-            - project_id
     NoteBaseRequest:
       type: object
       required:
@@ -173,3 +163,13 @@ components:
     updateNote:
       allOf:
       - $ref: '#/components/schemas/NoteBaseRequest'
+    createNote:
+      allOf:
+      - $ref: '#/components/schemas/NoteBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+            - project_id
