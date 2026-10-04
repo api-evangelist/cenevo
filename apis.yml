@@ -630,7 +630,7 @@ apis:
   humanURL: https://my.labguru.com/api-docs/index.html
   baseURL: https://my.labguru.com/api/v1
   tags:
-  - Seed
+  - Seeds
   tags_raw:
   - Seeds
   properties:
