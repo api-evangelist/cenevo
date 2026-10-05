@@ -1,0 +1,12 @@
+{
+ "url": "https://my.labguru.com/api-docs/v2/swagger.yaml",
+ "requested_url": "https://my.labguru.com/api-docs/v2/swagger.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 23919,
+ "sha256": "31b26c4216660c8711f0d4edfad6d7ac36c26e0a9b7d51a2aaa28da009318f47",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
