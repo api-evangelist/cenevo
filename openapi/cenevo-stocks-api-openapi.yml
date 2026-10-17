@@ -320,12 +320,35 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Unauthorized:
+    updateStockAmountInSampleElement:
       type: object
+      required:
+      - token
       properties:
-        message:
+        token:
           type: string
-          example: You are not authorized to perform this action
+          example: YOUR TOKEN IS HERE
+        unit_type:
+          type: string
+          description: weight/volume
+        element_id:
+          type: integer
+          description: the samples element id
+        amount_used:
+          type: string
+          description: amount_used
+          example: 15
+        unit_type_name:
+          type: string
+          description: unit_type_name
+          example: mg
+        subtract:
+          type: string
+          description: 'true'
+          example: 'true'
+        sample_id:
+          type: integer
+          description: the sample id
     OK:
       type: object
       properties:
@@ -440,22 +463,6 @@ components:
                           type: string
                           example: '[1]'
                           description: User id in the following format "[1]"
-    createStock:
-      allOf:
-      - $ref: '#/components/schemas/StockBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
-            - storage_id
-            - storage_type
-            - stockable_type
-            - stockable_id
-    updateStock:
-      allOf:
-      - $ref: '#/components/schemas/StockBaseRequest'
     StockBaseRequest:
       type: object
       required:
@@ -555,32 +562,25 @@ components:
             weight_remarks:
               type: string
               description: weight remarks
-    updateStockAmountInSampleElement:
+    createStock:
+      allOf:
+      - $ref: '#/components/schemas/StockBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
+            - storage_id
+            - storage_type
+            - stockable_type
+            - stockable_id
+    updateStock:
+      allOf:
+      - $ref: '#/components/schemas/StockBaseRequest'
+    Unauthorized:
       type: object
-      required:
-      - token
       properties:
-        token:
+        message:
           type: string
-          example: YOUR TOKEN IS HERE
-        unit_type:
-          type: string
-          description: weight/volume
-        element_id:
-          type: integer
-          description: the samples element id
-        amount_used:
-          type: string
-          description: amount_used
-          example: 15
-        unit_type_name:
-          type: string
-          description: unit_type_name
-          example: mg
-        subtract:
-          type: string
-          description: 'true'
-          example: 'true'
-        sample_id:
-          type: integer
-          description: the sample id
+          example: You are not authorized to perform this action

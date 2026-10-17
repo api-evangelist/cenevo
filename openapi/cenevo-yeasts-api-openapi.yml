@@ -141,9 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateYeast:
-      allOf:
-      - $ref: '#/components/schemas/YeastBaseRequest'
     YeastBaseRequest:
       type: object
       required:
@@ -188,3 +185,6 @@ components:
             type: object
             required:
             - name
+    updateYeast:
+      allOf:
+      - $ref: '#/components/schemas/YeastBaseRequest'

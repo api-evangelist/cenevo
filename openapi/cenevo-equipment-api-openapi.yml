@@ -173,6 +173,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createEquipment:
+      allOf:
+      - $ref: '#/components/schemas/EquipmentBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     EquipmentBaseRequest:
       type: object
       required:
@@ -213,15 +222,6 @@ components:
             description:
               type: string
               description: 'general description '
-    createEquipment:
-      allOf:
-      - $ref: '#/components/schemas/EquipmentBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     updateEquipment:
       allOf:
       - $ref: '#/components/schemas/EquipmentBaseRequest'

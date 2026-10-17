@@ -258,36 +258,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateOrder:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          properties:
-            price:
-              type: number
-              format: float
-              description: price
-            budget:
-              type: string
-              description: budget
-            currency:
-              type: integer
-              description: '0 = NIS, 1 = DOLLAR, 2 = EURO, 3 = POUND, 4 = NOK '
-            quantity:
-              type: integer
-              description: quantity
-            order_number:
-              type: integer
-              description: order number
-            description:
-              type: string
-              description: description
     Unauthorized:
       type: object
       properties:
@@ -366,3 +336,33 @@ components:
             remarks:
               type: string
               description: Additional comments or special instructions related to the item.
+    updateOrder:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          properties:
+            price:
+              type: number
+              format: float
+              description: price
+            budget:
+              type: string
+              description: budget
+            currency:
+              type: integer
+              description: '0 = NIS, 1 = DOLLAR, 2 = EURO, 3 = POUND, 4 = NOK '
+            quantity:
+              type: integer
+              description: quantity
+            order_number:
+              type: integer
+              description: order number
+            description:
+              type: string
+              description: description

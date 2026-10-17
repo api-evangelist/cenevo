@@ -141,18 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateCellLine:
-      allOf:
-      - $ref: '#/components/schemas/CellLineBaseRequest'
-    createCellLine:
-      allOf:
-      - $ref: '#/components/schemas/CellLineBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name
     CellLineBaseRequest:
       type: object
       required:
@@ -185,3 +173,15 @@ components:
             description:
               type: string
               description: A detailed description of the cell line
+    updateCellLine:
+      allOf:
+      - $ref: '#/components/schemas/CellLineBaseRequest'
+    createCellLine:
+      allOf:
+      - $ref: '#/components/schemas/CellLineBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name

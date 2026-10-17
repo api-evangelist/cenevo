@@ -249,6 +249,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateReport:
+      allOf:
+      - $ref: '#/components/schemas/ReportBaseRequest'
     ReportBaseRequest:
       type: object
       required:
@@ -263,39 +266,6 @@ components:
             title:
               type: string
               description: 'the report title '
-    addCoverToReport:
-      type: object
-      required:
-      - token
-      properties:
-        token:
-          type: string
-          example: YOUR TOKEN IS HERE
-        item:
-          type: object
-          required:
-          - report_id
-          - data
-          properties:
-            report_id:
-              type: integer
-              description: the report id
-            data:
-              type: string
-              description: cover page data in HTML format
-              example: <h1>Cover Page Heading</h1>
-    createReport:
-      allOf:
-      - $ref: '#/components/schemas/ReportBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
-    updateReport:
-      allOf:
-      - $ref: '#/components/schemas/ReportBaseRequest'
     addAnExperimentSectionToReport:
       type: object
       required:
@@ -317,6 +287,36 @@ components:
               type: string
               description: the experiment procedure id to copy
               example: '32'
+    createReport:
+      allOf:
+      - $ref: '#/components/schemas/ReportBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    addCoverToReport:
+      type: object
+      required:
+      - token
+      properties:
+        token:
+          type: string
+          example: YOUR TOKEN IS HERE
+        item:
+          type: object
+          required:
+          - report_id
+          - data
+          properties:
+            report_id:
+              type: integer
+              description: the report id
+            data:
+              type: string
+              description: cover page data in HTML format
+              example: <h1>Cover Page Heading</h1>
     Unauthorized:
       type: object
       properties:

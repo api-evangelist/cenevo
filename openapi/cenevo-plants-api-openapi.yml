@@ -145,9 +145,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updatePlant:
+    createPlant:
       allOf:
       - $ref: '#/components/schemas/PlantBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - name
     PlantBaseRequest:
       type: object
       required:
@@ -185,12 +191,6 @@ components:
             description:
               type: string
               description: Description of the plant
-    createPlant:
+    updatePlant:
       allOf:
       - $ref: '#/components/schemas/PlantBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - name

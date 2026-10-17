@@ -137,9 +137,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateBox:
-      allOf:
-      - $ref: '#/components/schemas/BoxBaseRequest'
     createBox:
       allOf:
       - $ref: '#/components/schemas/BoxBaseRequest'
@@ -149,6 +146,9 @@ components:
             type: object
             required:
             - name
+    updateBox:
+      allOf:
+      - $ref: '#/components/schemas/BoxBaseRequest'
     BoxBaseRequest:
       type: object
       required:

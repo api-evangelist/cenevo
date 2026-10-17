@@ -160,9 +160,6 @@ components:
             project_id:
               type: integer
               description: the project id to add note to
-    updateNote:
-      allOf:
-      - $ref: '#/components/schemas/NoteBaseRequest'
     createNote:
       allOf:
       - $ref: '#/components/schemas/NoteBaseRequest'
@@ -173,3 +170,6 @@ components:
             required:
             - title
             - project_id
+    updateNote:
+      allOf:
+      - $ref: '#/components/schemas/NoteBaseRequest'

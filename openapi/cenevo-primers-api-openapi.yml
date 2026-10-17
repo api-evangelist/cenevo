@@ -148,6 +148,15 @@ components:
     updatePrimer:
       allOf:
       - $ref: '#/components/schemas/PrimerBaseRequest'
+    createPrimer:
+      allOf:
+      - $ref: '#/components/schemas/PrimerBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
     PrimerBaseRequest:
       type: object
       required:
@@ -210,12 +219,3 @@ components:
             description:
               type: string
               description: A detailed description of the primer
-    createPrimer:
-      allOf:
-      - $ref: '#/components/schemas/PrimerBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title

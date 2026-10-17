@@ -145,6 +145,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createPlasmid:
+      allOf:
+      - $ref: '#/components/schemas/PlasmidBaseRequest'
+      - type: object
+        properties:
+          item:
+            type: object
+            required:
+            - title
+    updatePlasmid:
+      allOf:
+      - $ref: '#/components/schemas/PlasmidBaseRequest'
     PlasmidBaseRequest:
       type: object
       required:
@@ -189,15 +201,3 @@ components:
             description:
               type: string
               description: A detailed description of the plasmid
-    createPlasmid:
-      allOf:
-      - $ref: '#/components/schemas/PlasmidBaseRequest'
-      - type: object
-        properties:
-          item:
-            type: object
-            required:
-            - title
-    updatePlasmid:
-      allOf:
-      - $ref: '#/components/schemas/PlasmidBaseRequest'

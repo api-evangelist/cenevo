@@ -150,9 +150,6 @@ components:
             type: object
             required:
             - name
-    updateFungus:
-      allOf:
-      - $ref: '#/components/schemas/FungusBaseRequest'
     FungusBaseRequest:
       type: object
       required:
@@ -200,3 +197,6 @@ components:
             description:
               type: string
               description: Description of the fungus
+    updateFungus:
+      allOf:
+      - $ref: '#/components/schemas/FungusBaseRequest'

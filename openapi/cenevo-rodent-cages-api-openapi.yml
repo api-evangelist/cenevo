@@ -196,6 +196,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+          example: You are not authorized to perform this action
     RodentCageBaseRequest:
       type: object
       required:
@@ -222,15 +228,6 @@ components:
             owner_id:
               type: integer
               description: id of the owner - by default it's your member id
-    Unauthorized:
-      type: object
-      properties:
-        message:
-          type: string
-          example: You are not authorized to perform this action
-    updateRodentCage:
-      allOf:
-      - $ref: '#/components/schemas/RodentCageBaseRequest'
     createRodentCage:
       allOf:
       - $ref: '#/components/schemas/RodentCageBaseRequest'
@@ -240,6 +237,9 @@ components:
             type: object
             required:
             - name
+    updateRodentCage:
+      allOf:
+      - $ref: '#/components/schemas/RodentCageBaseRequest'
 x-refined-from:
 - cenevo-labguru-v1-openapi.yml
 - cenevo-labguru-v2-openapi.yml

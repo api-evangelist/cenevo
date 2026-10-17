@@ -137,6 +137,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    updateSOP:
+      allOf:
+      - $ref: '#/components/schemas/SOPBaseRequest'
     SOPBaseRequest:
       type: object
       required:
@@ -151,9 +154,6 @@ components:
             title:
               type: string
               description: The name of the SOP
-    updateSOP:
-      allOf:
-      - $ref: '#/components/schemas/SOPBaseRequest'
     createSOP:
       allOf:
       - $ref: '#/components/schemas/SOPBaseRequest'
