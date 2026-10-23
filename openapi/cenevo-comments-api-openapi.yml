@@ -135,3 +135,9 @@ components:
             commentable_type:
               type: string
               description: Specifies the class name of the item to which the comment is attached, such as Biocollections::Plasmid
+x-provenance:
+  method: harvested
+  publisher: Cenevo
+  source: https://my.labguru.com/api-docs/v1/swagger.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
